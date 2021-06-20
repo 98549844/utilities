@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!--配置SQLServer连接属性-->
+        <!--main method test connection 会使用这config-->
+        <!--<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>-->
+        <!--<property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>-->
+        <!--<property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=ACE_UAT</property>-->
+        <!--<property name="connection.username">sa</property>-->
+        <!--<property name="connection.password">P@ssw0rd</property>-->
+
+        <!--配置ORACLE连接属性-->
+        <!--main method test connection 会使用这config-->
+        <!--<property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>
+        <property name="connection.username">sys as sysdba</property>
+        <property name="connection.password">password</property>-->
+
+        <!--配置MYSQL连接属性-->
+        <!--<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+                <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+                <property name="connection.url">jdbc:mysql://localhost:3306/elm_uat?serverTimezone=GMT%2B8</property>
+                <property name="connection.username">root</property>
+                <property name="connection.password">P@ssw0rd</property>-->
+
+        <!--配置MARIABD连接属性-->
+        <property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/ace</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">garlamau</property>
+
+
+        <!--在控制台显示SQL语句-->
+        <property name="show_sqlserver">true</property>
+
+        <!--根据需要自动生成、更新数据表-->
+        <property name="hbm2ddl.auto">update</property>
+        <property name="myeclipse.connection.profile">sqlserver</property>
+        <!--<property name="myeclipse.connection.profile">MYSQL</property>-->
+
+        <!--注册所有ORM映射文件-->
+        <mapping resource="hbm/TestEntity.hbm.xml"/>
+
+    </session-factory>
+</hibernate-configuration>
+
+
