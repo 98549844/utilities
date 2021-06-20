@@ -3,7 +3,6 @@
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.entity.TestEntity;
 
 public class Utilities {
 
