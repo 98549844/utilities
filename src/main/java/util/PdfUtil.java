@@ -38,7 +38,6 @@ public class PdfUtil {
         // String output = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/wood.pdf";
         //jpgMergeToPdf(input, output);
         for (int i = 0; i < 10; i++) {
-
             System.out.println(RandomUtil.getInt(100));
         }
     }
