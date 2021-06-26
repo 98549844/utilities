@@ -13,6 +13,14 @@
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -88,5 +96,11 @@
     <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.4" level="project" />
     <orderEntry type="library" name="Maven: com.drewnoakes:metadata-extractor:2.16.0" level="project" />
     <orderEntry type="library" name="Maven: com.adobe.xmp:xmpcore:6.1.11" level="project" />
+    <orderEntry type="library" name="Maven: net.coobird:thumbnailator:0.4.14" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:simpleimage:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:1.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.12" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.6.6" level="project" />
   </component>
 </module>

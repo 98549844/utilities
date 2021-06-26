@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class NullUtil {
@@ -56,7 +57,30 @@ public class NullUtil {
     }
 
     public static boolean isNull(Object object) {
-        return object == null;
+        if (object == null) {
+            return true;
+        }
+
+        if (object instanceof String) {
+            String s = (String) object;
+            if (s.equals("") || s.isEmpty()) {
+                return true;
+            }
+        }
+        if (object instanceof List) {
+            List ls = (List) object;
+            if (ls.size() == 0) {
+                return true;
+            }
+        }
+        if (object instanceof Map) {
+            Map m = (Map) object;
+            if (m.keySet().size() == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean isNotNull(Object object) {

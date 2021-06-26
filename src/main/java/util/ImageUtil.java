@@ -5,19 +5,18 @@ import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.plugins.convert.HexConverter;
-//import org.apache.logging.log4j.core.config.plugins.convert.HexConverter;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Iterator;
 
 
@@ -33,116 +32,102 @@ public class ImageUtil {
     private static Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
     public static void main(String[] args) throws IOException, JpegProcessingException {
-        String destPath = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/temp/";
+        String desc = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/temp/a.jpg";
 
-        String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/wood.jpg";
+          String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/wood.jpg";
         // String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/img.png";
-        // String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/WechatIMG127.jpeg";
-        // getWidth(s);
-        // getHeight(s);
-        //  ImageInfo(srcPic);
-        // getImageType(s);
-       // modifyImageFormat(s, destPath, "bmp");
-
-
+        //String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/WechatIMG164.jpeg";
+          resizeByRatio(s, 0.01f);
     }
 
-    public static BufferedImage getSque(String image) {
-        BufferedImage bi = null;
-        int init_width = bi.getWidth();
-        int init_height = bi.getHeight();
-        if (init_width != init_height){
-            int width_height = 0;
-            int x = 0;
-            int y = 0;
-            if (init_width > init_height) {
-                width_height = init_height;//原图是宽大于高的长方形
-                x = (init_width-init_height)/2;
-                y = 0;
-            } else if (init_width < init_height) {
-                width_height = init_width;//原图是高大于宽的长方形
-                y = (init_height-init_width)/2;
-                x = 0;
-            }
-            bi = bi.getSubimage(x, y, width_height, width_height);
+
+    /**
+     * 指定大小进行缩放, 以边长值大进行缩放
+     *
+     * @throws IOException
+     */
+    public static void resizeByPixel(String src, int p) throws IOException {
+        String desc = getTempFile(src).getAbsolutePath();
+        Thumbnails.of(src).size(p, p).toFile(desc);
+    }
+
+    /**
+     * 指定大小进行缩放, 以边长值大进行缩放
+     *
+     * @throws IOException
+     */
+    public static void rotation(String src, int rotate) throws IOException {
+        String desc = getTempFile(src).getAbsolutePath();
+        Thumbnails.of(src).scale(1).rotate(rotate).toFile(desc);
+    }
+
+    /**
+     * 旋转
+     *
+     * @throws IOException
+     */
+    public static void resizeByRatio(String src, float f) throws IOException {
+        String desc = getTempFile(src).getAbsolutePath();
+        Thumbnails.of(src).scale(f).toFile(desc);
+    }
+
+
+    /**
+     * 矩形图片转换成正方形
+     *
+     * @param src
+     * @return
+     * @throws IOException
+     */
+    private static boolean square(String src) throws IOException {
+        File file = getTempFile(src);
+        int width = ImageUtil.getWidth(src);
+        int height = ImageUtil.getHeight(src);
+
+        int square;
+        int x = 0;
+        int y = 0;
+        if (width > height) {
+            square = width;
+            y = (width - height) / 2;
+        } else {
+            square = height;
+            x = (height - width) / 2;
         }
-        return bi;
-    }
 
-    public static boolean createImage(BufferedImage bufferedImage, String type, File file) throws IOException {
+        BufferedImage bufferedImage = new BufferedImage(square, square, BufferedImage.TYPE_INT_BGR);
         Graphics g = bufferedImage.getGraphics();//获取图片画笔
         try {
-            int backgroundX = 10;//背景x坐标
-            int backgroundY = 40;//背景y坐标
-            int backgroundWith = 180;//背景宽
-            int backgroundHeight = 120;//背景高
+            int backgroundX = 0;//背景x坐标
+            int backgroundY = 0;//背景y坐标
+            int backgroundWith = square;//背景宽
+            int backgroundHeight = square;//背景高
+            g.setColor(new Color(255, 255, 255));//设置画笔颜色
             g.fillRect(backgroundX, backgroundY, backgroundWith, backgroundHeight);//填充背景，默认白色
 
-            g.setColor(new Color(120, 120, 120));//设置画笔颜色
 
-            int fontSize = 28;//字体大小
-            g.setFont(new Font("宋体", Font.BOLD, fontSize));//设置字体
+            Image image = ImageIO.read(new FileInputStream(src));
+            g.drawImage(image, x, y, width, height, null);
 
-            int stringX = 10;//文字x坐标
-            int stringY = 100;//文字y坐标
-            g.drawString("绘制简单图片", stringX, stringY);
+            String type = "jpg";
             return ImageIO.write(bufferedImage, type, file);
+
         } finally {
             g.dispose();//释放画笔
+            log.info("Success");
         }
     }
 
-
-
-    //////////////////////////////////////////////
 
     /**
      * 修改原图的文件格式
      *
-     * @param srcPath    原图路径
+     * @param src        原图路径
      * @param destPath   新图路径
      * @param formatName 图片格式，支持bmp|gif|jpg|jpeg|png
-     * @return
      */
-    public static boolean modifyImageFormat(String srcPath, String destPath, String formatName) {
-        if (NullUtil.isNull(srcPath) || NullUtil.isNull(destPath) || NullUtil.isNull(formatName)) {
-            log.error("Param is null");
-            return false;
-        } else if (!FileUtil.isFile(srcPath)) {
-            log.error("input param incorrect");
-            return false;
-        }
-
-        if (!FileUtil.isFile(destPath)) {
-            String[] srcFileNameArray = Paths.get(srcPath).getFileName().toString().split(".");
-            String srcFileName = srcFileNameArray[0];
-            destPath = destPath + "/" + srcFileName + formatName.startsWith(".") == "." ? formatName : "." + formatName;
-        }
-
-
-        boolean isSuccess = false;
-        InputStream fis = null;
-        try {
-            fis = new FileInputStream(srcPath);
-            BufferedImage bufferedImg = ImageIO.read(fis);
-            isSuccess = ImageIO.write(bufferedImg, formatName, new File(destPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (isSuccess == false) {
-            log.info("isSuccess: {}, Maybe image format not support", false);
-        } else {
-            System.out.println("isSuccess: " + true);
-        }
-        return isSuccess;
+    public static void reformat(String src, String destPath, String formatName) throws IOException {
+        Thumbnails.of(src).size(ImageUtil.getWidth(src), ImageUtil.getHeight(src)).outputFormat(formatName).toFile(destPath);
     }
 
 
@@ -220,15 +205,22 @@ public class ImageUtil {
                     System.out.println(tag);
 
                 }
-
             }
         } catch (JpegProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-
+    private static File getTempFile(String src) throws IOException {
+        File f = new File(src);
+        File t = new File(f.getParentFile() + File.separator + "temp");
+        if (!t.exists()) {
+            t.mkdirs();
+        }
+        File file = new File(t.getCanonicalFile() + File.separator + "temp_" + f.getName());
+        return file;
     }
 
 }
