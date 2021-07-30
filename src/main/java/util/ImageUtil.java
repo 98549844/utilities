@@ -6,6 +6,8 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import net.coobird.thumbnailator.Thumbnails;
+//import net.sourceforge.tess4j.Tesseract;
+//import net.sourceforge.tess4j.TesseractException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,14 +33,19 @@ import java.util.Iterator;
 public class ImageUtil {
     private static Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-    public static void main(String[] args) throws IOException, JpegProcessingException {
-        String desc = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/temp/a.jpg";
-
-          String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/wood.jpg";
-        // String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/img.png";
-        //String s = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/WechatIMG164.jpeg";
-          resizeByRatio(s, 0.01f);
-    }
+//    public static void main(String[] args) {
+//        System.out.println("---------------------start--------------------------");
+//        Tesseract tesseract = new Tesseract();
+//        tesseract.setDatapath("/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/temp/img.png");
+//        // tesseract.setLanguage("chi_sim");
+//        try {
+//            System.out.println(tesseract.doOCR(new File("/Users/garlam/IdeaProjects/utilities/src/main/resources/file/image/temp/img.png")));
+//        } catch (TesseractException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("----------------------end---------------------------");
+//    }
 
 
     /**
@@ -222,6 +229,8 @@ public class ImageUtil {
         File file = new File(t.getCanonicalFile() + File.separator + "temp_" + f.getName());
         return file;
     }
+
+
 
 }
 

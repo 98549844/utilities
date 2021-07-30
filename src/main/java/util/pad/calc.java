@@ -10,7 +10,7 @@ import java.util.List;
 
 public class calc {
 
-    private static Integer x = 25;
+    private static Integer x = 10;
     private static Integer y = 26;
 
 
@@ -39,9 +39,9 @@ public class calc {
 
     public static List<List<Ball>> calc(List<List<Ball>> ballmap) {
         List<List<Ball>> newBallMap = new ArrayList<>();
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < x-1; i++) {
             List<Ball> newRowBall = new ArrayList<>();
-            for (int j = 0; j < y; j++) {
+            for (int j = 0; j < y-1; j++) {
                 Ball b = ballmap.get(i).get(j);
                 if (ballmap.get(i).get(j).getX() == 0) {
                     b.setLeft(null);

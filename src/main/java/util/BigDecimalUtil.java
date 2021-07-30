@@ -10,6 +10,41 @@ import java.util.regex.Pattern;
 public class BigDecimalUtil {
     private static Logger log = LogManager.getLogger(BigDecimalUtil.class.getName());
 
+    public static int compare(BigDecimal a, BigDecimal b) {
+        log.info("1:表示A>B; 0:表示A=B; -1:表示A<>>B");
+        return a.compareTo(b);
+    }
+
+
+    /**
+     * 1E+11
+     *
+     * @param bigDecimal
+     * @return
+     */
+    public static String bigDecimalToString(BigDecimal bigDecimal) {
+        return bigDecimal.toString();
+    }
+
+    /**
+     * 100000000000
+     *
+     * @param bigDecimal
+     * @return
+     */
+    public static String bigDecimalToPlainString(BigDecimal bigDecimal) {
+        return bigDecimal.toPlainString();
+    }
+
+    /**
+     * 100E+9
+     *
+     * @param bigDecimal
+     * @return
+     */
+    public static String bigDecimalToEngineeringString(BigDecimal bigDecimal) {
+        return bigDecimal.toEngineeringString();
+    }
 
     private static boolean checkNull(Object obj) {
         boolean check = false;

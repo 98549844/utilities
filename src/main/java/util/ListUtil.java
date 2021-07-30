@@ -31,7 +31,7 @@ public class ListUtil {
         return result;
     }
 
-    public static boolean isNull(List ls) {
+    private static boolean isNull(List ls) {
         boolean r = false;
         if (ls == null || ls.size() == 0) {
             r = true;
@@ -41,7 +41,7 @@ public class ListUtil {
 
 
     public static List<T> removeDuplicate(List<T> list) {
-        if (isNull(list)) {
+        if (NullUtil.isNull(list)) {
             return null;
         }
         List<T> listTemp = new ArrayList();
@@ -51,6 +51,15 @@ public class ListUtil {
             }
         }
         return listTemp;
+    }
+
+    public static List<T> deduplicate(List<T> list) {
+        if (NullUtil.isNull(list)) {
+            return null;
+        }
+        LinkedHashSet<T> hashSet = new LinkedHashSet<T>(list);
+        ArrayList<T> listWithoutDuplicates = new ArrayList<>(hashSet);
+        return listWithoutDuplicates;
     }
 
 /*    public static List getDuplicated(List list) {

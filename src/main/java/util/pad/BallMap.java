@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BallMap {
-    private static final Integer x = 25;
+    private static final Integer x = 10;
     private static final Integer y = 26;
 
     private List<List<Ball>> ballmap;

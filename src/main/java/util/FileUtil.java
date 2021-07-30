@@ -14,7 +14,7 @@ import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class FileUtil {
-   private static Logger log = LogManager.getLogger(FileUtil.class.getName());
+    private static Logger log = LogManager.getLogger(FileUtil.class.getName());
 
 
     /**
@@ -170,12 +170,9 @@ public class FileUtil {
     }
 
 
-
-
     public static String fileToPath(String file) {
-        boolean isNull = NullUtil.isNull(file);
-        if (isNull) {
-            log.error("File path occur error, Please check");
+        if (NullUtil.isNull(file)) {
+            log.error("File path is null");
         }
         String path = "";
         String osType = getOsType(file);
@@ -588,7 +585,6 @@ public class FileUtil {
     }
 
 
-
     /**
      * Used to extract and return the extension of a given file.
      *
@@ -636,6 +632,91 @@ public class FileUtil {
             log.info("File not exist");
         }
         return isSuccess;
+    }
+
+
+    private static ArrayList<Object> scanFiles = new ArrayList<Object>();
+
+
+    /**
+     * linkedList实现
+     **/
+    private static LinkedList<File> queueFiles = new LinkedList<File>();
+
+
+    /**
+     * TODO:递归扫描指定文件夹下面的指定文件
+     *
+     * @return ArrayList<Object>
+     * @author 邪恶小先生（LQ）
+     * @time 2017年11月3日
+     */
+    public static ArrayList<Object> getFilesLocation(String folderPath) {
+        ArrayList<String> dirctorys = new ArrayList<String>();
+        File directory = new File(folderPath);
+        if (!directory.isDirectory()) {
+            folderPath = fileToPath(folderPath);
+        }
+        if (directory.isDirectory()) {
+            File[] filelist = directory.listFiles();
+            for (int i = 0; i < filelist.length; i++) {
+                /**如果当前是文件夹，进入递归扫描文件夹**/
+                if (filelist[i].isDirectory()) {
+                    dirctorys.add(filelist[i].getAbsolutePath());
+                    /**递归扫描下面的文件夹**/
+                    getFilesLocation(filelist[i].getAbsolutePath());
+                }
+                /**非文件夹**/
+                else {
+                    scanFiles.add(filelist[i].getAbsolutePath());
+                }
+            }
+        }
+        return scanFiles;
+    }
+
+    /**
+     * TODO:非递归方式扫描指定文件夹下面的所有文件
+     *
+     * @param folderPath 需要进行文件扫描的文件夹路径
+     * @return ArrayList<Object>
+     * @author 邪恶小先生（LQ）
+     * @time 2017年11月3日
+     */
+    public static ArrayList<Object> getFilePaths(String folderPath) {
+        File directory = new File(folderPath);
+        if (!directory.isDirectory()) {
+            folderPath = fileToPath(folderPath);
+        } else {
+            //首先将第一层目录扫描一遍
+            File[] files = directory.listFiles();
+            //遍历扫出的文件数组，如果是文件夹，将其放入到linkedList中稍后处理
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory()) {
+                    queueFiles.add(files[i]);
+                } else {
+                    //暂时将文件名放入scanFiles中
+                    scanFiles.add(files[i].getAbsolutePath());
+                }
+            }
+
+            //如果linkedList非空遍历linkedList
+            while (!queueFiles.isEmpty()) {
+                //移出linkedList中的第一个
+                File headDirectory = queueFiles.removeFirst();
+                File[] currentFiles = headDirectory.listFiles();
+                for (int j = 0; j < currentFiles.length; j++) {
+                    if (currentFiles[j].isDirectory()) {
+                        //如果仍然是文件夹，将其放入linkedList中
+                        queueFiles.add(currentFiles[j]);
+                    } else {
+                        scanFiles.add(currentFiles[j].getAbsolutePath());
+                    }
+                }
+            }
+        }
+
+        return scanFiles;
     }
 
 

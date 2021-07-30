@@ -84,7 +84,30 @@ public class NullUtil {
     }
 
     public static boolean isNotNull(Object object) {
-        return object != null;
+        if (object == null) {
+            return false;
+        }
+
+        if (object instanceof String) {
+            String s = (String) object;
+            if (s.equals("") || s.isEmpty()) {
+                return false;
+            }
+        }
+        if (object instanceof List) {
+            List ls = (List) object;
+            if (ls.size() == 0) {
+                return false;
+            }
+        }
+        if (object instanceof Map) {
+            Map m = (Map) object;
+            if (m.keySet().size() == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static boolean hasLength(String text) {

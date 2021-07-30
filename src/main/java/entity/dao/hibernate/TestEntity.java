@@ -1,6 +1,5 @@
 package entity.dao.hibernate;
 
-import entity.dao.base.baseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.io.Serializable;
 
 @Table(name = "test")
 @Entity
-public class TestEntity extends baseEntity implements Serializable {
+public class TestEntity  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GenericGenerator(strategy = "identity", name = "id")
