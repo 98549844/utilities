@@ -11,10 +11,44 @@ import util.entity.TestEntity;
 
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class ListUtil {
     static private Log log = LogFactory.getLog(ListUtil.class);
+
+
+    public static int getMax(List<Integer> integerList) {
+        if (NullUtil.isNull(integerList)) {
+            return 0;
+        }
+        return Collections.max(integerList);
+    }
+
+    public static int getMin(List<Integer> integerList) {
+        if (NullUtil.isNull(integerList)) {
+            return 0;
+        }
+        return Collections.min(integerList);
+    }
+
+
+    public static List intArrayToList(int[] i) {
+        return Arrays.stream(i).boxed().collect(Collectors.toList());
+    }
+
+    public static boolean duplicateElement(List ls) {
+        HashSet<Integer> hashSet = new HashSet<>(ls);
+        boolean duplicate = false;
+
+        if (ls.size() != hashSet.size()) {
+            duplicate = true;
+        } else {
+            duplicate = false;
+        }
+
+        return duplicate;
+    }
 
     //根据长度把list拆分
     public static List<List<T>> splitList(List<T> list, int len) {

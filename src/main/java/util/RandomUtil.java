@@ -21,18 +21,17 @@ public class RandomUtil {
             return null;
         }
 
-        List<Integer> s =  switchMinMax(start, end);
+        List<Integer> s = switchMinMax(start, end);
         start = s.get(0);
         end = s.get(1);
         List<Integer> ls = new ArrayList<>();
         int range = end - start;
         for (int i = 0; i <= range; i++) {
-            ls.add(i+start);
+            ls.add(i + start);
         }
         Collections.shuffle(ls);
         return ls;
     }
-
 
 
     public static List<Integer> getDuplicateRangeList(Integer start, Integer end) {
@@ -40,7 +39,7 @@ public class RandomUtil {
             return null;
         }
 
-        List<Integer> s =  switchMinMax(start, end);
+        List<Integer> s = switchMinMax(start, end);
         start = s.get(0);
         end = s.get(1);
         List<Integer> ls = new ArrayList<>();
@@ -85,6 +84,10 @@ public class RandomUtil {
         return ThreadLocalRandom.current().nextInt(start, end + 1);
     }
 
+    /**
+     * @param i
+     * @return 0~i integer
+     */
     public static int getInt(int i) {
         return (int) (Math.random() * i);
     }
@@ -98,5 +101,9 @@ public class RandomUtil {
         return isNull;
     }
 
+    public static void main(String[] args) {
+        System.out.println(getInt(10));
+        ;
+    }
 
 }
