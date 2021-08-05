@@ -33,6 +33,11 @@ public class ArrayUtil {
             System.out.println(ss[i]);
         }
     }
+    
+    	public static Set arrayIntToHashSet(int[] nums) {
+		Set set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
+		return set;
+	}
 
     public static int[] listToIntArray(List<Integer> ls) {
         int[] arr = ls.stream().mapToInt(Integer::valueOf).toArray();
