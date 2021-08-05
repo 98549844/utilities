@@ -18,6 +18,10 @@ public class ListUtil {
     static private Log log = LogFactory.getLog(ListUtil.class);
 
 
+    	public static List arrayIntToList(int[] nums) {
+		return Arrays.asList(ArrayUtils.toObject(nums));
+	}
+    
     public static int getMax(List<Integer> integerList) {
         if (NullUtil.isNull(integerList)) {
             return 0;
