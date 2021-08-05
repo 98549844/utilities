@@ -9,6 +9,12 @@ import java.util.*;
 @SuppressWarnings(("unchecked"))
 public class SetUtil {
     private static Logger log = LogManager.getLogger(SetUtil.class.getName());
+    
+    
+    	public static Set arrayIntToHashSet(int[] nums) {
+		Set set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
+		return set;
+	}
 
     public static List setToList(Set set) {
         List ls = new ArrayList();
