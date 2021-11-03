@@ -39,7 +39,7 @@ public class FileUtil {
      * @param path
      * @return
      */
-    private static String addSlashIfMissing(String path) {
+    private static String slash(String path) {
         if (!hasSlash(path)) {
             String osType = getOsType(path);
             if (Constant.MAC_OS.equals(osType)) {
@@ -132,7 +132,7 @@ public class FileUtil {
             return;
         }
         for (int i = 0; i < newNameList.size(); i++) {
-            path = addSlashIfMissing(path);
+            path = slash(path);
             File oldFile = new File(path + fileList.get(i));
             File newFile = new File(path + newNameList.get(i));
             if (newFile.exists()) {
@@ -192,7 +192,7 @@ public class FileUtil {
                 path = file;
             }
         }
-        path = addSlashIfMissing(path);
+        path = slash(path);
         return path;
     }
 
