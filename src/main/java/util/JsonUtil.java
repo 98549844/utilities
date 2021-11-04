@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class JsonUtil {
-    private static final Logger log = LogManager.getLogger(Console.class);
+    private static final Logger log = LogManager.getLogger(JsonUtil.class);
 
     private static final CopyOnWriteArrayList<EmployeeEntity> eList = new CopyOnWriteArrayList<>();
 
