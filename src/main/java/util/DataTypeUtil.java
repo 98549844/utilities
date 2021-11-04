@@ -16,14 +16,14 @@ public class DataTypeUtil {
         return new BigDecimal(d).setScale(digit, RoundingMode.HALF_UP).doubleValue();
     }
 
-    private static boolean checkNull(Object obj) {
-        boolean check = false;
-        if (obj == null) {
-            Console.println("parameter is null.Please check!");
-            check = true;
-        }
-        return check;
-    }
+//    private static boolean checkNull(Object obj) {
+//        boolean check = false;
+//        if (obj == null) {
+//            Console.println("parameter is null.Please check!");
+//            check = true;
+//        }
+//        return check;
+//    }
 
     /**
      * 方法名：formatToDouble
@@ -31,7 +31,7 @@ public class DataTypeUtil {
      * 描述：返回值为double
      */
     public static Double formatToDouble(Double number, Integer digit) {
-        if (checkNull(number)) {
+        if (NullUtil.isNull(number)) {
             return null;
         }
         if (digit == null) {
@@ -47,7 +47,7 @@ public class DataTypeUtil {
      * 描述：返回值为String
      */
     public static String doubleToString(Double number, Integer digit) {
-        if (checkNull(number)) {
+        if (NullUtil.isNull(number)) {
             return null;
         }
         if (digit == null) {
@@ -179,7 +179,7 @@ public class DataTypeUtil {
      * 出参：return：true或false
      */
     public static boolean isNumeric(String str) {
-        if (str == null || str.length() == 0) {
+        if (NullUtil.isNull(str) || str.length() == 0) {
             Console.println("parameter is null , please check");
             return false;
         }

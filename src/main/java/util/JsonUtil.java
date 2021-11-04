@@ -20,7 +20,7 @@ public class JsonUtil {
     private static Gson gson;
 
     public static Gson getInstance() {
-        if (gson == null) {
+        if (NullUtil.isNull(gson) ) {
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").disableHtmlEscaping().create();
         }
         return gson;

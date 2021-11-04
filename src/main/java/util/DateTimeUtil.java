@@ -39,7 +39,7 @@ public class DateTimeUtil {
 
     public static void differenceSystemCurrentTimeMillis(Long start, Long end) {
         Long temp;
-        if (start != null || end != null) {
+        if (NullUtil.isNotNull(start) || NullUtil.isNotNull(end)) {
             if (start > end) {
                 temp = end;
                 end = start;
@@ -86,7 +86,7 @@ public class DateTimeUtil {
      * @return Date
      */
     public static Date getAfterDate(Date date, int year, int month, int day, int hour, int minute, int second) {
-        if (date == null) {
+        if (NullUtil.isNull(date)) {
             date = new Date();
         }
 

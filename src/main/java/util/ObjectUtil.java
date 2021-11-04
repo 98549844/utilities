@@ -11,152 +11,146 @@ import java.util.List;
 import java.util.Map;
 
 public class ObjectUtil {
-    static private Log log = LogFactory.getLog(ObjectUtil.class);
+	static private Log log = LogFactory.getLog(ObjectUtil.class);
 
 
-    private static final String GET_METHOD_PREFIX = "get";
-    private static final String SET_METHOD_PREFIX = "set";
+	private static final String GET_METHOD_PREFIX = "get";
+	private static final String SET_METHOD_PREFIX = "set";
 
-    public static <T, E> boolean compareFieldValue(T t, E e, String fieldName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        boolean result = false;
-        if (isNotNull(t, e)) {
-            String val1 = String.valueOf(ObjectUtil.getFieldValue(t, fieldName));
-            String val2 = String.valueOf(ObjectUtil.getFieldValue(e, fieldName));
-            if (StringUtils.hasText(val1) && StringUtils.hasText(val2) && val1.equals(val2)) {
-                result = true;
-            } else {
-                result = false;
-            }
-        }
-        return result;
-    }
-
-    private static <T, E> boolean isNotNull(T t, E e) {
-        if (t == null || e == null) {
-            return false;
-        }
-        return true;
-    }
-
-    public static <T> Object getFieldValue(T t, String fieldName) throws IllegalArgumentException, NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvocationTargetException {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        String methodName = getMethodNameStartsWithGet(fieldName);
-        if (methodName == null) {
-            throw new IllegalArgumentException("Class: "+t.getClass().getName()+".  Method not found, please check field name");
-        }
-        Class<?> clazz = t.getClass();
-        Method getMethod = clazz.getMethod(methodName);
-        return getMethod.invoke(t);
-    }
-
-    private static String getMethodNameStartsWithGet(String fieldName) {
-        log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        if (fieldName == null || fieldName.length() == 0) {
-            log.error("Can not find fieldName: " + fieldName);
-            return null;
-        }
-        String getMethodRealName;
-        if (fieldName.startsWith("get")) {
-            getMethodRealName = GET_METHOD_PREFIX + fieldName.substring(3, 4).toUpperCase() + fieldName.substring(4);
-
-        } else {
-            getMethodRealName = GET_METHOD_PREFIX + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-
-        }
-        return getMethodRealName;
-    }
+	public static <T, E> boolean compareFieldValue(T t, E e, String fieldName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+		boolean result = false;
+		if (NullUtil.isNull(t) || NullUtil.isNull(e)) {
+			String val1 = String.valueOf(ObjectUtil.getFieldValue(t, fieldName));
+			String val2 = String.valueOf(ObjectUtil.getFieldValue(e, fieldName));
+			if (StringUtils.hasText(val1) && StringUtils.hasText(val2) && val1.equals(val2)) {
+				result = true;
+			} else {
+				result = false;
+			}
+		}
+		return result;
+	}
 
 
-    public static Boolean isArray(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        return obj.getClass().isArray();
-    }
+	public static <T> Object getFieldValue(T t, String fieldName) throws IllegalArgumentException, NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvocationTargetException {
+		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+		String methodName = getMethodNameStartsWithGet(fieldName);
+		if (NullUtil.isNull(methodName)) {
+			throw new IllegalArgumentException("Class: " + t.getClass().getName() + ".  Method not found, please check field name");
+		}
+		Class<?> clazz = t.getClass();
+		Method getMethod = clazz.getMethod(methodName);
+		return getMethod.invoke(t);
+	}
 
-    public static Integer getObjectArraySize(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        int size = 0;
-        if (obj != null && isArray(obj)) {
-            size = Array.getLength(obj);
-        }
-        return size;
-    }
+	private static String getMethodNameStartsWithGet(String fieldName) {
+		log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+		if (NullUtil.isNull(fieldName) || fieldName.length() == 0) {
+			log.error("Can not find fieldName: " + fieldName);
+			return null;
+		}
+		String getMethodRealName;
+		if (fieldName.startsWith("get")) {
+			getMethodRealName = GET_METHOD_PREFIX + fieldName.substring(3, 4).toUpperCase() + fieldName.substring(4);
 
-    public static Object[] getObjectArray(Object obj) {
-        if (obj != null && isArray(obj)) {
-            Object[] os = (Object[]) obj;
-            return os;
-        }
-        return null;
-    }
+		} else {
+			getMethodRealName = GET_METHOD_PREFIX + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
-    public static void printListObjectArray(List<Object[]> os) {
-        if (os == null) {
-            Console.println("Object NullException", Console.RED, Console.BOLD);
-        }
-        for (Object[] objects : os) {
-            for (int i = 0; i < objects.length; i++) {
-                System.out.print(objects[i] + " | ");
-            }
-            System.out.println();
-        }
-    }
+		}
+		return getMethodRealName;
+	}
 
-    public static void printObjectArray(Object[] obj) {
-        if (obj == null) {
-            Console.println("Object NullException", Console.RED, Console.BOLD);
-        }
-        for (int i = 0; i < obj.length; i++) {
-            System.out.print(obj[i] + " | ");
-        }
-        System.out.println();
-    }
 
-    public static void printListObject(List<Object> obj) {
-        if (obj == null) {
-            Console.println("Object NullException", Console.RED, Console.BOLD);
-        }
+	public static Boolean isArray(Object obj) {
+		if (NullUtil.isNull(obj)) {
+			return null;
+		}
+		return obj.getClass().isArray();
+	}
 
-        for (Object objects : obj) {
-            if (isArray(objects)) {
-                Object[] os = (Object[]) objects;
-                for (int i = 0; i < os.length; i++) {
-                    System.out.print(os[i] + " | ");
-                }
-            } else {
-                System.out.println(objects + " | ");
-            }
-        }
-    }
+	public static Integer getObjectArraySize(Object obj) {
+		if (NullUtil.isNull(obj)) {
+			return null;
+		}
+		int size = 0;
+		if (NullUtil.isNotNull(obj) && isArray(obj)) {
+			size = Array.getLength(obj);
+		}
+		return size;
+	}
 
-    public static String checkObjectType(Object obj) {
-        if (obj == null) {
-            Console.println("Object NullException", Console.RED, Console.BOLD);
-        }
-        if (obj instanceof Boolean) {
-            Console.println("Type : Boolean", Console.BLUE);
-            return "Boolean";
-        }
-        if (obj instanceof Integer) {
-            Console.println("Type : Integer", Console.BLUE);
-            return "Integer";
-        }
-        if (obj instanceof String) {
-            Console.println("Type : String", Console.BLUE);
-            return "String";
-        }
-        if (obj instanceof List) {
-            Console.println("Type : List", Console.BLUE);
-            return "List";
-        }
-        if (obj instanceof Map) {
-            Console.println("Type : Map", Console.BLUE);
-            return "Map";
-        }
-        return null;
-    }
+	public static Object[] getObjectArray(Object obj) {
+		if (NullUtil.isNotNull(obj) && isArray(obj)) {
+			Object[] os = (Object[]) obj;
+			return os;
+		}
+		return null;
+	}
+
+	public static void printListObjectArray(List<Object[]> os) {
+		if (NullUtil.isNull(os)) {
+			Console.println("Object NullException", Console.RED, Console.BOLD);
+		}
+		for (Object[] objects : os) {
+			for (int i = 0; i < objects.length; i++) {
+				System.out.print(objects[i] + " | ");
+			}
+			System.out.println();
+		}
+	}
+
+	public static void printObjectArray(Object[] obj) {
+		if (NullUtil.isNull(obj)) {
+			Console.println("Object NullException", Console.RED, Console.BOLD);
+		}
+		for (int i = 0; i < obj.length; i++) {
+			System.out.print(obj[i] + " | ");
+		}
+		System.out.println();
+	}
+
+	public static void printListObject(List<Object> obj) {
+		if (NullUtil.isNull(obj)) {
+			Console.println("Object NullException", Console.RED, Console.BOLD);
+		}
+
+		for (Object objects : obj) {
+			if (isArray(objects)) {
+				Object[] os = (Object[]) objects;
+				for (int i = 0; i < os.length; i++) {
+					System.out.print(os[i] + " | ");
+				}
+			} else {
+				System.out.println(objects + " | ");
+			}
+		}
+	}
+
+	public static String checkObjectType(Object obj) {
+		if (NullUtil.isNull(obj)) {
+			Console.println("Object NullException", Console.RED, Console.BOLD);
+		}
+		if (obj instanceof Boolean) {
+			Console.println("Type : Boolean", Console.BLUE);
+			return "Boolean";
+		}
+		if (obj instanceof Integer) {
+			Console.println("Type : Integer", Console.BLUE);
+			return "Integer";
+		}
+		if (obj instanceof String) {
+			Console.println("Type : String", Console.BLUE);
+			return "String";
+		}
+		if (obj instanceof List) {
+			Console.println("Type : List", Console.BLUE);
+			return "List";
+		}
+		if (obj instanceof Map) {
+			Console.println("Type : Map", Console.BLUE);
+			return "Map";
+		}
+		return null;
+	}
 
 }

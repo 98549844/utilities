@@ -13,9 +13,7 @@ public class Utilities {
 
     public static void main(String[] args) {
 
-        BigDecimal b = new BigDecimal(111222333.44);
-        if ( new BigDecimal(999999999.99).compareTo(b) == -1) {
-        }
+       Utilities.getHello();
     }
 
 

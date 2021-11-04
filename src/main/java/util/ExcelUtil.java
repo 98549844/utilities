@@ -55,7 +55,7 @@ public class ExcelUtil {
         try {
             //set sheets name
             workbook = new HSSFWorkbook();
-            if (sheetNames == null || sheetNames.length == 0) {
+            if (NullUtil.isNull(sheetNames) || sheetNames.length == 0) {
                 sheetNames = new String[3];
                 sheetNames[0] = "Sheet1";
                 sheetNames[1] = "Sheet2";
