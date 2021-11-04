@@ -1,4 +1,4 @@
-package util.pad;
+package util.other.pad;
 
 
 import util.Console;

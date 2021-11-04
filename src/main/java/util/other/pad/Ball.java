@@ -1,4 +1,4 @@
-package util.pad;
+package util.other.pad;
 
 public class Ball {
     private Integer x;
