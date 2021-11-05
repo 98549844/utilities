@@ -65,7 +65,8 @@ public class ObjectUtil {
 		if (NullUtil.isNull(obj)) {
 			return null;
 		}
-		return obj.getClass().isArray();
+		Boolean isArray = obj.getClass().isArray();
+		return isArray;
 	}
 
 	public static Integer getObjectArraySize(Object obj) {

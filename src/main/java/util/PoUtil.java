@@ -1,12 +1,20 @@
 package util;
 
 
+import testDate.DataGenerator;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PoUtil {
+
+    public static void main(String[] args) {
+      //  DataGenerator.getTestEntity();
+        iteratePoSetterValue(DataGenerator.getTestEntity().get(0));
+        iteratePoGetterValue(DataGenerator.getTestEntity().get(0));
+    }
 
     public static void iteratePoGetterValue(Object object) {
         Class c = object.getClass();
