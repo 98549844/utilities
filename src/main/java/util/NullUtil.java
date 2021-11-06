@@ -33,7 +33,7 @@ public class NullUtil {
     }
 
     public static boolean isEmpty(String text) {
-        return isNull(text) || text.trim().length() < 1;
+        return isNull(text) || text.trim().length() == 0;
     }
 
     public static boolean isNotEmpty(Collection<?> collection) {
