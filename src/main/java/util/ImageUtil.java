@@ -8,6 +8,7 @@ import com.drew.metadata.Tag;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.formula.functions.Replace;
 import org.hibernate.internal.util.StringHelper;
 
 import javax.imageio.ImageIO;
@@ -35,8 +36,9 @@ import java.math.BigDecimal;
 public class ImageUtil {
     private static Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-    final static String src = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/images/img_y2.png";
-    final static String output = "/Users/garlam/IdeaProjects/ace/src/main/resources/files/output/output1_s.jpg";
+    final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/images/";
+    final static String src = path + "img_c.png";
+    final static String output = path.replace("images/", "output/") + "output2_s.jpg";
 
     public static void main(String[] args) {
         ImageUtil.compressPicForScale(src, output, 1000, 0.8, 750, 1334); // 图片小于1000kb
