@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * @Description:
  */
 
+@SuppressWarnings("unchecked")
 public class ArrayUtil {
 	private static Logger log = LogManager.getLogger(ArrayUtil.class.getName());
 
