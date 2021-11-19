@@ -8,13 +8,22 @@ import java.math.RoundingMode;
 import java.util.regex.Pattern;
 
 public class BigDecimalUtil {
-	private static Logger log = LogManager.getLogger(BigDecimalUtil.class.getName());
+	private static final Logger log = LogManager.getLogger(BigDecimalUtil.class.getName());
 
 	public static int compare(BigDecimal a, BigDecimal b) {
 		log.info("1:表示A>B; 0:表示A=B; -1:表示A<>>B");
 		return a.compareTo(b);
 	}
 
+
+	//bigDecimal  转换成  Long类型
+	public static Long bigDecimalToLong(BigDecimal bigDecimal){
+		if (NullUtil.isNull(bigDecimal)  ){
+		    return 0l;
+		}
+		Long c = bigDecimal.longValue();
+		return c;
+	}
 
 	/**
 	 * 1E+11

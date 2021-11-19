@@ -27,8 +27,7 @@ public class RedisUtil {
         return jedis;
     }
 
-
-    public static void main() {
+    public static void main(String[] args) {
         RedisUtil connRedis = new RedisUtil();
         connRedis.test1();
         connRedis.test2();
