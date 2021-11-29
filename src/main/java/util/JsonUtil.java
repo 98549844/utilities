@@ -44,6 +44,13 @@ public class JsonUtil {
         Gson gson = new Gson();
         return gson.toJson(object);
     }
+    
+    private String ObjectToFormattedJson (List users){
+		Gson gson = new GsonBuilder()
+				.setPrettyPrinting()
+				.create();
+		return gson.toJson(users);
+	}
 
     private EmployeeEntity JsonToObject(String json) {
         Gson gson = new Gson();
