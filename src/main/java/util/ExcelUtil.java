@@ -19,7 +19,7 @@ public class ExcelUtil {
     private static final Logger log = LogManager.getLogger(Console.class);
 
 
-    final static String path = "C:\\spring-boot\\";
+    final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
     final static String fileName = "excel.xls";
     static HSSFWorkbook workbook;
 
