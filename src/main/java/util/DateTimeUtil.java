@@ -7,6 +7,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -177,10 +179,6 @@ public class DateTimeUtil {
         return sdf.format(cal.getTime());
     }
 
-    public static void main(String[] args) {
-        System.out.println(getLastDayOfMonth(2020, 8));
-        System.out.println(getFirstDayOfMonth(2020, 8));
-    }
 
     public static void printSimpleDate(Date date) throws ParseException {
         if (NullUtil.isNull(date)) {
@@ -194,7 +192,91 @@ public class DateTimeUtil {
     public static void printCurrentDate() throws ParseException {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String datef = sdf.format(date);
-        System.out.println("时间：" + datef);
+        String dateformat = sdf.format(date);
+        System.out.println("时间：" + dateformat);
     }
+
+    public static void main(String[] args) {
+
+        LocalDateTime end = LocalDateTime.now();
+        System.out.println("计算两个时间的差：");
+        LocalDateTime start = LocalDateTime.now().plusYears(-10);
+        Duration duration = Duration.between(start, end);
+        long days = duration.toDays(); //相差的天数
+        long hours = duration.toHours();//相差的小时数
+        long minutes = duration.toMinutes();//相差的分钟数
+        long millis = duration.toMillis();//相差毫秒数
+        long nanos = duration.toNanos();//相差的纳秒数
+        System.out.println(end);
+        System.out.println(start);
+
+        System.out.println(days / 365);
+        System.out.println("发送短信耗时【 " + days + "天：" + hours + " 小时：" + minutes + " 分钟：" + millis + " 毫秒：" + nanos + " 纳秒】");
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return nanos
+     */
+    public static long differenceNanosByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long nanos = getDuration(start, end).toNanos();
+        return nanos;
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return millis
+     */
+    public static long differenceMillisByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long millis = getDuration(start, end).toMillis();
+        return millis;
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return minutes
+     */
+    public static long differenceMinutesByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long minutes = getDuration(start, end).toMinutes();
+        return minutes;
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return hours
+     */
+    public static long differenceHoursByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long hours = getDuration(start, end).toHours();
+        return hours;
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return days
+     */
+    public static long differenceDaysByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long days = getDuration(start, end).toDays();
+        return days;
+    }
+
+    /**
+     * @param start
+     * @param end
+     * @return Years
+     */
+    public static long differenceYearsByLocalDateTime(LocalDateTime start, LocalDateTime end) {
+        long days = getDuration(start, end).toDays();
+        return days / 365;
+    }
+
+    private static Duration getDuration(LocalDateTime start, LocalDateTime end) {
+        Duration duration = Duration.between(start, end);
+        return duration;
+    }
+
 }
