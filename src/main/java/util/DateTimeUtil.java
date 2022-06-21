@@ -1,7 +1,8 @@
 package util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.w3c.dom.ranges.DocumentRange;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -14,8 +15,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DateTimeUtil {
-
-    static private Log log = LogFactory.getLog(DateTimeUtil.class);
+    private static Logger log = LogManager.getLogger(DateTimeUtil.class.getName());
 
 
     public static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar cal) {
@@ -185,34 +185,17 @@ public class DateTimeUtil {
             date = new Date();
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String datef = sdf.format(date);
-        System.out.println("时间：" + datef);
+        String dateformat = sdf.format(date);
+        log.info("时间：{}", dateformat);
     }
 
     public static void printCurrentDate() throws ParseException {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateformat = sdf.format(date);
-        System.out.println("时间：" + dateformat);
+        log.info("时间：{}", dateformat);
     }
 
-    public static void main(String[] args) {
-
-        LocalDateTime end = LocalDateTime.now();
-        System.out.println("计算两个时间的差：");
-        LocalDateTime start = LocalDateTime.now().plusYears(-10);
-        Duration duration = Duration.between(start, end);
-        long days = duration.toDays(); //相差的天数
-        long hours = duration.toHours();//相差的小时数
-        long minutes = duration.toMinutes();//相差的分钟数
-        long millis = duration.toMillis();//相差毫秒数
-        long nanos = duration.toNanos();//相差的纳秒数
-        System.out.println(end);
-        System.out.println(start);
-
-        System.out.println(days / 365);
-        System.out.println("发送短信耗时【 " + days + "天：" + hours + " 小时：" + minutes + " 分钟：" + millis + " 毫秒：" + nanos + " 纳秒】");
-    }
 
     /**
      * @param start
@@ -220,8 +203,12 @@ public class DateTimeUtil {
      * @return nanos
      */
     public static long differenceNanosByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long nanos = getDuration(start, end).toNanos();
-        return nanos;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long nanos = getDuration(start, end).toNanos();
+            return nanos;
+        } else {
+            return 0l;
+        }
     }
 
     /**
@@ -230,8 +217,12 @@ public class DateTimeUtil {
      * @return millis
      */
     public static long differenceMillisByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long millis = getDuration(start, end).toMillis();
-        return millis;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long millis = getDuration(start, end).toMillis();
+            return millis;
+        } else {
+            return 0l;
+        }
     }
 
     /**
@@ -240,8 +231,13 @@ public class DateTimeUtil {
      * @return minutes
      */
     public static long differenceMinutesByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long minutes = getDuration(start, end).toMinutes();
-        return minutes;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long minutes = getDuration(start, end).toMinutes();
+            return minutes;
+        } else {
+            return 0l;
+        }
+
     }
 
     /**
@@ -250,8 +246,12 @@ public class DateTimeUtil {
      * @return hours
      */
     public static long differenceHoursByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long hours = getDuration(start, end).toHours();
-        return hours;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long hours = getDuration(start, end).toHours();
+            return hours;
+        } else {
+            return 0l;
+        }
     }
 
     /**
@@ -260,8 +260,12 @@ public class DateTimeUtil {
      * @return days
      */
     public static long differenceDaysByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long days = getDuration(start, end).toDays();
-        return days;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long days = getDuration(start, end).toDays();
+            return days;
+        } else {
+            return 0l;
+        }
     }
 
     /**
@@ -270,13 +274,22 @@ public class DateTimeUtil {
      * @return Years
      */
     public static long differenceYearsByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        long days = getDuration(start, end).toDays();
-        return days / 365;
+        if (NullUtil.isNotNull(getDuration(start, end))) {
+            long days = getDuration(start, end).toDays();
+            return days / 365;
+        } else {
+            return 0l;
+        }
     }
 
     private static Duration getDuration(LocalDateTime start, LocalDateTime end) {
+        if (NullUtil.isNull(start) || NullUtil.isNull(end)) {
+            log.error("LocalDateTime is null");
+            return null;
+        }
         Duration duration = Duration.between(start, end);
         return duration;
     }
+
 
 }

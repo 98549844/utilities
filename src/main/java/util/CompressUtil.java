@@ -1,15 +1,18 @@
 package util;
 
+import com.github.junrar.Archive;
+import com.github.junrar.rarfile.FileHeader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipFile;
 
 public class CompressUtil {
     static private final Log log = LogFactory.getLog(CompressUtil.class);
@@ -81,7 +84,7 @@ public class CompressUtil {
                 System.exit(1);
             }
 
-            log.info("Transfering bytes from compressed file to the output file.");
+            log.info("Transferring bytes from compressed file to the output file.");
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
@@ -118,10 +121,79 @@ public class CompressUtil {
         }
     }
 
+
+    public static void unRar(File rarFile, String outDir) throws Exception {
+        File outFileDir = new File(outDir);
+        if (!outFileDir.exists()) {
+            boolean isMakDir = outFileDir.mkdirs();
+            if (isMakDir) {
+                System.out.println("创建压缩目录成功");
+            }
+        }
+        Archive archive = new Archive(new FileInputStream(rarFile));
+        FileHeader fileHeader = archive.nextFileHeader();
+        while (fileHeader != null) {
+            if (fileHeader.isDirectory()) {
+                fileHeader = archive.nextFileHeader();
+                continue;
+            }
+            File out = new File(outDir + fileHeader.getFileNameString());
+            if (!out.exists()) {
+                if (!out.getParentFile().exists()) {
+                    out.getParentFile().mkdirs();
+                }
+                out.createNewFile();
+            }
+            FileOutputStream os = new FileOutputStream(out);
+            archive.extractFile(fileHeader, os);
+
+            os.close();
+
+            fileHeader = archive.nextFileHeader();
+        }
+        archive.close();
+    }
+
+    public static void unZip(File zipFile, String outDir) throws IOException {
+
+        File outFileDir = new File(outDir);
+        if (!outFileDir.exists()) {
+            boolean isMakDir = outFileDir.mkdirs();
+            if (isMakDir) {
+                System.out.println("创建压缩目录成功");
+            }
+        }
+
+        ZipFile zip = new ZipFile(zipFile);
+        for (Enumeration enumeration = zip.getEntries(); enumeration.hasMoreElements(); ) {
+            ZipEntry entry = (ZipEntry) enumeration.nextElement();
+            String zipEntryName = entry.getName();
+            InputStream in = zip.getInputStream(entry);
+
+            if (entry.isDirectory()) {      //处理压缩文件包含文件夹的情况
+                File fileDir = new File(outDir + zipEntryName);
+                fileDir.mkdir();
+                continue;
+            }
+
+            File file = new File(outDir, zipEntryName);
+            file.createNewFile();
+            OutputStream out = new FileOutputStream(file);
+            byte[] buff = new byte[1024];
+            int len;
+            while ((len = in.read(buff)) > 0) {
+                out.write(buff, 0, len);
+            }
+            in.close();
+            out.close();
+        }
+    }
+
+
     public static void main(String[] args) throws Exception {
-        String f = "/Users/garlam/IdeaProjects/spring-boot/src/main/resources/15927/06";
-        //  String f = "/Users/garlam/IdeaProjects/spring-boot/src/main/resources/15927/01/cis2_ui.log.20210427_0054.gz";
-        unCompressGZFilesAndDeleteGZFile(f);
+        String f = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/a.rar";
+        String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
+        unRar(new File(f), out);
     }
 
 }
