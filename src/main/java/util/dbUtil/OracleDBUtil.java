@@ -13,38 +13,34 @@ public class OracleDBUtil {
 
 
     // The JDBC Connector Class.
-    private static final String dbClassName = "org.mariadb.jdbc.Driver";
+    //  private static final String dbClassName = "oracle.jdbc.OracleDriver";
 
-    private static final String CONNECTION = "jdbc:oracle:thin:@192.168.8.66:1521:MPFADB";
+//    private static final String CONNECTION = "jdbc:oracle:thin:@192.168.8.66:1521:MPFADB";
 
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        DBConfig oracleConfig = new DBConfig(DBConfig.ORACLE19C);
+        String dbClassName = oracleConfig.getDbClassName();
+        String connection = oracleConfig.getConnection();
+        String username = oracleConfig.getUsername();
+        String password = oracleConfig.getPassword();
         System.out.println(dbClassName);
-        // Class.forName(xxx) loads the jdbc classes and
-        // creates a drivermanager class factory
-        Class.forName(dbClassName);
-        // Properties for user and password. Here the user and password are both 'paulr'
-        Properties p = new Properties();
-        p.put("user", "root");
-        p.put("password", "garlamau");
-        // Now try to connect
-        Connection c = DriverManager.getConnection(CONNECTION, p);
+        Connection c = DriverManager.getConnection(connection, username, password);
         System.out.println(c.getSchema());
         System.out.println("It works !");
         c.close();
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
+        DBConfig oracleConfig = new DBConfig(DBConfig.ORACLE19C);
+        String dbClassName = oracleConfig.getDbClassName();
+        String connection = oracleConfig.getConnection();
+        String username = oracleConfig.getUsername();
+        String password = oracleConfig.getPassword();
+
         System.out.println(dbClassName);
-        // Class.forName(xxx) loads the jdbc classes and
-        // creates a drivermanager class factory
         Class.forName(dbClassName);
-        // Properties for user and password. Here the user and password are both 'paulr'
-        Properties p = new Properties();
-        p.put("user", "root");
-        p.put("password", "garlamau");
-        // Now try to connect
-        Connection c = DriverManager.getConnection(CONNECTION, p);
+        Connection c = DriverManager.getConnection(connection, username, password);
         return c;
     }
 
@@ -52,7 +48,6 @@ public class OracleDBUtil {
     public void close(Connection c) throws SQLException {
         c.close();
     }
-
 
 
 }
