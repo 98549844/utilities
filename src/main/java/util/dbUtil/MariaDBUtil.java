@@ -1,7 +1,5 @@
-package util.mariadbUtil;
+package util.dbUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class MariaDBUtil {
-    private static Logger log = LogManager.getLogger(MariaDBUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(MariaDBUtil.class.getName());
 
 
     // The JDBC Connector Class.
@@ -21,7 +19,7 @@ public class MariaDBUtil {
     // by adding (say) ?user=paulr&password=paulr. Not recommended!
     private static final String CONNECTION = "jdbc:mariadb://localhost:3306/";
 
-    public static void main() throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         System.out.println(dbClassName);
         // Class.forName(xxx) loads the jdbc classes and
         // creates a drivermanager class factory
@@ -55,4 +53,7 @@ public class MariaDBUtil {
     public void close(Connection c) throws SQLException {
         c.close();
     }
+
+
+
 }
