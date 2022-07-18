@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 
 
 public class DataTypeUtil {
-    static private Log log = LogFactory.getLog(DataTypeUtil.class);
+    static private final Log log = LogFactory.getLog(DataTypeUtil.class);
 
 
     public static double roundUpByDigit(double d, int digit) {
@@ -77,7 +77,7 @@ public class DataTypeUtil {
         if (i == null) {
             return null;
         }
-        return BigDecimal.valueOf((Integer) i);
+        return BigDecimal.valueOf(i);
     }
 
     //String to Long

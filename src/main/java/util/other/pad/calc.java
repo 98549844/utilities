@@ -10,8 +10,8 @@ import java.util.List;
 
 public class calc {
 
-    private static Integer x = 10;
-    private static Integer y = 26;
+    private static final Integer x = 10;
+    private static final Integer y = 26;
 
 
     public static void main(String[] args) {

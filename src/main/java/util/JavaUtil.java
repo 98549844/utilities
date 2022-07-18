@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaUtil {
-	static private Log log = LogFactory.getLog(JavaUtil.class);
+	static private final Log log = LogFactory.getLog(JavaUtil.class);
 
 	public static void main(String[] args) throws IOException {
 		getCurrentJdkInfoOnMacOS();

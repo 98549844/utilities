@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class Utilities {
 
-    private static Logger log = LogManager.getLogger(Utilities.class.getName());
+    private static final Logger log = LogManager.getLogger(Utilities.class.getName());
 
     public static void main(String[] args) {
 
@@ -19,10 +19,7 @@ public class Utilities {
 
     public static boolean b() {
         int a = 0;
-        if (a == 0) {
-            return true;
-        }
-        return false;
+        return a == 0;
 
     }
 

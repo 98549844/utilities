@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DateTimeUtil {
-    private static Logger log = LogManager.getLogger(DateTimeUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(DateTimeUtil.class.getName());
 
 
     public static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar cal) {

@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 public class PathUtil {
-    private static Logger log = LogManager.getLogger(PathUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
 
 

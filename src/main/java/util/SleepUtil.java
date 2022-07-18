@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import java.text.ParseException;
 
 public class SleepUtil {
-    static private Log log = LogFactory.getLog(SleepUtil.class);
+    static private final Log log = LogFactory.getLog(SleepUtil.class);
 
     public static void sleep(Integer second) {
         //休眠一秒钟

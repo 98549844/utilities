@@ -16,7 +16,7 @@ import java.util.Map;
 @Component
 public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
 
-    static private Log log = LogFactory.getLog(IpUtil.class);
+    static private final Log log = LogFactory.getLog(IpUtil.class);
 
     public static int Port;
     public static String ip;
@@ -28,7 +28,7 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         IpUtil ip = new IpUtil();
         Map m = ip.getHostInfo();
         MapUtil mapUtil = new MapUtil();
-        mapUtil.iterateMapKeyset(m);
+        MapUtil.iterateMapKeyset(m);
     }
 
     public static String getHostName() {
@@ -46,9 +46,9 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        this.ip = address.getHostAddress();
-        this.hostName = address.getHostName();
-        this.domain = address.getHostName();
+        ip = address.getHostAddress();
+        hostName = address.getHostName();
+        domain = address.getHostName();
 
         Map m = new HashMap();
 
@@ -63,7 +63,7 @@ public class IpUtil implements ApplicationListener<WebServerInitializedEvent> {
 
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
-        this.Port = event.getWebServer().getPort();
+        Port = event.getWebServer().getPort();
     }
 
 

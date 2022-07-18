@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class ArrayUtil {
-	private static Logger log = LogManager.getLogger(ArrayUtil.class.getName());
+	private static final Logger log = LogManager.getLogger(ArrayUtil.class.getName());
 
 	//https://blog.csdn.net/qq_43390235/article/details/106592102
 	//Stream流之List、Integer[]、int[]相互转化

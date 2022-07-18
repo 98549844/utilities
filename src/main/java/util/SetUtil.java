@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings(("unchecked"))
 public class SetUtil {
-    private static Logger log = LogManager.getLogger(SetUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(SetUtil.class.getName());
     
     
     	public static Set arrayIntToHashSet(int[] nums) {

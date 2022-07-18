@@ -96,8 +96,7 @@ public class StringUtil {
 				tmpRemainingResult = tmpRemainingResult.substring(idx + 1);
 			}
 		}
-		;
-		if (tmpRemainingResult.length() > 0) {
+        if (tmpRemainingResult.length() > 0) {
 			result.add(tmpRemainingResult);
 		}
 		return result;

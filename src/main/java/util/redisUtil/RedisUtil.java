@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisUtil {
-    static private Log log = LogFactory.getLog(RedisUtil.class);
+    static private final Log log = LogFactory.getLog(RedisUtil.class);
 
     public JedisPool getJedisPool() {
         // 获取连接池配置对象

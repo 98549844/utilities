@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
-    private static Logger log = LogManager.getLogger(EasyExcelUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(EasyExcelUtil.class.getName());
 
     final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
     final static String fileName = path + "excel.xls";

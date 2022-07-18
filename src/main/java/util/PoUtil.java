@@ -18,12 +18,12 @@ public class PoUtil {
 
     public static void iteratePoGetterValue(Object object) {
         Class c = object.getClass();
-        Method m[] = c.getDeclaredMethods();
+        Method[] m = c.getDeclaredMethods();
 
         for (int i = 0; i < m.length; i++) {
             if (m[i].getName().contains("get")) {
                 try {
-                    System.out.println("Method：" + m[i].getName() + " Value：" + m[i].invoke(object, new Object[0]));
+                    System.out.println("Method：" + m[i].getName() + " Value：" + m[i].invoke(object));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -33,7 +33,7 @@ public class PoUtil {
 
     public static void iteratePoSetterValue(Object object) {
         Class c = object.getClass();
-        Method m[] = c.getDeclaredMethods();
+        Method[] m = c.getDeclaredMethods();
         for (int i = 0; i < m.length; i++) {
             if (m[i].getName().contains("set")) {
                 try {
@@ -50,7 +50,7 @@ public class PoUtil {
 
     public List<String> iteratePoByName(Object object, String name) {
         Class c = object.getClass();
-        Method m[] = c.getDeclaredMethods();
+        Method[] m = c.getDeclaredMethods();
         List<String> methodList = new ArrayList<String>();
         for (int i = 0; i < m.length; i++) {
             if (m[i].getName().contains(name)) {
@@ -97,6 +97,6 @@ public class PoUtil {
     public void callMethodByName(String methodName, Object object, Object value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         //new Class[]{String.class} : String.class是参数类型(dataType)
-        object.getClass().getMethod(methodName, new Class[]{String.class}).invoke(object, new Object[]{value});
+        object.getClass().getMethod(methodName, new Class[]{String.class}).invoke(object, value);
     }
 }

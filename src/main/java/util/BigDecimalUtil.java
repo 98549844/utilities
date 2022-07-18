@@ -134,10 +134,7 @@ public class BigDecimalUtil {
 	}
 
 	private static boolean isNull(Double v1, Double v2) {
-		if (NullUtil.isNull(v1) || NullUtil.isNull(v2)) {
-			return true;
-		}
-		return false;
-	}
+        return NullUtil.isNull(v1) || NullUtil.isNull(v2);
+    }
 
 }

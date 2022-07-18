@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 
 public class EmailUtil {
-    static private Log log = LogFactory.getLog(EmailUtil.class);
+    static private final Log log = LogFactory.getLog(EmailUtil.class);
 
     public static boolean emailAdderValidator(String email) {
         if (NullUtil.isNull(email)) {

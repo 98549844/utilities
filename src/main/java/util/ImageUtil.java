@@ -34,7 +34,7 @@ import java.math.BigDecimal;
 
 
 public class ImageUtil {
-    private static Logger log = LogManager.getLogger(ImageUtil.class.getName());
+    private static final Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
     final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/images/";
     final static String src = path + "img_c.png";
