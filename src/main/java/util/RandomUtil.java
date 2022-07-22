@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtil {
-    static private Log log = LogFactory.getLog(RandomUtil.class);
+    static private final Log log = LogFactory.getLog(RandomUtil.class);
 
     /**
      * @param start

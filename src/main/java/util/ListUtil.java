@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class ListUtil {
-	static private Log log = LogFactory.getLog(ListUtil.class);
+	static private final Log log = LogFactory.getLog(ListUtil.class);
 
 
 	public static List arrayIntToList(int[] nums) {

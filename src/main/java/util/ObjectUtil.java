@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ObjectUtil {
-	static private Log log = LogFactory.getLog(ObjectUtil.class);
+	static private final Log log = LogFactory.getLog(ObjectUtil.class);
 
 
 	private static final String GET_METHOD_PREFIX = "get";

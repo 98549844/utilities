@@ -1,6 +1,8 @@
 package util;
 
 public class SystemUtil {
+
+    public static final String LINE = "----------------------------------------";
     public static void getSystemInfo() {
         Console.print("Java版本号:\t", Console.BLUE);
         Console.println(System.getProperty("java.version"), Console.BLACK); // java版本号
