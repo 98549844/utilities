@@ -1,11 +1,5 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.BigDecimalUtil;
-
-import java.io.*;
-import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class Utilities {
 
