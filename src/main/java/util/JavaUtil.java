@@ -11,37 +11,37 @@ import java.util.List;
 public class JavaUtil {
     static private final Log log = LogFactory.getLog(JavaUtil.class);
 
-	public static void main(String[] args) throws IOException {
-		getCurrentJdkInfoOnMacOS();
-		getJavaInfo();
-	}
+    public static void main(String[] args) throws IOException {
+        getCurrentJdkInfoOnMacOS();
+        getJavaInfo();
+    }
 
-	@SuppressWarnings("static-access")
-	public static List getCurrentJdkInfoOnMacOS() throws IOException {
-		List<String> jdkInfo = new ArrayList<>();
-		String Command = "java -version";
-		log.info("Current Java Version On Mac Os");
-		Process process = Runtime.getRuntime().exec(Command);
-		log.info("PID: " + process.pid());
-		String[] infos = process.info().toString().split(",");
-		for (String s : infos) {
-			log.info(s.trim());
-			jdkInfo.add(s.trim());
-		}
+    @SuppressWarnings("static-access")
+    public static List getCurrentJdkInfoOnMacOS() throws IOException {
+        List<String> jdkInfo = new ArrayList<>();
+        String Command = "java -version";
+        log.info("Current Java Version On Mac Os");
+        Process process = Runtime.getRuntime().exec(Command);
+        log.info("PID:  " + process.pid());
+        String[] infos = process.info().toString().split(",");
+        for (String s :  infos) {
+            log.info(s.trim());
+            jdkInfo.add(s.trim());
+        }
 
-		jdkInfo.add(getJdkVersion());
-		return jdkInfo;
-	}
+        jdkInfo.add(getJdkVersion());
+        return jdkInfo;
+    }
 
 
-	@SuppressWarnings("static-access")
-	public static String getJdkVersion() {
-		JdkVersion jdkVersion = new JdkVersion() {
-		};
-		String jdkVer = jdkVersion.getJavaVersion();
-		log.info("JKD version: " + jdkVer);
-		return jdkVer;
-	}
+    @SuppressWarnings("static-access")
+    public static String getJdkVersion() {
+        JdkVersion jdkVersion = new JdkVersion() {
+        };
+        String jdkVer = jdkVersion.getJavaVersion();
+        log.info("JKD version:  " + jdkVer);
+        return jdkVer;
+    }
 
 
     public static void getJavaInfo() {
@@ -84,5 +84,5 @@ public class JavaUtil {
         Console.print("Java执行路径: \t", Console.BLUE);
         Console.println(System.getProperty("java.ext.dirs"), Console.BLACK); // Java执行路径
 
-	}
+    }
 }

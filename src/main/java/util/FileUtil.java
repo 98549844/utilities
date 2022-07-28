@@ -8,6 +8,7 @@ import util.constant.Constant;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -76,7 +77,7 @@ public class FileUtil {
     public static void CopyFileWithNewExt(String path, List<String> fileNames, String ext, Boolean delFile) {
 
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         log.info("Start copying file ...");
         for (String fileName : fileNames) {
             FileWriter fw = null;
@@ -142,7 +143,7 @@ public class FileUtil {
         log.info("Start rename file");
 
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
         if (fileList.size() != newNameList.size()) {
             log.error("List size not equal");
@@ -163,7 +164,7 @@ public class FileUtil {
     public static void renameFilesExt(String path, String newExt) throws Exception {
         log.info("Start rename ext");
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
         Integer i = 1;
         for (String s : fileList) {
@@ -177,7 +178,7 @@ public class FileUtil {
 
             if (newFile.exists()) {
                 ++i;
-                String t = "_" + i.toString();
+                String t = "_" + i;
                 newFile = new File(path + spiltFileName[0] + t + newExt);
             }
             oldFile.renameTo(newFile);
@@ -215,7 +216,7 @@ public class FileUtil {
 
     public static ArrayList<String> getFileNames(String path) throws Exception {
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         log.info("Directory: " + path);
 
         ArrayList<String> files = new ArrayList<String>();
@@ -233,10 +234,10 @@ public class FileUtil {
 
     public static Map<String, Object> read(String path) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         File f = new File(path);
         // 建立一个输入流对象reader
-        InputStreamReader reader = new InputStreamReader(new FileInputStream(f), "UTF-8");
+        InputStreamReader reader = new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8);
         // 建立一个对象，它把文件内容转成计算机能读懂的语言
         BufferedReader br = new BufferedReader(reader);
         String line;
@@ -282,7 +283,7 @@ public class FileUtil {
 
     public LinkedList<String> getFileNameAndDirectory(String path) throws Exception {
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
 
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
         File file = new FileSystemResource(path).getFile();
@@ -380,7 +381,7 @@ public class FileUtil {
         String osType = "";
         if (s.startsWith("/")) {
             osType = Constant.MAC_OS;
-        } else if (s.substring(1, 2).equals(":")) {
+        } else if (s.charAt(1) == ':') {
             osType = Constant.WINDOWS;
         } else {
             osType = Constant.UNKNOWN;
@@ -417,7 +418,7 @@ public class FileUtil {
                 File file = new File(filePath + fileName);
                 //fop = new FileOutputStream(file);
 
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(file), "UTF-16LE");
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_16LE);
                 // get the content in bytes
                 String contentInBytes = null;
                 if (type.equals("String")) {
@@ -434,7 +435,7 @@ public class FileUtil {
                     }
 
                 } else {
-                    log.info("contentInBytes: " + contentInBytes.toString());
+                    log.info("contentInBytes: " + contentInBytes);
                 }
 
                 outputStreamWriter.close();
@@ -458,7 +459,7 @@ public class FileUtil {
     //check file and dir status
     public static boolean fileStatus(String path, String fileName) {
         FileUtil fileUtil = new FileUtil();
-        path = fileUtil.fileToPath(path);
+        path = fileToPath(path);
         //check dir exist
         File folder = new File(path);
         if (!folder.exists() && !folder.isDirectory()) {
@@ -561,7 +562,7 @@ public class FileUtil {
     private static String getFileMD5(File file) {
         MessageDigest digest = null;
         FileInputStream in = null;
-        byte buffer[] = new byte[8192];
+        byte[] buffer = new byte[8192];
         int len;
         try {
             digest = MessageDigest.getInstance("MD5");
@@ -653,13 +654,13 @@ public class FileUtil {
     }
 
 
-    private static ArrayList<Object> scanFiles = new ArrayList<Object>();
+    private static final ArrayList<Object> scanFiles = new ArrayList<Object>();
 
 
     /**
      * linkedList实现
      **/
-    private static LinkedList<File> queueFiles = new LinkedList<File>();
+    private static final LinkedList<File> queueFiles = new LinkedList<File>();
 
 
     /**
