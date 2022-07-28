@@ -30,6 +30,7 @@ public class PropertiesUtil {
         return (String) properties.get(key);
     }
 
+
     public static void main(String[] args) throws IOException {
         getProperty(FILENAME, "version");
     }
