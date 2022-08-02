@@ -17,6 +17,7 @@ public class DBConfig {
     private static final Logger log = LogManager.getLogger(DBConfig.class.getName());
 
     public static final String MARIADB = "MARIADB";
+    public static final String MYSQL = "MYSQL";
     public static final String ORACLE19C = "ORACLE19C";
 
     private String dbClassName;
@@ -26,16 +27,22 @@ public class DBConfig {
 
 
     public DBConfig(@NonNull String dbType) {
-        if (this.MARIADB.equals(dbType)) {
+        if (MARIADB.equals(dbType)) {
             this.dbClassName = "org.mariadb.jdbc.Driver";
             this.connection = "jdbc:mariadb://192.168.31.131:3306/";
             this.username = "root";
             this.password = "garlamau";
-        } else if (this.ORACLE19C.equals(dbType)) {
+        } else if (ORACLE19C.equals(dbType)) {
             this.dbClassName = "oracle.jdbc.OracleDriver";
             this.connection = "jdbc:oracle:thin:@192.168.8.66:1521:MPFADB";
             this.username = "USERPROV";
             this.password = "Passw0rd";
+        } else if (MYSQL.equals(dbType)) {
+            this.dbClassName = "com.mysql.cj.jdbc.Driver";
+            this.connection = "jdbc:mysql://localhost:3306/";
+//            this.connection = "jdbc:mysql://localhost:3306/ace?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false";
+            this.username = "root";
+            this.password = "root";
         }
 
     }
