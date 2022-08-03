@@ -3,9 +3,11 @@ package util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
+import java.net.URL;
+import java.util.*;
 
 /**
  * @Classname: PropertyUtil
@@ -17,24 +19,30 @@ import java.util.Properties;
 public class PropertiesUtil {
     private static final Logger log = LogManager.getLogger(PropertiesUtil.class.getName());
 
+    //location: src/main/resources/properties/messages.properties
+    public static String utilitiesProperties = "properties/utilities.properties";
+    public static String messagesProperties = "properties/messages.properties";
 
-    //src/main/resources/properties/messages.properties
-    public static String FILENAME = "properties/utilities.properties";
-
-    public static String getProperty(String filename, String key) throws IOException {
+    public static String getPropertyByKey(String propertiesPath, String key) throws IOException {
         Properties properties = new Properties();
-        InputStream inStream = PropertiesUtil.class.getClassLoader().getResourceAsStream(filename);
+        InputStream inStream = PropertiesUtil.class.getClassLoader().getResourceAsStream(propertiesPath);
         properties.load(inStream);
         System.out.println(properties.get(key));
-
         return (String) properties.get(key);
     }
 
 
-    public static void main(String[] args) throws IOException {
-        getProperty(FILENAME, "version");
+    public static void main(String[] args) throws Exception {
+        getPropertyByKey(utilitiesProperties, "version");
+        printProperties(messagesProperties);
     }
 
+    public static void printProperties(String propertiesPath) throws IOException {
+        Properties properties = new Properties();
+        properties.load(PropertiesUtil.class.getClassLoader().getResourceAsStream(propertiesPath));
+        for (String key : properties.stringPropertyNames()) {
+            System.out.println(key + "=" + properties.getProperty(key));
+        }
+    }
 
 }
-
