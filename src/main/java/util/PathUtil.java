@@ -20,12 +20,11 @@ public class PathUtil {
     private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
 
-
     public File getSrcFile(String srcFile) throws IOException {
-        log.info("format: src/main/java/com/...");
+        log.info("format: src/main/java/com/.../xx.xx");
         File file = new File(srcFile);
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String len = null;
+        String len;
         while ((len = br.readLine()) != null) {
             System.out.println(len);
         }
@@ -34,10 +33,10 @@ public class PathUtil {
 
     public File getResourceFile(String resource) throws IOException {
         log.info("read file location: ace/src/main/resources");
-        log.info("format: /...");
+        log.info("format: /../../xxx.xx");
         File file = new File(PathUtil.class.getResource(resource).getFile());
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String len = null;
+        String len;
         while ((len = br.readLine()) != null) {
             System.out.println(len);
         }
@@ -56,6 +55,13 @@ public class PathUtil {
         File directory = new File(empty);//参数为空
         String path = directory.getCanonicalPath();
         return path;
+    }
+
+    public static void main(String[] args) throws IOException {
+        System.out.println(getSystemPath());
+        System.out.println(getSystemPath(""));
+        PathUtil pathUtil = new PathUtil();
+        pathUtil.getResourceFile("/hbm/TestEntity.hbm.xml");
     }
 
 
