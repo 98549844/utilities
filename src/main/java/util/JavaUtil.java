@@ -12,19 +12,19 @@ public class JavaUtil {
     static private final Log log = LogFactory.getLog(JavaUtil.class);
 
     public static void main(String[] args) throws IOException {
-        getCurrentJdkInfoOnMacOS();
-        getJavaInfo();
+        getCurrentJdkInfo();
+        showJavaInfo();
     }
 
     @SuppressWarnings("static-access")
-    public static List getCurrentJdkInfoOnMacOS() throws IOException {
+    public static List getCurrentJdkInfo() throws IOException {
         List<String> jdkInfo = new ArrayList<>();
         String Command = "java -version";
         log.info("Current Java Version On Mac Os");
         Process process = Runtime.getRuntime().exec(Command);
         log.info("PID:  " + process.pid());
         String[] infos = process.info().toString().split(",");
-        for (String s :  infos) {
+        for (String s : infos) {
             log.info(s.trim());
             jdkInfo.add(s.trim());
         }
@@ -44,7 +44,7 @@ public class JavaUtil {
     }
 
 
-    public static void getJavaInfo() {
+    public static void showJavaInfo() {
         Console.print("Java版本号: \t", Console.BLUE);
         Console.println(System.getProperty("java.version"), Console.BLACK); // java版本号
         Console.print("Java提供商名称: \t", Console.BLUE);
