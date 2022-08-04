@@ -103,8 +103,8 @@ public class CompressUtil {
     public static void unCompressGZFiles(String path) throws Exception {
         path = FileUtil.fileToPath(path);
         System.out.println(path);
-        ArrayList<String> filels = FileUtil.getFileNames(path);
-        for (String f : filels) {
+        ArrayList<String> files = FileUtil.getFileNames(path);
+        for (String f : files) {
             f = path + f;
             unCompressGZFile(f);
         }

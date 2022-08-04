@@ -44,16 +44,12 @@ public class CodeUtil {
 
     public static List getDecodeList() {
         List list = new ArrayList();
-
         list.add("gbk");
         list.add("utf-8");
         list.add("iso-8859-1");
         list.add("utf-16");
         list.add("big5");
         list.add("big5-hkscs");
-
-
-
         return list;
     }
 
