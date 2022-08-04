@@ -106,7 +106,7 @@ public class Console {
      * 默认打印红色文字
      */
     public static void println(String txt) {
-        System.out.println(FMT(txt, new int[]{RED}));
+        System.out.println(FMT(txt, RED));
     }
 
 }
