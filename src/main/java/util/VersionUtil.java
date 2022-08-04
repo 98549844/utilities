@@ -18,15 +18,15 @@ public class VersionUtil {
 
 
     public static void main(String[] args) {
-        printSpringFrameworkVersion();
-        printSpringbootVersion();
+        showSpringFrameworkVersion();
+        showSpringbootVersion();
     }
 
-    public static void printSpringFrameworkVersion() {
+    public static void showSpringFrameworkVersion() {
         Console.println("Spring Framework Version: " + SpringVersion.getVersion(), Console.BOLD);
     }
 
-    public static void printSpringbootVersion() {
+    public static void showSpringbootVersion() {
         Console.println("Spring Boot Version: " + SpringBootVersion.getVersion(), Console.BOLD);
     }
 

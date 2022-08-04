@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Properties;
+import java.util.Set;
 
 public class OsUtil {
     private final static Logger log = LogManager.getLogger(OsUtil.class.getName());
@@ -22,7 +23,18 @@ public class OsUtil {
         return osName;
     }
 
+    public static void showAll() {
+        Properties pros = System.getProperties();
+        Set<Object> keys = pros.keySet();
+        for (Object key : keys) {
+            System.out.print(key + ": ");
+            Console.println(pros.getProperty(key.toString()), Console.BOLD, Console.MAGENTA);
+        }
+
+    }
+
     public static void main(String[] args) {
         getOsInfo();
+        showAll();
     }
 }
