@@ -22,18 +22,23 @@
         <property name="connection.password">password</property>-->
 
         <!--配置MYSQL连接属性-->
-        <!--<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
-                <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-                <property name="connection.url">jdbc:mysql://localhost:3306/elm_uat?serverTimezone=GMT%2B8</property>
-                <property name="connection.username">root</property>
-                <property name="connection.password">P@ssw0rd</property>-->
+        <!-- for mysql 8.0-->
+        <!-- <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>-->
+        <!-- <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+
+        <!-- for mysql 5.0-->
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/ace?serverTimezone=GMT%2B8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
 
         <!--配置MARIABD连接属性-->
-        <property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
-        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mariadb://localhost:3306/ace</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">garlamau</property>
+        <!--        <property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>-->
+        <!--        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>-->
+        <!--        <property name="connection.url">jdbc:mariadb://localhost:3306/ace</property>-->
+        <!--        <property name="connection.username">root</property>-->
+        <!--        <property name="connection.password">garlamau</property>-->
 
 
         <!--在控制台显示SQL语句-->
@@ -46,6 +51,7 @@
 
         <!--注册所有ORM映射文件-->
         <mapping resource="hbm/TestEntity.hbm.xml"/>
+        <mapping resource="hbm/Users.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.entity.dao.hibernate.Users"
+           table="test">
+        <id name="userId" type="java.lang.Long">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="password" type="java.lang.String">
+            <column name="password">
+                <comment>password</comment>
+            </column>
+        </property>
+        <property name="userAccount" type="java.lang.String">
+            <column name="userAccount">
+                <comment>userAccount</comment>
+            </column>
+        </property>
+        <property name="username" type="java.lang.String">
+            <column name="username">
+                <comment>username</comment>
+            </column>
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description">
+                <comment>description</comment>
+            </column>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email">
+                <comment>email</comment>
+            </column>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email">
+                <comment>email</comment>
+            </column>
+        </property>
+        <property name="mobile" type="java.lang.String">
+            <column name="mobile">
+                <comment>mobile</comment>
+            </column>
+        </property>
+        <property name="gender" type="java.lang.String">
+            <column name="gender">
+                <comment>gender</comment>
+            </column>
+        </property>
+        <property name="birthday" type="java.time.LocalDateTime">
+            <column name="birthday">
+                <comment>birthday</comment>
+            </column>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email">
+                <comment>email</comment>
+            </column>
+        </property>
+        <property name="age" type="java.lang.Long">
+            <column name="age">
+                <comment>age</comment>
+            </column>
+        </property>
+        <property name="loginDateTime" type="java.time.LocalDateTime">
+            <column name="loginDateTime">
+                <comment>loginDateTime</comment>
+            </column>
+        </property>
+        <property name="status" type="java.lang.String">
+            <column name="status">
+                <comment>status</comment>
+            </column>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email">
+                <comment>email</comment>
+            </column>
+        </property>
+        <property name="domain" type="java.lang.String">
+            <column name="domain">
+                <comment>domain</comment>
+            </column>
+        </property>
+        <property name="ip" type="java.lang.String">
+            <column name="ip">
+                <comment>ip</comment>
+            </column>
+        </property>
+        <property name="hostName" type="java.lang.String">
+            <column name="hostName">
+                <comment>hostName</comment>
+            </column>
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="remark">
+                <comment>remark</comment>
+            </column>
+        </property>
+        <property name="enabled" type="java.lang.String">
+            <column name="enabled">
+                <comment>enabled</comment>
+            </column>
+        </property>
+        <property name="expireDate" type="java.time.LocalDateTime">
+            <column name="expireDate">
+                <comment>expireDate</comment>
+            </column>
+        </property>
+
+    </class>
+</hibernate-mapping>
