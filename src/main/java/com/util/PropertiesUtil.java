@@ -34,6 +34,7 @@ public class PropertiesUtil {
     public static void main(String[] args) throws Exception {
         getValueByKey(utilitiesProperties, "version");
         printProperties(messagesProperties);
+
     }
 
     public static void printProperties(String propertiesPath) throws IOException {
