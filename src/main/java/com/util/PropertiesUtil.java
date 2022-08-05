@@ -21,25 +21,27 @@ public class PropertiesUtil {
     public static String utilitiesProperties = "properties/utilities.properties";
     public static String messagesProperties = "properties/messages.properties";
 
-    public static String getPropertyByKey(String propertiesPath, String key) throws IOException {
+    public static String getValueByKey(String propertiesPath, String key) throws IOException {
+        log.info("print static properties value");
         Properties properties = new Properties();
         InputStream inStream = PropertiesUtil.class.getClassLoader().getResourceAsStream(propertiesPath);
         properties.load(inStream);
-        System.out.println(properties.get(key));
+        Console.println(properties.get(key).toString(), Console.BOLD, Console.FLUORESCENT_PURPLE);
         return (String) properties.get(key);
     }
 
 
     public static void main(String[] args) throws Exception {
-        getPropertyByKey(utilitiesProperties, "version");
+        getValueByKey(utilitiesProperties, "version");
         printProperties(messagesProperties);
     }
 
     public static void printProperties(String propertiesPath) throws IOException {
+        log.info("print static properties");
         Properties properties = new Properties();
         properties.load(PropertiesUtil.class.getClassLoader().getResourceAsStream(propertiesPath));
         for (String key : properties.stringPropertyNames()) {
-            System.out.println(key + "=" + properties.getProperty(key));
+            Console.println(key + "=" + properties.getProperty(key), Console.BOLD, Console.FLUORESCENT_PURPLE);
         }
     }
 

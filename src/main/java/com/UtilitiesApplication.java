@@ -25,7 +25,7 @@ public class UtilitiesApplication {
     public static void getHello() {
         log.traceEntry();
         log.trace("我是trace");
-        log.info("我是info信息:{}", "ACE_UTIL");
+        log.info("我是info信息:{}", "UtilitiesApplication");
         log.error("我是error");
         log.fatal("我是fatal");
         log.trace("退出程序.");
