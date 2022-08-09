@@ -30,5 +30,6 @@ public class VersionUtil {
         Console.println("Spring Boot Version: " + SpringBootVersion.getVersion(), Console.BOLD);
     }
 
+
 }
 
