@@ -43,6 +43,7 @@ public class TextUtil {
         String result = tesseracts.doOCR(imageFile);
 
         System.out.println(result);
+
     }
 
 }
