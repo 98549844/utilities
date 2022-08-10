@@ -36,7 +36,7 @@ public class TextUtil {
         //创建tess对象
         ITesseract tesseracts = new Tesseract();
         //设置训练文件目录
-        tesseracts.setDatapath("src/main/resources/translate/");
+        tesseracts.setDatapath("src/main/resources/traineddata/");
         //设置训练语言
         tesseracts.setLanguage("chi_sim");
         //执行转换
