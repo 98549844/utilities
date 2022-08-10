@@ -1,7 +1,9 @@
 package com.util.redisUtil;
 
+import com.alibaba.excel.util.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,6 +47,7 @@ public class CodeUtil {
 
     }
 
+    @Deprecated
     public static List getDecodeList() {
         List list = new ArrayList();
         list.add("gbk");
@@ -57,4 +60,5 @@ public class CodeUtil {
     }
 
 }
+
 

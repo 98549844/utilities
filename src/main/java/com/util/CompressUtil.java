@@ -38,7 +38,7 @@ public class CompressUtil {
                 System.exit(1);
             }
 
-            System.out.println("Transfering bytes from input file to GZIP Format.");
+            System.out.println("Transferring bytes from input file to GZIP Format.");
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
@@ -112,15 +112,15 @@ public class CompressUtil {
     public static void unCompressGZFilesAndDeleteGZFile(String path) throws Exception {
         path = FileUtil.fileToPath(path);
         System.out.println(path);
-        ArrayList<String> filels = FileUtil.getFileNames(path);
-        for (String f : filels) {
+        ArrayList<String> files = FileUtil.getFileNames(path);
+        for (String f : files) {
             f = path + f;
             unCompressGZFile(f);
             FileUtil.delete(f);
         }
     }
 
-
+    @Deprecated
     public static void unRar(File rarFile, String outDir) throws Exception {
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
