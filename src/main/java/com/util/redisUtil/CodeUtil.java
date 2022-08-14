@@ -47,7 +47,6 @@ public class CodeUtil {
 
     }
 
-    @Deprecated
     public static List<String> getDecodeList() {
         List<String> list = new ArrayList();
         list.add("gbk");
