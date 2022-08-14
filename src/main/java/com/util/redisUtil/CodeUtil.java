@@ -48,8 +48,8 @@ public class CodeUtil {
     }
 
     @Deprecated
-    public static List getDecodeList() {
-        List list = new ArrayList();
+    public static List<String> getDecodeList() {
+        List<String> list = new ArrayList();
         list.add("gbk");
         list.add("utf-8");
         list.add("iso-8859-1");
