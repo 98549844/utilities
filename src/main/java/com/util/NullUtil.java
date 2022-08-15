@@ -59,21 +59,17 @@ public class NullUtil {
     public static boolean isNull(Object object) {
         if (object == null) {
             return true;
-        }
-
-        if (object instanceof String) {
+        } else if (object instanceof String) {
             String s = (String) object;
             if (s.equals("") || s.isEmpty()) {
                 return true;
             }
-        }
-        if (object instanceof List) {
+        } else if (object instanceof List) {
             List ls = (List) object;
             if (ls.size() == 0) {
                 return true;
             }
-        }
-        if (object instanceof Map) {
+        } else if (object instanceof Map) {
             Map m = (Map) object;
             if (m.keySet().size() == 0) {
                 return true;
@@ -86,27 +82,22 @@ public class NullUtil {
     public static boolean isNotNull(Object object) {
         if (object == null) {
             return false;
-        }
-
-        if (object instanceof String) {
+        } else if (object instanceof String) {
             String s = (String) object;
             if (s.equals("") || s.isEmpty()) {
                 return false;
             }
-        }
-        if (object instanceof List) {
+        } else if (object instanceof List) {
             List ls = (List) object;
             if (ls.size() == 0) {
                 return false;
             }
-        }
-        if (object instanceof Map) {
+        } else if (object instanceof Map) {
             Map m = (Map) object;
             if (m.keySet().size() == 0) {
                 return false;
             }
         }
-
         return true;
     }
 
