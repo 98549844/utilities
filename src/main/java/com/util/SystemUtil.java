@@ -1,6 +1,10 @@
 package com.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SystemUtil {
+    private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
 
     public static final String LINE = "----------------------------------------";
     public static void getSystemInfo() {

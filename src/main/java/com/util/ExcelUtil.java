@@ -16,7 +16,7 @@ import java.util.List;
 //POI简单实例
 //https://blog.csdn.net/yk10010/article/details/81911997
 public class ExcelUtil {
-    private static final Logger log = LogManager.getLogger(Console.class);
+    private static final Logger log = LogManager.getLogger(ExcelUtil.class);
 
 
     final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";

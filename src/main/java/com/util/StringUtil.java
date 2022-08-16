@@ -11,7 +11,7 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class StringUtil {
-	private static final Logger log = LogManager.getLogger(Console.class);
+	private static final Logger log = LogManager.getLogger(StringUtil.class);
 
 	private static String collectionToDelimitedString(Collection<?> coll, String denim, String prefix, String suffix) {
 		if (CollectionUtils.isEmpty(coll)) {

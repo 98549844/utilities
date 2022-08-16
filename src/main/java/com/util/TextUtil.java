@@ -23,6 +23,12 @@ public class TextUtil {
     private static final Logger log = LogManager.getLogger(TextUtil.class.getName());
 
 
+    /** 读取图片的文字拼输出
+     * @param imagePath
+     * @return
+     * @throws IOException
+     * @throws TesseractException
+     */
     public static String getTextImage(String imagePath) throws IOException, TesseractException {
 
         log.info("path pattern: src/main/resources/xxx/xxx.png");

@@ -1,12 +1,16 @@
 package com.util;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class MapUtil {
+	private static final Logger log = LogManager.getLogger(MapUtil.class.getName());
 
 	public static Map<Object, List<Map.Entry<String, String>>> groupElement(Map<String, String> m) {
 		Map<Object, List<Map.Entry<String, String>>> result = m.entrySet().stream().collect(Collectors.groupingBy(c -> c.getValue()));

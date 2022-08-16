@@ -2,6 +2,8 @@ package com.util;
 
 
 import com.testDate.DataGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PoUtil {
+    private static final Logger log = LogManager.getLogger(PoUtil.class);
+
+
 
     public static void main(String[] args) {
       //  DataGenerator.getTestEntity();

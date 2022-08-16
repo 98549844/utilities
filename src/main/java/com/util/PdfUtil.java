@@ -27,6 +27,7 @@ import java.io.*;
 
 
 public class PdfUtil {
+
     private static final Logger log = LogManager.getLogger(PdfUtil.class.getName());
 
     public static void main(String[] args) throws IOException {
