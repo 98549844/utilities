@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NullUtil {
-    private static final Logger log = LogManager.getLogger(Console.class);
+    private static final Logger log = LogManager.getLogger(NullUtil.class);
 
     public static boolean isEmpty(Collection<?> collection) {
         return isNull(collection) || collection.size() < 1;
