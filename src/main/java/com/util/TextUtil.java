@@ -53,7 +53,8 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        getTextImage("src/main/resources/file/images/img.png");
+      //  getTextImage("src/main/resources/file/images/img_1.png");
+        System.out.println(StringUtil.trimAll("迷 你 笔 记 本 台 式 电 脑 无 线 耳 机"));
     }
 }
 
