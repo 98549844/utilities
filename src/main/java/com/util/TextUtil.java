@@ -58,7 +58,15 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        getTextImage("src/main/resources/file/images/img.png");
+        // getTextImage("src/main/resources/file/images/img.png");
+        String a = "j f d a e g d w s g gh w ";
+
+        StringBuilder c = new StringBuilder();
+        char[] b = a.toCharArray();
+        for (int i = 0; i < b.length; i++) {
+            c.append(String.valueOf(b[i]).trim());
+        }
+        System.out.println(c);
     }
 }
 
