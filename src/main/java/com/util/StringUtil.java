@@ -39,17 +39,6 @@ public class StringUtil {
      */
     public static String trimAll(String content) {
         return content.replace(" ", "");
-
-
-        /*StringBuilder sb = new StringBuilder();
-
-
-        char[] cSet = stringToCharset(content);
-        for (char c : cSet) {
-            String s = String.valueOf(c).trim();
-            sb = sb.append(s);
-        }
-        return sb.toString();*/
     }
 
     /**

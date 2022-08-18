@@ -23,7 +23,9 @@ public class TextUtil {
     private static final Logger log = LogManager.getLogger(TextUtil.class.getName());
 
 
-    /** 读取图片的文字拼输出
+    /**
+     * 读取图片的文字拼输出
+     *
      * @param imagePath
      * @return
      * @throws IOException
@@ -38,7 +40,7 @@ public class TextUtil {
             System.out.println("找不到图片");
             return "找不到图片";
         }
-       // BufferedImage textImage = ImageIO.read(imageFile);
+        // BufferedImage textImage = ImageIO.read(imageFile);
         //创建tess对象
         ITesseract tesseracts = new Tesseract();
         //设置训练文件目录
@@ -47,14 +49,14 @@ public class TextUtil {
         tesseracts.setLanguage("chi_sim");
         //执行转换
         String result = tesseracts.doOCR(imageFile);
+        result = StringUtil.trimAll(result);
         System.out.println(result);
         return result;
     }
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-      //  getTextImage("src/main/resources/file/images/img_1.png");
-        System.out.println(StringUtil.trimAll("迷 你 笔 记 本 台 式 电 脑 无 线 耳 机"));
+        getTextImage("src/main/resources/file/images/img_1.png");
     }
 }
 
