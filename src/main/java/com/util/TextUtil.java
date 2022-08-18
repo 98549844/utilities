@@ -47,16 +47,18 @@ public class TextUtil {
         tesseracts.setDatapath("src/main/resources/traineddata/");
         //设置训练语言
         tesseracts.setLanguage("chi_sim");
+        log.info("Image reading ...");
         //执行转换
         String result = tesseracts.doOCR(imageFile);
         result = StringUtil.trimAll(result);
         System.out.println(result);
+        log.info("Complete ! ");
         return result;
     }
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        getTextImage("src/main/resources/file/images/img_1.png");
+        getTextImage("src/main/resources/file/images/img.png");
     }
 }
 
