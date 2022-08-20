@@ -1,6 +1,6 @@
 package com.util;
 
-import com.util.constant.Constant;
+import com.util.constant.CONSTANT;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mozilla.universalchardet.UniversalDetector;
@@ -17,8 +17,14 @@ import java.util.*;
 public class FileUtil {
     private static final Logger log = LogManager.getLogger(FileUtil.class.getName());
 
-    public static Map getSubFolderList(String path) {
+    public static final String FOLDERLIST = "FOLDERLIST";
+    public static final String FILELIST = "FILELIST";
+
+    public static Map getFolderList(String path) {
         File file = new File(path);
+        if (!file.isDirectory()) {
+            log.warn("Path  incorrect, please check !");
+        }
         File[] files = file.listFiles();
         List folderList = new ArrayList();
         List fileList = new ArrayList();
@@ -30,54 +36,17 @@ public class FileUtil {
             }
         }
         Map map = new HashMap();
-        map.put("folderList", folderList);
-        map.put("fileList", fileList);
+        map.put(FOLDERLIST, folderList);
+        map.put(FILELIST, fileList);
         return map;
     }
 
-    /**
-     * check slash exist
-     */
-    private static boolean hasSlash(String path) {
-        boolean isSlash = false;
-        if (isFile(path)) {
-            log.info("This is File path");
-            return false;
-        }
-        String end = path.substring(path.length() - 1);
-        if (end.equals("/") || end.equals("\\")) {
-            isSlash = true;
-        }
-        return isSlash;
-    }
-
-    /**
-     * add backslash if missing
-     *
-     * @param path
-     * @return
-     */
-    private static String slash(String path) {
-        if (!hasSlash(path)) {
-            String osType = getOsType(path);
-            if (Constant.MAC_OS.equals(osType)) {
-                path = path + "/";
-            } else if (Constant.WINDOWS.equals(osType)) {
-                path = path + "\\\\";
-            } else {
-                log.error("Path incorrect, please check");
-            }
-        }
-        return path;
-    }
 
     /**
      * 用缓冲区读写，来提升读写效率。
      */
     public static void CopyFileWithNewExt(String path, List<String> fileNames, String ext, Boolean delFile) {
-
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+        path = convertToPath(path);
         log.info("Start copying file ...");
         for (String fileName : fileNames) {
             FileWriter fw = null;
@@ -142,15 +111,14 @@ public class FileUtil {
     public static void renameFilesName(String path, List<String> newNameList) throws Exception {
         log.info("Start rename file");
 
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+        path = convertToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
         if (fileList.size() != newNameList.size()) {
             log.error("List size not equal");
             return;
         }
         for (int i = 0; i < newNameList.size(); i++) {
-            path = slash(path);
+            //   path = slash(path);
             File oldFile = new File(path + fileList.get(i));
             File newFile = new File(path + newNameList.get(i));
             if (newFile.exists()) {
@@ -163,8 +131,7 @@ public class FileUtil {
 
     public static void renameFilesExt(String path, String newExt) throws Exception {
         log.info("Start rename ext");
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+        path = convertToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
         Integer i = 1;
         for (String s : fileList) {
@@ -188,36 +155,34 @@ public class FileUtil {
     }
 
 
-    public static String fileToPath(String file) {
-        if (NullUtil.isNull(file)) {
-            log.error("File path is null");
+    /**
+     * 根据file获取文件路径
+     *
+     * @param file
+     * @return
+     */
+    public static String convertToPath(String file) {
+        if (isDir(file)) {
+            return file;
         }
         String path = "";
         String osType = getOsType(file);
-        if (Constant.WINDOWS.equals(osType)) {
-            if (isFile(file)) {
+        if (new File(file).isAbsolute()) {
+            if (CONSTANT.WINDOWS.equals(osType)) {
                 String[] fileSet = file.split("\\\\");
                 path = file.replace(fileSet[fileSet.length - 1], "");
-            } else {
-                path = file;
-            }
-            log.info("File path: " + path);
-        } else if (Constant.MAC_OS.equals(osType)) {
-            if (isFile(file)) {
+                log.info("File path: " + path);
+            } else if (CONSTANT.MAC_OS.equals(osType)) {
                 String[] fileSet = file.split("/");
                 path = file.replace(fileSet[fileSet.length - 1], "");
-            } else {
-                path = file;
             }
         }
-        path = slash(path);
         return path;
     }
 
-    public static ArrayList<String> getFileNames(String path) throws Exception {
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
-        log.info("Directory: " + path);
+    public static ArrayList<String> getFileNames(String path) throws IOException {
+        path = convertToPath(path);
+        log.info("Directory: {}", path);
 
         ArrayList<String> files = new ArrayList<String>();
         File file = new File(path);
@@ -233,8 +198,11 @@ public class FileUtil {
 
 
     public static Map<String, Object> read(String path) throws IOException {
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+        if (!isFile(path)) {
+            log.warn("CANT read this file, please check !");
+            return null;
+        }
+
         File f = new File(path);
         // 建立一个输入流对象reader
         InputStreamReader reader = new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8);
@@ -246,14 +214,14 @@ public class FileUtil {
 
         StringBuilder content1 = new StringBuilder();
         StringBuilder content2 = new StringBuilder();
-        List<StringBuilder> builderList = new LinkedList<>();
+        List<StringBuilder> content3 = new LinkedList<>();
         while (NullUtil.isNotNull(line)) {
 
             // 一次读入一行数据,并显示行数
-            //content.append(i + "*: ");
+            // content1.append(i + ". ");
             content1.append(line + System.getProperty("line.separator"));
             content2.append(line);
-            builderList.add(new StringBuilder(line));
+            content3.add(new StringBuilder(line));
             i++;
             // 把所有内容在一行显示
             line = br.readLine();
@@ -262,9 +230,9 @@ public class FileUtil {
         reader.close();
 
         Map<String, Object> map = new HashMap();
-        map.put(Constant.ORIGINAL, content1);
-        map.put(Constant.ONE_LINE, content2);
-        map.put(Constant.LIST, builderList);
+        map.put(CONSTANT.ORIGINAL, content1);
+        map.put(CONSTANT.ONE_LINE, content2);
+        map.put(CONSTANT.LIST, content3);
 
         return map;
     }
@@ -273,17 +241,20 @@ public class FileUtil {
         return new File(path).isFile();
     }
 
+    public static boolean isDir(String path) {
+        return new File(path).isDirectory();
+    }
+
     /**
      * 获取路径下所有文件夹
      *
      * @param path
      * @return
      */
-    LinkedList<String> list = new LinkedList<>();
 
-    public LinkedList<String> getFileNameAndDirectory(String path) throws Exception {
-        FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+    public static LinkedList<String> getFileNameAndDirectory(String path) throws Exception {
+        LinkedList<String> list = new LinkedList<>();
+        path = convertToPath(path);
 
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
         File file = new FileSystemResource(path).getFile();
@@ -303,6 +274,7 @@ public class FileUtil {
                 list.add(files[i].getPath());
             }
         }
+        list.add("");
         return list;
     }
 
@@ -380,11 +352,11 @@ public class FileUtil {
     private static String getOsType(String s) {
         String osType = "";
         if (s.startsWith("/")) {
-            osType = Constant.MAC_OS;
-        } else if (s.charAt(1) == ':') {
-            osType = Constant.WINDOWS;
+            osType = CONSTANT.MAC_OS;
+        } else if (s.contains(":")) {
+            osType = CONSTANT.WINDOWS;
         } else {
-            osType = Constant.UNKNOWN;
+            osType = CONSTANT.UNKNOWN;
         }
         return osType;
     }
@@ -459,7 +431,7 @@ public class FileUtil {
     //check file and dir status
     public static boolean fileStatus(String path, String fileName) {
         FileUtil fileUtil = new FileUtil();
-        path = fileToPath(path);
+        path = convertToPath(path);
         //check dir exist
         File folder = new File(path);
         if (!folder.exists() && !folder.isDirectory()) {
@@ -674,7 +646,7 @@ public class FileUtil {
         ArrayList<String> dirctorys = new ArrayList<String>();
         File directory = new File(folderPath);
         if (!directory.isDirectory()) {
-            folderPath = fileToPath(folderPath);
+            folderPath = convertToPath(folderPath);
         }
         if (directory.isDirectory()) {
             File[] filelist = directory.listFiles();
@@ -705,7 +677,7 @@ public class FileUtil {
     public static ArrayList<Object> getFilePaths(String folderPath) {
         File directory = new File(folderPath);
         if (!directory.isDirectory()) {
-            folderPath = fileToPath(folderPath);
+            folderPath = convertToPath(folderPath);
         } else {
             //首先将第一层目录扫描一遍
             File[] files = directory.listFiles();
@@ -734,7 +706,6 @@ public class FileUtil {
                 }
             }
         }
-
         return scanFiles;
     }
 

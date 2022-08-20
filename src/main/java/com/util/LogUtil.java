@@ -25,7 +25,7 @@ public class LogUtil {
 
     public static void removeRedundantLogExt(String path, List<String> ls) throws Exception {
         int i = 0;
-        path = FileUtil.fileToPath(path);
+        path = FileUtil.convertToPath(path);
         ArrayList<String> newls = new ArrayList<>();
         for (String fs : ls) {
             if (FileUtil.isFile(path + fs)) {
