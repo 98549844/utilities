@@ -1,12 +1,11 @@
 package com.entity.dao.hibernate;
 
-import com.entity.dao.base.baseEntity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
-public class Users extends baseEntity implements Serializable {
+public class Users implements Serializable {
 
     private Long userId;
     private String password;

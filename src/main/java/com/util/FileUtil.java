@@ -19,6 +19,10 @@ public class FileUtil {
 
     public static final String FOLDERLIST = "FOLDERLIST";
     public static final String FILELIST = "FILELIST";
+    public static final String ORIGINAL = "ORIGINAL";
+    public static final String ONE_LINE = "ONE_LINE";
+    public static final String LIST = "LIST";
+
 
     public static Map getFolderList(String path) {
         File file = new File(path);
@@ -230,9 +234,9 @@ public class FileUtil {
         reader.close();
 
         Map<String, Object> map = new HashMap();
-        map.put(CONSTANT.ORIGINAL, content1);
-        map.put(CONSTANT.ONE_LINE, content2);
-        map.put(CONSTANT.LIST, content3);
+        map.put(FileUtil.ORIGINAL, content1.toString());
+        map.put(FileUtil.ONE_LINE, content2.toString());
+        map.put(FileUtil.LIST, content3);
 
         return map;
     }
