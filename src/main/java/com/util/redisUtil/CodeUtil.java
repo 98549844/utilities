@@ -1,9 +1,7 @@
 package com.util.redisUtil;
 
-import com.alibaba.excel.util.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +45,7 @@ public class CodeUtil {
 
     }
 
-    public static List<String> getDecodeList() {
+    private static List<String> getDecodeList() {
         List<String> list = new ArrayList();
         list.add("gbk");
         list.add("utf-8");
