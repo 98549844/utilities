@@ -46,7 +46,8 @@ public class TextUtil {
         //设置训练文件目录
         tesseracts.setDatapath("src/main/resources/traineddata/");
         //设置训练语言
-        tesseracts.setLanguage("chi_sim");
+        //tesseracts.setLanguage("chi_sim");
+        tesseracts.setLanguage("chi_tra");
         log.info("Image reading ...");
         //执行转换
         String result = tesseracts.doOCR(imageFile);
@@ -58,7 +59,7 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-         getTextImage("src/main/resources/file/images/111.jpg");
+         getTextImage("src/main/resources/file/images/img_2.png");
 
 
     }
