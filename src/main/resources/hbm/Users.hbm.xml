@@ -3,9 +3,9 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.entity.dao.hibernate.Users"
-           table="test">
+           table="users">
         <id name="userId" type="java.lang.Long">
-            <column name="id"/>
+            <column name="userId"/>
             <generator class="identity"/>
         </id>
         <property name="password" type="java.lang.String">
@@ -33,11 +33,6 @@
                 <comment>email</comment>
             </column>
         </property>
-        <property name="email" type="java.lang.String">
-            <column name="email">
-                <comment>email</comment>
-            </column>
-        </property>
         <property name="mobile" type="java.lang.String">
             <column name="mobile">
                 <comment>mobile</comment>
@@ -48,16 +43,12 @@
                 <comment>gender</comment>
             </column>
         </property>
-        <property name="birthday" type="java.time.LocalDateTime">
-            <column name="birthday">
+        <property name="dateOfBirth" type="java.time.LocalDateTime">
+            <column name="dateOfBirth">
                 <comment>birthday</comment>
             </column>
         </property>
-        <property name="email" type="java.lang.String">
-            <column name="email">
-                <comment>email</comment>
-            </column>
-        </property>
+
         <property name="age" type="java.lang.Long">
             <column name="age">
                 <comment>age</comment>
@@ -71,11 +62,6 @@
         <property name="status" type="java.lang.String">
             <column name="status">
                 <comment>status</comment>
-            </column>
-        </property>
-        <property name="email" type="java.lang.String">
-            <column name="email">
-                <comment>email</comment>
             </column>
         </property>
         <property name="domain" type="java.lang.String">
@@ -108,6 +94,5 @@
                 <comment>expireDate</comment>
             </column>
         </property>
-
     </class>
 </hibernate-mapping>

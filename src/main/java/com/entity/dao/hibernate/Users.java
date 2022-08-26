@@ -26,7 +26,9 @@ public class Users implements Serializable {
 
     private String gender;
 
-    private LocalDateTime birthday;
+
+    //   private LocalDateTime birthday;
+    private LocalDateTime dateOfBirth;
     private long age = 0l;
 
     private LocalDateTime loginDateTime;
@@ -112,13 +114,13 @@ public class Users implements Serializable {
         this.gender = gender;
     }
 
-    public LocalDateTime getBirthday() {
+/*    public LocalDateTime getBirthday() {
         return birthday;
     }
 
     public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
-    }
+    }*/
 
     public String getDomain() {
         return domain;
@@ -191,4 +193,13 @@ public class Users implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
 }

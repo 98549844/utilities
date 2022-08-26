@@ -23,6 +23,10 @@ public class TextUtil {
     private static final Logger log = LogManager.getLogger(TextUtil.class.getName());
 
 
+    public static final String SIMPLE = "chi_sim";
+    public static final String TRADITIONAL = "chi_tra";
+    public static final String ENGLISH = "eng";
+
     /**
      * 读取图片的文字拼输出
      *
@@ -31,7 +35,7 @@ public class TextUtil {
      * @throws IOException
      * @throws TesseractException
      */
-    public static String getTextImage(String imagePath) throws IOException, TesseractException {
+    public static String getTextImage(String imagePath, String lang) throws IOException, TesseractException {
 
         log.info("path pattern: src/main/resources/xxx/xxx.png");
         //加载待读取图片
@@ -46,12 +50,15 @@ public class TextUtil {
         //设置训练文件目录
         tesseracts.setDatapath("src/main/resources/traineddata/");
         //设置训练语言
-        //tesseracts.setLanguage("chi_sim");
-        tesseracts.setLanguage("chi_tra");
+        //String lang = TextUtil.SIMPLE;
+        //String lang = TextUtil.TRADITIONAL;
+        tesseracts.setLanguage(lang);
         log.info("Image reading ...");
         //执行转换
         String result = tesseracts.doOCR(imageFile);
-        result = StringUtil.trimAll(result);
+        if (!TextUtil.ENGLISH.equals(lang)) {
+            result = StringUtil.trimAll(result);
+        }
         System.out.println(result);
         log.info("Complete ! ");
         return result;
@@ -59,7 +66,7 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-         getTextImage("src/main/resources/file/images/img_2.png");
+        getTextImage("src/main/resources/file/images/img_3.png", TextUtil.ENGLISH);
 
 
     }

@@ -19,9 +19,9 @@ public class HibernateUtil {
     private Session session;
 
     public static void main(String[] args) {
-        HibernateUtil conn = new HibernateUtil();
-        Session session = conn.getConnection();
-        conn.isOpen();
+        HibernateUtil hibernateUtil = new HibernateUtil();
+        Session session = hibernateUtil.getConnection();
+        hibernateUtil.isOpen(session);
     }
 
 
@@ -82,7 +82,7 @@ public class HibernateUtil {
      * @return
      */
     public Session getConnection() {
-        if (NullUtil.isNotNull(session)) {
+        if (NullUtil.isNull(session)) {
             try {
                 StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
                 SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
