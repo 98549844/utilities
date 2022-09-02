@@ -22,7 +22,7 @@ import java.io.IOException;
 public class TextUtil {
     private static final Logger log = LogManager.getLogger(TextUtil.class.getName());
 
-
+    public static final String imagesPath = "src/main/resources/file/images/";
     public static final String SIMPLE = "chi_sim";
     public static final String TRADITIONAL = "chi_tra";
     public static final String ENGLISH = "eng";
@@ -50,24 +50,23 @@ public class TextUtil {
         //设置训练文件目录
         tesseracts.setDatapath("src/main/resources/traineddata/");
         //设置训练语言
-        //String lang = TextUtil.SIMPLE;
-        //String lang = TextUtil.TRADITIONAL;
         tesseracts.setLanguage(lang);
+        log.info("Tesseracts language: {}", lang);
         log.info("Image reading ...");
         //执行转换
         String result = tesseracts.doOCR(imageFile);
         if (!TextUtil.ENGLISH.equals(lang)) {
             result = StringUtil.trimAll(result);
         }
-        System.out.println(result);
+        System.out.println();
+        Console.println(result, Console.BOLD);
         log.info("Complete ! ");
         return result;
     }
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        getTextImage("src/main/resources/file/images/img_3.png", TextUtil.ENGLISH);
-
+        getTextImage(imagesPath + "oracle.png", TextUtil.ENGLISH);
 
     }
 }
