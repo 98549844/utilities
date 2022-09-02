@@ -22,7 +22,6 @@ import java.io.IOException;
 public class TextUtil {
     private static final Logger log = LogManager.getLogger(TextUtil.class.getName());
 
-    public static final String imagesPath = "src/main/resources/file/images/";
     public static final String SIMPLE = "chi_sim";
     public static final String TRADITIONAL = "chi_tra";
     public static final String ENGLISH = "eng";
@@ -66,7 +65,8 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        getTextImage(imagesPath + "oracle.png", TextUtil.ENGLISH);
+        String imagesPath = "src/main/resources/file/images/oracle.png";
+        getTextImage(imagesPath , TextUtil.ENGLISH);
 
     }
 }
