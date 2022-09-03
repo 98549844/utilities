@@ -7,67 +7,71 @@ import com.util.entity.TestEntity;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.hpsf.Decimal;
 import org.apache.poi.ss.formula.functions.T;
 
+import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 public class ListUtil {
-	static private final Log log = LogFactory.getLog(ListUtil.class);
+    static private final Log log = LogFactory.getLog(ListUtil.class);
 
 
-	public static List arrayIntToList(int[] nums) {
-		return Arrays.asList(ArrayUtils.toObject(nums));
-	}
+    public static List arrayIntToList(int[] nums) {
+        return Arrays.asList(ArrayUtils.toObject(nums));
+    }
 
-	public static int getMax(List<Integer> integerList) {
-		if (NullUtil.isNull(integerList)) {
-			return 0;
-		}
-		return Collections.max(integerList);
-	}
+    public static int getMax(List<Integer> integerList) {
+        if (NullUtil.isNull(integerList)) {
+            return 0;
+        }
+        return Collections.max(integerList);
+    }
 
-	public static int getMin(List<Integer> integerList) {
-		if (NullUtil.isNull(integerList)) {
-			return 0;
-		}
-		return Collections.min(integerList);
-	}
+    public static int getMin(List<Integer> integerList) {
+        if (NullUtil.isNull(integerList)) {
+            return 0;
+        }
+        return Collections.min(integerList);
+    }
 
 
-	public static List intArrayToList(int[] i) {
-		return Arrays.stream(i).boxed().collect(Collectors.toList());
-	}
+    public static List intArrayToList(int[] i) {
+        return Arrays.stream(i).boxed().collect(Collectors.toList());
+    }
 
-	public static boolean duplicateElement(List ls) {
-		HashSet<Integer> hashSet = new HashSet<>(ls);
-		boolean duplicate = false;
+    public static boolean duplicateElement(List ls) {
+        HashSet<Integer> hashSet = new HashSet<>(ls);
+        boolean duplicate = false;
 
-		if (ls.size() != hashSet.size()) {
-			duplicate = true;
-		} else {
-			duplicate = false;
-		}
+        if (ls.size() != hashSet.size()) {
+            duplicate = true;
+        } else {
+            duplicate = false;
+        }
 
-		return duplicate;
-	}
+        return duplicate;
+    }
 
-	//根据长度把list拆分
-	public static List<List<T>> splitList(List<T> list, int len) {
-		if (NullUtil.isNull(list) || list.size() == 0 || len < 1) {
-			return null;
-		}
-		List<List<T>> result = new ArrayList<List<T>>();
-		int size = list.size();
-		int count = (size + len - 1) / len;
-		for (int i = 0; i < count; i++) {
-			List<T> subList = list.subList(i * len, ((i + 1) * len > size ? size : len * (i + 1)));
-			result.add(subList);
-		}
-		return result;
-	}
+    //根据长度把list拆分
+    public static List<List<T>> splitList(List<T> list, int len) {
+        if (NullUtil.isNull(list) || list.size() == 0 || len < 1) {
+            return null;
+        }
+        List<List<T>> result = new ArrayList<List<T>>();
+        int size = list.size();
+        int count = (size + len - 1) / len;
+        for (int i = 0; i < count; i++) {
+            List<T> subList = list.subList(i * len, ((i + 1) * len > size ? size : len * (i + 1)));
+            result.add(subList);
+        }
+        return result;
+    }
 
 //	private static boolean isNull(List ls) {
 //		boolean r = false;
@@ -78,27 +82,27 @@ public class ListUtil {
 //	}
 
 
-	public static List<T> removeDuplicate(List<T> list) {
-		if (NullUtil.isNull(list)) {
-			return null;
-		}
-		List<T> listTemp = new ArrayList();
-		for (int i = 0; i < list.size(); i++) {
-			if (!listTemp.contains(list.get(i))) {
-				listTemp.add(list.get(i));
-			}
-		}
-		return listTemp;
-	}
+    public static List<T> removeDuplicate(List<T> list) {
+        if (NullUtil.isNull(list)) {
+            return null;
+        }
+        List<T> listTemp = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            if (!listTemp.contains(list.get(i))) {
+                listTemp.add(list.get(i));
+            }
+        }
+        return listTemp;
+    }
 
-	public static List<T> deduplicate(List<T> list) {
-		if (NullUtil.isNull(list)) {
-			return null;
-		}
-		LinkedHashSet<T> hashSet = new LinkedHashSet<T>(list);
-		ArrayList<T> listWithoutDuplicates = new ArrayList<>(hashSet);
-		return listWithoutDuplicates;
-	}
+    public static List<T> deduplicate(List<T> list) {
+        if (NullUtil.isNull(list)) {
+            return null;
+        }
+        LinkedHashSet<T> hashSet = new LinkedHashSet<T>(list);
+        ArrayList<T> listWithoutDuplicates = new ArrayList<>(hashSet);
+        return listWithoutDuplicates;
+    }
 
 /*    public static List getDuplicated(List list) {
         List listTemp = new ArrayList();
@@ -111,246 +115,292 @@ public class ListUtil {
         return listTemp;
     }*/
 
-	public static Integer getMaxByList(List<Integer> list) {
-		int i = 0;
-		try {
-			if (NullUtil.isNull(list)) {
-				return i;
-			}
-			i = Collections.max(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
+    public static Integer getMaxByList(List<Integer> list) {
+        int i = 0;
+        try {
+            if (NullUtil.isNull(list)) {
+                return i;
+            }
+            i = Collections.max(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
 
-	/**
-	 * 由小到大排序
-	 *
-	 * @param list
-	 * @return
-	 */
-	public static List sortAsc(List list) {
-		Collections.sort(list);
-		return list;
-	}
-
-
-	/**
-	 * 由大到小排序
-	 *
-	 * @param list
-	 * @return
-	 */
-	public static List sortDesc(List list) {
-		Collections.sort(list);
-		int x = list.size() - 1;
-		List reverse = new ArrayList();
-		for (int i = 0; i < list.size(); i++) {
-			reverse.add(list.get(x - i));
-		}
-		return reverse;
-	}
+    /**
+     * 由小到大排序
+     *
+     * @param list
+     * @return
+     */
+    public static List sortAsc(List list) {
+        Collections.sort(list);
+        return list;
+    }
 
 
-	/**
-	 * 随机选取list的元素(重覆)
-	 *
-	 * @param ls
-	 * @param percentage
-	 * @return
-	 */
-	public static List getRandomListByPercent(List ls, Integer percentage) {
-		if (NullUtil.isNull(percentage)) {
-			return null;
-		}
-		Integer percentItems = ls.size() * percentage / 100;
-
-		List resultLs = new ArrayList();
-		SecureRandom random = new SecureRandom();
-		for (int i = 0; i < percentItems; i++) {
-			int n = random.nextInt(ls.size());
-			resultLs.add(ls.get(n));
-		}
-		return resultLs;
-	}
-
-	/**
-	 * 随机选取list的元素(不重覆)
-	 *
-	 * @param ls
-	 * @param percentage
-	 * @return
-	 */
-	public static List getRandomListByPercentNonRepeatable(List ls, Integer percentage) {
-		if (NullUtil.isNull(percentage)) {
-			return null;
-		}
-
-		Integer percentItems = ls.size() * percentage / 100;
-
-		List resultLs = new ArrayList();
-		SecureRandom random = new SecureRandom();
-		int i = 0;
-		while (resultLs.size() < percentItems) {
-			int n = random.nextInt(ls.size());
-			if (!resultLs.contains(ls.get(n))) {
-				resultLs.add(ls.get(n));
-			}
-		}
-
-		return resultLs;
-	}
-
-//	private static boolean checkNullInteger(Integer percentage) {
-//		if (percentage == null) {
-//			System.out.println("Parameter are not require, please check!");
-//			return false;
-//		}
-//		return true;
-//	}
-
-	/**
-	 * just a sample
-	 * need override
-	 */
-	public static void sortListByGuava(List<TestEntity> testList) {
-		if (testList == null) {
-			testList = DataGenerator.getTestEntity();
-		}
-		int size = testList.size();
-		System.out.println("********before sorting");
-		for (int i = 0; i < size; i++) {
-			if (i % 10 != 0) {
-				System.out.print(testList.get(i).getId() + " ; ");
-			} else {
-				System.out.println();
-			}
-		}
-		System.out.println("");
-		System.out.println("********after sorting");
-
-		Ordering<TestEntity> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<TestEntity, Integer>() {
-			//  @com.sun.istack.Nullable
-			@Override
-			public Integer apply(TestEntity testEntity) {
-				return testEntity.getId();
-			}
-		});
-		testList.sort(ordering);
-
-		for (int i = 0; i < size; i++) {
-			if (i % 10 != 0) {
-				System.out.print(testList.get(i).getId() + " ; ");
-			} else {
-				System.out.println();
-			}
-		}
-	}
-
-	/**
-	 * just a sample
-	 * need override
-	 */
-	public static void sortListByCollections(List<TestEntity> testList) {
-		if (testList == null) {
-			testList = DataGenerator.getTestEntity();
-		}
-		int size = testList.size();
-		System.out.println("********before sorting");
-		for (int i = 0; i < size; i++) {
-			if (i % 10 != 0) {
-				System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
-			} else {
-				System.out.println();
-			}
-		}
-		System.out.println("");
-		System.out.println("********after sorting");
+    /**
+     * 由大到小排序
+     *
+     * @param list
+     * @return
+     */
+    public static List sortDesc(List list) {
+        Collections.sort(list);
+        int x = list.size() - 1;
+        List reverse = new ArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            reverse.add(list.get(x - i));
+        }
+        return reverse;
+    }
 
 
-		//compare函数的返回值-1, 1, 0
-		//-1表示两个数位置交换，1表示不交换，0岂不是没有什么存在意义
-		Collections.sort(testList, new Comparator<TestEntity>() {
-			@Override
-			public int compare(TestEntity o1, TestEntity o2) {
-				int i = 0;
-				if (i == 0) {
-					i = o1.getUserName().compareTo(o2.getUserName());
-				}
+    /**
+     * 随机选取list的元素(重覆)
+     *
+     * @param ls
+     * @param percentage
+     * @return
+     */
+    public static List getRandomListByPercent(List ls, Integer percentage) {
+        if (NullUtil.isNull(percentage)) {
+            return null;
+        }
+        Integer percentItems = ls.size() * percentage / 100;
 
-				if (i == 0) {
-					i = o1.getId().compareTo(o2.getId());
-				}
-				return i;
-			}
-		});
+        List resultLs = new ArrayList();
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < percentItems; i++) {
+            int n = random.nextInt(ls.size());
+            resultLs.add(ls.get(n));
+        }
+        return resultLs;
+    }
 
-		for (int i = 0; i < size; i++) {
-			if (i % 10 != 0) {
-				System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
-			} else {
-				System.out.println();
-			}
-		}
-	}
+    /**
+     * 随机选取list的元素(不重覆)
+     *
+     * @param ls
+     * @param percentage
+     * @return
+     */
+    public static List getRandomListByPercentNonRepeatable(List ls, Integer percentage) {
+        if (NullUtil.isNull(percentage)) {
+            return null;
+        }
 
-	public String listToString(List list, String separator) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < list.size(); i++) {
-			sb.append(list.get(i)).append(separator);
-		}
-		String result = list.isEmpty() ? "" : sb.toString().substring(0, sb.toString().length() - 1);
-		System.out.println(result);
-		return result;
-	}
+        Integer percentItems = ls.size() * percentage / 100;
 
-	public static List<T> removeElementByIterator(List<T> ls, T removalVal) {
-		if (NullUtil.isNull(ls)) {
-			log.error("List is null");
-		}
-		Iterator<T> iterator = ls.iterator();
-		while (iterator.hasNext()) {
-			if (iterator.next().equals(removalVal)) {
-				iterator.remove();
-			}
-		}
-		return ls;
-	}
+        List resultLs = new ArrayList();
+        SecureRandom random = new SecureRandom();
+        int i = 0;
+        while (resultLs.size() < percentItems) {
+            int n = random.nextInt(ls.size());
+            if (!resultLs.contains(ls.get(n))) {
+                resultLs.add(ls.get(n));
+            }
+        }
 
-	public static List<T> removeElementByForloop(List<T> ls, T removalVal) {
-		if (NullUtil.isNull(ls)) {
-			log.error("List is null");
-		} else {
-			for (int i = 0; i < ls.size(); i++) {
-				if (ls.get(i).equals(removalVal)) {
-					ls.remove(i);
-					i = i - 1;
-				}
-			}
-		}
-		return ls;
-	}
-
-	public static List<T> removeElementByLoop(List<T> ls, T removalVal) {
-		if (NullUtil.isNull(ls)) {
-			log.error("List is null");
-		} else {
-			for (int i = ls.size() - 1; i >= 0; i--) {
-				if (ls.get(i).equals(removalVal)) {
-					ls.remove(i);
-				}
-			}
-		}
-		return ls;
-	}
+        return resultLs;
+    }
 
 
-	public static List stringArrayToList(String[] array) {
-		List<String> list = Arrays.asList(array);
-		return list;
-	}
+    /**
+     * just a sample
+     * need override
+     */
+    public static void sortListByGuava(List<TestEntity> testList) {
+        if (testList == null) {
+            testList = DataGenerator.getTestEntity();
+        }
+        int size = testList.size();
+        System.out.println("********before sorting");
+        for (int i = 0; i < size; i++) {
+            if (i % 10 != 0) {
+                System.out.print(testList.get(i).getId() + " ; ");
+            } else {
+                System.out.println();
+            }
+        }
+        System.out.println("");
+        System.out.println("********after sorting");
+
+        Ordering<TestEntity> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<TestEntity, Integer>() {
+            //  @com.sun.istack.Nullable
+            @Override
+            public Integer apply(TestEntity testEntity) {
+                return testEntity.getId();
+            }
+        });
+        testList.sort(ordering);
+
+        for (int i = 0; i < size; i++) {
+            if (i % 10 != 0) {
+                System.out.print(testList.get(i).getId() + " ; ");
+            } else {
+                System.out.println();
+            }
+        }
+    }
+
+    /**
+     * just a sample
+     * need override
+     */
+    public static void sortListByCollections(List<TestEntity> testList) {
+        if (testList == null) {
+            testList = DataGenerator.getTestEntity();
+        }
+        int size = testList.size();
+        System.out.println("********before sorting");
+        for (int i = 0; i < size; i++) {
+            if (i % 10 != 0) {
+                System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
+            } else {
+                System.out.println();
+            }
+        }
+        System.out.println("");
+        System.out.println("********after sorting");
+
+
+        //compare函数的返回值-1, 1, 0
+        //-1表示两个数位置交换，1表示不交换，0岂不是没有什么存在意义
+        Collections.sort(testList, new Comparator<TestEntity>() {
+            @Override
+            public int compare(TestEntity o1, TestEntity o2) {
+                int i = 0;
+                if (i == 0) {
+                    i = o1.getUserName().compareTo(o2.getUserName());
+                }
+
+                if (i == 0) {
+                    i = o1.getId().compareTo(o2.getId());
+                }
+                return i;
+            }
+        });
+
+        for (int i = 0; i < size; i++) {
+            if (i % 10 != 0) {
+                System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
+            } else {
+                System.out.println();
+            }
+        }
+    }
+
+    public String listToString(List list, String separator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i)).append(separator);
+        }
+        String result = list.isEmpty() ? "" : sb.toString().substring(0, sb.toString().length() - 1);
+        System.out.println(result);
+        return result;
+    }
+
+    public static List<T> removeElementByIterator(List<T> ls, T removalVal) {
+        if (NullUtil.isNull(ls)) {
+            log.error("List is null");
+        }
+        Iterator<T> iterator = ls.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().equals(removalVal)) {
+                iterator.remove();
+            }
+        }
+        return ls;
+    }
+
+    public static List<T> removeElementByForloop(List<T> ls, T removalVal) {
+        if (NullUtil.isNull(ls)) {
+            log.error("List is null");
+        } else {
+            for (int i = 0; i < ls.size(); i++) {
+                if (ls.get(i).equals(removalVal)) {
+                    ls.remove(i);
+                    i = i - 1;
+                }
+            }
+        }
+        return ls;
+    }
+
+    public static List<T> removeElementByLoop(List<T> ls, T removalVal) {
+        if (NullUtil.isNull(ls)) {
+            log.error("List is null");
+        } else {
+            for (int i = ls.size() - 1; i >= 0; i--) {
+                if (ls.get(i).equals(removalVal)) {
+                    ls.remove(i);
+                }
+            }
+        }
+        return ls;
+    }
+
+
+    public static List stringArrayToList(String[] array) {
+        List<String> list = Arrays.asList(array);
+        return list;
+    }
+
+
+    public static void printListObjectSet(List list) {
+        if (NullUtil.isNull(list)) {
+            log.error("List is null");
+            return;
+        }
+        List<Object[]> ls = list;
+        log.info("List<Object[]> printing ...");
+        for (Object[] objs : ls) {
+            for (Object o : objs) {
+                if (o instanceof String) {
+                    String result = (String) o;
+                    log.info("type: String ; value: " + result);
+                } else if (o instanceof Long) {
+                    Long result = (Long) o;
+                    log.info("type: Long ; value: " + result);
+                } else if (o instanceof BigInteger) {
+                    BigInteger result = (BigInteger) o;
+                    log.info("type: BigInteger ; value: " + result);
+                } else if (o instanceof Decimal) {
+                    Decimal result = (Decimal) o;
+                    log.info("type: Decimal ; value: " + result);
+                } else if (o instanceof Integer) {
+                    Integer result = (Integer) o;
+                    log.info("type: Integer ; value: " + result);
+                } else if (o instanceof Double) {
+                    Double result = (Double) o;
+                    log.info("type: Double ; value: " + result);
+                } else if (o instanceof Float) {
+                    Float result = (Float) o;
+                    log.info("type: Float ; value: " + result);
+                } else if (o instanceof Boolean) {
+                    Boolean result = (Boolean) o;
+                    log.info("type: Boolean ; value: " + result);
+                } else if (o instanceof Date) {
+                    Date result = (Date) o;
+                    log.info("type: Date ; value: " + result);
+                } else if (o instanceof LocalDate) {
+                    LocalDate result = (LocalDate) o;
+                    log.info("type: LocalDate ; value: " + result);
+                } else if (o instanceof LocalDateTime) {
+                    LocalDateTime result = (LocalDateTime) o;
+                    log.info("type: LocalDateTime ; value: " + result);
+                } else if (o == null) {
+                    log.info("Object value is NULL !");
+                } else {
+                    log.info("type: UNKNOWN ; value: " + o);
+                }
+            }
+            log.info(Console.LINE);
+        }
+        log.info("List<Object[]> print completed !");
+    }
 }
-
 
 
