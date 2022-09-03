@@ -1,8 +1,6 @@
 package com.entity.dao.hibernate;
 
 
-//import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 

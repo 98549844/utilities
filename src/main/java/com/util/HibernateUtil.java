@@ -18,12 +18,20 @@ public class HibernateUtil {
 
     private Session session;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.getConnection();
-        hibernateUtil.isOpen(session);
-    }
+        hibernateUtil.isOpen();
+        String sql = "select userAccount , username from users";
+        List sqlResult = hibernateUtil.getResultSetBySQL(sql);
 
+        for (int i = 0; i < sqlResult.size(); i++) {
+            //Object o = result.get(i);
+            System.out.println(sqlResult.get(i).getClass().getFields());
+            System.out.println(sqlResult.get(i).getClass().getPackageName());
+        }
+        hibernateUtil.close();
+    }
 
     /**
      * default create session
@@ -281,7 +289,7 @@ public class HibernateUtil {
      * @param sql
      * @return
      */
-    public List getResultSetBySQL(String sql) {
+    public List<Object> getResultSetBySQL(String sql) {
         Query query = session.createSQLQuery(sql);
         List entityList = query.getResultList();
         return entityList;
