@@ -27,16 +27,16 @@ public class CodeUtil {
 
     public static void main(String[] args) throws IOException {
 
-        List ls = getDecodeList();
+        List<String> ls = getDecodeList();
 
-        for (Object decode : ls) {
+        for (String decode : ls) {
 
             File file = new File(path);
             InputStream input = new FileInputStream(file);
             StringBuffer buffer = new StringBuffer();
             byte[] bytes = new byte[1024];
             for (int n; (n = input.read(bytes)) != -1; ) {
-                buffer.append(new String(bytes, 0, n, (String) decode));
+                buffer.append(new String(bytes, 0, n, decode));
             }
             System.out.println(buffer);
 
@@ -45,8 +45,9 @@ public class CodeUtil {
 
     }
 
+
     private static List<String> getDecodeList() {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         list.add("gbk");
         list.add("utf-8");
         list.add("iso-8859-1");
