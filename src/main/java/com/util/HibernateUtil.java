@@ -30,6 +30,8 @@ public class HibernateUtil {
         for (int i = 0; i < sqlResult.size(); i++) {
             Object[] m = sqlResult.get(i);
             System.out.println(m[0]);
+            System.out.println(m[1]);
+            System.out.println(Console.LINE);
         }
         hibernateUtil.close();
     }
@@ -280,9 +282,9 @@ public class HibernateUtil {
      * @param hql
      * @return
      */
-    public List getResultSetByHQL(String hql) {
+    public List<Object[]> getResultSetByHQL(String hql) {
         Query query = session.createQuery(hql);
-        List entityList = query.list();
+        List<Object[]> entityList = query.list();
         return entityList;
     }
 

@@ -10,6 +10,7 @@ public class Console {
     // 或者
     //  private static final Logger log = LogManager.getLogger(MyApp.class.getName());
 
+    public static final String LINE = "----------------------------------------";
     public static final int WHITE = 30;             // 白色
     public static final int WHITE_BACKGROUND = 40;  // 白色背景
     public static final int RED = 31;               // 红色
