@@ -10,7 +10,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class HibernateUtil {
@@ -23,12 +25,11 @@ public class HibernateUtil {
         Session session = hibernateUtil.getConnection();
         hibernateUtil.isOpen();
         String sql = "select userAccount , username from users";
-        List sqlResult = hibernateUtil.getResultSetBySQL(sql);
+        List<Object[]> sqlResult = hibernateUtil.getResultSetBySQL(sql);
 
         for (int i = 0; i < sqlResult.size(); i++) {
-            //Object o = result.get(i);
-            System.out.println(sqlResult.get(i).getClass().getFields());
-            System.out.println(sqlResult.get(i).getClass().getPackageName());
+            Object[] m = sqlResult.get(i);
+            System.out.println(m[0]);
         }
         hibernateUtil.close();
     }
@@ -289,9 +290,9 @@ public class HibernateUtil {
      * @param sql
      * @return
      */
-    public List<Object> getResultSetBySQL(String sql) {
+    public List<Object[]> getResultSetBySQL(String sql) {
         Query query = session.createSQLQuery(sql);
-        List entityList = query.getResultList();
+        List<Object[]> entityList = query.getResultList();
         return entityList;
     }
 }
