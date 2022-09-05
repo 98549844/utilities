@@ -29,7 +29,6 @@ public class UtilitiesApplication {
         log.fatal("我是fatal");
         log.trace("退出程序.");
         log.traceExit();
-        return;
     }
 
 

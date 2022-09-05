@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.6.1.Final</version>
+            <version>5.6.10.Final</version>
             <!--            单独run HibernateUtil.main, 需要include jboss-logging-->
             <!--
             <exclusions>
@@ -67,11 +67,6 @@
                </exclusions>
                -->
         </dependency>
-<!--        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.29.0-GA</version>
-        </dependency>-->
 
         <!--读取图片文字, refer to textUtil-->
         <dependency>
@@ -136,7 +131,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-tiff</artifactId>
-            <version>3.7.0</version>
+            <version>3.8.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
@@ -146,12 +141,12 @@
         <dependency>
             <groupId>com.drewnoakes</groupId>
             <artifactId>metadata-extractor</artifactId>
-            <version>2.16.0</version>
+            <version>2.18.0</version>
         </dependency>
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
-            <version>0.4.14</version>
+            <version>0.4.17</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -172,44 +167,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>net.sourceforge.tess4j</groupId>-->
-        <!--            <artifactId>tess4j</artifactId>-->
-        <!--            <version>4.5.4</version>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>commons-beanutils</artifactId>-->
-        <!--                    <groupId>commons-beanutils</groupId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>pdfbox</artifactId>-->
-        <!--                    <groupId>org.apache.pdfbox</groupId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>log4j</artifactId>-->
-        <!--                    <groupId>log4j</groupId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>jna</artifactId>-->
-        <!--                    <groupId>net.java.dev.jna</groupId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>commons-logging</artifactId>-->
-        <!--                    <groupId>commons-logging</groupId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <artifactId>commons-io</artifactId>-->
-        <!--                    <groupId>commons-io</groupId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.github.junrar</groupId>
             <artifactId>junrar</artifactId>
-            <version>7.4.1</version>
+            <version>7.5.3</version>
         </dependency>
-
-
         <!-- 解压zip -->
         <dependency>
             <groupId>org.apache.ant</groupId>
@@ -222,6 +184,7 @@
     <properties>
         <!--编译文件时用UTF-8-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
@@ -254,6 +217,18 @@
     </build>
     <!--配置环境映射-->
     <profiles>
+<!--        <profile>
+            <id>jdk-1.8</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+        </profile>-->
         <profile>
             <!-- 生产环境 -->
             <id>prod</id>
