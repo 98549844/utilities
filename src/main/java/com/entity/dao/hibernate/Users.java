@@ -1,19 +1,11 @@
 package com.entity.dao.hibernate;
 
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Table(name = "users")
-@Entity
 public class Users implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(strategy = "identity", name = "id")
     private Long userId;
     private String password;
 
