@@ -20,7 +20,7 @@ public class JavaUtil {
     public static List getCurrentJdkInfo() throws IOException {
         List<String> jdkInfo = new ArrayList<>();
         String Command = "java -version";
-        log.info("Current Java Version On Mac Os");
+        log.info("Current Java Version On {}" + OsUtil.getOsName());
         Process process = Runtime.getRuntime().exec(Command);
         log.info("PID:  " + process.pid());
         String[] infos = process.info().toString().split(",");

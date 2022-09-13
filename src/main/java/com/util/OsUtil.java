@@ -23,6 +23,11 @@ public class OsUtil {
         return osName;
     }
 
+    public static String getOsName() {
+        return System.getProperties().getProperty("os.name").toUpperCase();
+    }
+
+
     public static void showAll() {
         Properties pros = System.getProperties();
         Set<Object> keys = pros.keySet();
