@@ -40,7 +40,7 @@ public class MapUtil {
 	 *
 	 * @param map
 	 */
-	public static void iterateMapKeyset(Map map) {
+	public static void iterateMapKeySet(Map map) {
 		Iterator iter = map.entrySet().iterator();
 		while (iter.hasNext()) {
 			Map.Entry entry = (Map.Entry) iter.next();

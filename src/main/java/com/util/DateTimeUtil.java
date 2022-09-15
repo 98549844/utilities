@@ -26,7 +26,7 @@ public class DateTimeUtil {
         if (time instanceof Long) {
             date = new Date((Long) time);
         } else if (time instanceof Integer) {
-            Long i = DataTypeUtil.integerToLong((Integer) time);
+            Long i = TypeUtil.integerToLong((Integer) time);
             date = new Date(i);
         } else if (time instanceof Date) {
             date = (Date) time;

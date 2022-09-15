@@ -8,8 +8,8 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 
-public class DataTypeUtil {
-    static private final Log log = LogFactory.getLog(DataTypeUtil.class);
+public class TypeUtil {
+    static private final Log log = LogFactory.getLog(TypeUtil.class);
 
 
     public static double roundUpByDigit(double d, int digit) {
@@ -214,5 +214,17 @@ public class DataTypeUtil {
     public static char[] stringToCharset(String s) {
         // char[] charArray = s.toCharArray();
         return s.toCharArray();
+    }
+
+    public static String getType(Object o) {
+        String type = o.getClass().getName();
+        log.info("Object type: " + type);
+        return type;
+    }
+
+    public static String getSimpleType(Object o) {
+        String type =  o.getClass().getSimpleName();
+        log.info("Object type: " + type);
+        return type;
     }
 }
