@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Ordering;
 import com.testDate.DataGenerator;
 import com.util.entity.TestEntity;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class ListUtil {
     static private final Log log = LogFactory.getLog(ListUtil.class);
+
+    public final static String LIST_1 = "LIST_1";
+    public final static String LIST_2 = "LIST_2";
 
 
     public static List arrayIntToList(int[] nums) {
@@ -45,6 +49,12 @@ public class ListUtil {
         return Arrays.stream(i).boxed().collect(Collectors.toList());
     }
 
+    /**
+     * 检查元素有没有重复
+     *
+     * @param ls
+     * @return
+     */
     public static boolean duplicateElement(List ls) {
         HashSet<Integer> hashSet = new HashSet<>(ls);
         boolean duplicate = false;
@@ -54,9 +64,30 @@ public class ListUtil {
         } else {
             duplicate = false;
         }
+        return duplicate;
+    }
+
+
+    /**
+     * 比较两个list是否完全相同
+     *
+     * @param
+     * @return
+     */
+/*
+    public static boolean compareList(List ls1, List ls2) {
+        HashSet<Integer> hashSet1 = new HashSet<>(ls1);
+        HashSet<Integer> hashSet2 = new HashSet<>(ls2);
+        boolean duplicate = false;
+
+        if(){
+            未完成
+        }
 
         return duplicate;
     }
+*/
+
 
     //根据长度把list拆分
     public static List<List<T>> splitList(List<T> list, int len) {
@@ -73,14 +104,6 @@ public class ListUtil {
         return result;
     }
 
-//	private static boolean isNull(List ls) {
-//		boolean r = false;
-//		if (ls == null || ls.size() == 0) {
-//			r = true;
-//		}
-//		return r;
-//	}
-
 
     public static List<T> removeDuplicate(List<T> list) {
         if (NullUtil.isNull(list)) {
@@ -95,7 +118,7 @@ public class ListUtil {
         return listTemp;
     }
 
-    public static List<T> deduplicate(List<T> list) {
+    public static List deduplicate(List list) {
         if (NullUtil.isNull(list)) {
             return null;
         }
@@ -104,11 +127,91 @@ public class ListUtil {
         return listWithoutDuplicates;
     }
 
-/*    public static List getDuplicated(List list) {
+
+    public static void main(String[] args) {
+        List<String> ls1 = new ArrayList<>();
+        List<String> ls2 = new ArrayList<>();
+        List<String> ls3 = new ArrayList<>();
+
+        ls1.add("aaa");
+        ls1.add("bbb");
+        ls1.add("ccc");
+
+        ls2.add("aaa");
+        ls2.add("xxx");
+        ls2.add("ttt");
+        ls2.add("xxx");
+        ls2.add("bbb");
+        ls2.add("aaa");
+
+        Map map = getDeduplicateElements(ls1, ls2);
+        System.out.println("map:   " + map);
+
+    }
+
+
+    /**
+     * 比较两个list, 把不相同的找出来
+     *
+     * @param ls1
+     * @param ls2
+     * @return
+     */
+    public static Map getDeduplicateElements(List ls1, List ls2) {
+        Map map = new HashMap();
+        List ls = new ArrayList();
+        for (Object obj : ls1) {
+            if (!ls2.contains(obj)) {
+                log.info("List1 独立元素: " + obj.toString());
+                ls.add(obj);
+            }
+        }
+        if (ls.size() > 0) {
+            map.put(ListUtil.LIST_1, ls);
+        }
+
+
+        ls = new ArrayList();
+        for (Object obj : ls2) {
+            if (!ls1.contains(obj)) {
+                log.info("List2 独立元素: " + obj.toString());
+                ls.add(obj);
+            }
+        }
+        if (ls.size() > 0) {
+            map.put(ListUtil.LIST_2, ls);
+        }
+
+        if (map.size() > 0) {
+            log.info("Compare result: NOT EQUAL !");
+        } else {
+            log.info("Compare result: EQUAL !");
+        }
+
+        return map;
+    }
+
+
+    /**
+     * @param list
+     * @return 重复元素list
+     */
+    public static List getDuplicated(List list) {
+        Set<T> listSet = new HashSet<>(list);
+        Collection<T> sub = CollectionUtils.subtract(list, listSet);
+        HashSet<T> hSet = new HashSet<>(sub);
+        List ls = new ArrayList<T>(hSet);
+        return ls;
+    }
+
+
+
+
+/*    public static List deduplicate(List list) {
         List listTemp = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
             if (!listTemp.contains(list.get(i))) {
-            } else {
                 listTemp.add(list.get(i));
             }
         }

@@ -37,6 +37,15 @@ public class SetUtil {
         }
     }
 
+    public static <T> Iterator<T> iterateHashSet(HashSet<T> hashSet) {
+        Iterator<T> iterator = hashSet.iterator();
+        int i = 1;
+        while (iterator.hasNext()) {
+            log.info("{}: {}", i , iterator.next());
+        }
+        return iterator;
+    }
+
     public static Object getSetFirstValue(Set set) {
         if (NullUtil.isNull(set)) {
             log.error("Set is null");
@@ -48,4 +57,6 @@ public class SetUtil {
     public static boolean compareSet(Set<T> set1, Set<T> set2) {
         return Arrays.deepEquals(new Set[]{set1}, new Set[]{set2});
     }
+
+
 }
