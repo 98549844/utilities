@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -30,13 +31,22 @@ import java.util.Iterator;
 public class ImageUtil {
     private static final Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-    final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/images/";
-    final static String src = path + "img_c.png";
-    final static String output = path.replace("images/", "output/") + "output2_s.jpg";
+    final static String src = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\images\\";
+    final static String output = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\images\\temp\\";
 
-    public static void main(String[] args) {
-        ImageUtil.compressPicForScale(src, output, 1000, 0.8, 750, 1334); // 图片小于1000kb
+    public static void main(String[] args) throws IOException {
+        List<String> ls = FileUtil.getFileNames(src);
+
     }
+
+
+    /**
+     * 压缩图片for网页显示和缓存用
+     */
+    public static void compressPicForScale(String srcPath, String desPath) throws IOException {
+        ImageUtil.compressPicForScale(desPath, desPath, 1000, 0.8, 768, 1024);
+    }
+
 
     /**
      * 根据指定大小和指定精度压缩图片
@@ -50,10 +60,12 @@ public class ImageUtil {
      * @return 目标文件路径
      */
     public static String compressPicForScale(String srcPath, String desPath, long desFileSize, double accuracy, int desMaxWidth, int desMaxHeight) {
-        if (NullUtil.isEmpty(srcPath) || NullUtil.isEmpty(srcPath)) {
+        if (NullUtil.isEmpty(srcPath) || NullUtil.isEmpty(desPath)) {
+            log.error("srcPath/desPath is empty !");
             return null;
         }
         if (!new File(srcPath).exists()) {
+            log.error("src image not found !");
             return null;
         }
         try {
@@ -80,7 +92,7 @@ public class ImageUtil {
             ByteArrayOutputStream baos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
             builder.toOutputStream(baos);
 
-            // 递归压缩，直到目标文件大小小于desFileSize
+            // 递归压缩，直到目标文件大小小于
             byte[] bytes = compressPicCycle(baos.toByteArray(), desFileSize, accuracy);
 
             // 输出到文件
@@ -156,8 +168,9 @@ public class ImageUtil {
      * @return
      * @throws IOException
      */
-    private static boolean square(String src) throws IOException {
-        File file = getTempFile(src);
+    public static boolean square(String src) throws IOException {
+        log.info("compressed and squared image store in /temp folder !");
+        File outFile = getTempFile(src);
         int width = ImageUtil.getWidth(src);
         int height = ImageUtil.getHeight(src);
 
@@ -173,24 +186,24 @@ public class ImageUtil {
         }
 
         BufferedImage bufferedImage = new BufferedImage(square, square, BufferedImage.TYPE_INT_BGR);
-        Graphics g = bufferedImage.getGraphics();//获取图片画笔
+        Graphics graphics = bufferedImage.getGraphics();//获取图片画笔
         try {
             int backgroundX = 0;//背景x坐标
             int backgroundY = 0;//背景y坐标
             int backgroundWith = square;//背景宽
             int backgroundHeight = square;//背景高
-            g.setColor(new Color(255, 255, 255));//设置画笔颜色
-            g.fillRect(backgroundX, backgroundY, backgroundWith, backgroundHeight);//填充背景，默认白色
+            graphics.setColor(new Color(255, 255, 255));//设置画笔颜色
+            graphics.fillRect(backgroundX, backgroundY, backgroundWith, backgroundHeight);//填充背景，默认白色
 
 
             Image image = ImageIO.read(new FileInputStream(src));
-            g.drawImage(image, x, y, width, height, null);
+            graphics.drawImage(image, x, y, width, height, null);
 
             String type = "jpg";
-            return ImageIO.write(bufferedImage, type, file);
+            return ImageIO.write(bufferedImage, type, outFile);
 
         } finally {
-            g.dispose();//释放画笔
+            graphics.dispose();//释放画笔
             log.info("Success");
         }
     }
@@ -270,9 +283,8 @@ public class ImageUtil {
             return;
         }
 
-        Metadata metadata;
         try {
-            metadata = JpegMetadataReader.readMetadata(new File(image));
+            Metadata metadata = JpegMetadataReader.readMetadata(new File(image));
             Iterator<Directory> it = metadata.getDirectories().iterator();
             while (it.hasNext()) {
                 Directory exif = it.next();
@@ -280,12 +292,9 @@ public class ImageUtil {
                 while (tags.hasNext()) {
                     Tag tag = tags.next();
                     System.out.println(tag);
-
                 }
             }
-        } catch (JpegProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JpegProcessingException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -296,7 +305,7 @@ public class ImageUtil {
         if (!t.exists()) {
             t.mkdirs();
         }
-        File file = new File(t.getCanonicalFile() + File.separator + "temp_" + f.getName());
+        File file = new File(t.getCanonicalFile() + File.separator + f.getName());
         return file;
     }
 

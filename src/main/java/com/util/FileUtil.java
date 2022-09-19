@@ -24,6 +24,30 @@ public class FileUtil {
     public static final String LIST = "LIST";
 
 
+    /**
+     * 转半角的函数(DBC case)<br/><br/>
+     * 全角空格为12288，半角空格为32
+     * 其他字符半角(33-126)与全角(65281-65374)的对应关系是：均相差65248
+     *
+     * @param input 任意字符串
+     * @return 半角字符串
+     */
+    public static String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == 12288) {
+                //全角空格为12288，半角空格为32
+                c[i] = (char) 32;
+                continue;
+            }
+            if (c[i] > 65280 && c[i] < 65375)
+                //其他字符半角(33-126)与全角(65281-65374)的对应关系是：均相差65248
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
+    }
+
+
     public static Map getFolderList(String path) {
         File file = new File(path);
         if (!file.isDirectory()) {
@@ -61,7 +85,6 @@ public class FileUtil {
             } else {
                 newFileName = "checked_" + fileName;
             }
-
             try {
                 fr = new FileReader(path + fileName);//读
                 fw = new FileWriter(path + newFileName);//写
@@ -70,12 +93,10 @@ public class FileUtil {
                 while ((len = fr.read(buf)) != -1) {
                     fw.write(buf, 0, len);//读几个写几个
                 }
-
                 File file = new File(path + fileName);
                 if (NullUtil.isNotNull(delFile) && delFile && file.exists()) {
                     file.delete();
                 }
-
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -99,22 +120,9 @@ public class FileUtil {
         log.info("File writing complete !!!");
     }
 
-    private static String addDotIfMissing(String ext) throws Exception {
-        boolean isExist = NullUtil.isNotNull(ext);
-        if (isExist) {
-            if (ext.startsWith(".")) {
-                return ext;
-            } else {
-                return "." + ext;
-            }
-        } else {
-            throw new Exception();
-        }
-    }
 
     public static void renameFilesName(String path, List<String> newNameList) throws Exception {
         log.info("Start rename file");
-
         path = convertToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
         if (fileList.size() != newNameList.size()) {
@@ -131,6 +139,20 @@ public class FileUtil {
             oldFile.renameTo(newFile);
         }
         log.info("Finish rename file");
+    }
+
+
+    private static String addDotIfMissing(String ext) throws Exception {
+        boolean isExist = NullUtil.isNotNull(ext);
+        if (isExist) {
+            if (ext.startsWith(".")) {
+                return ext;
+            } else {
+                return "." + ext;
+            }
+        } else {
+            throw new Exception();
+        }
     }
 
     public static void renameFilesExt(String path, String newExt) throws Exception {
@@ -201,12 +223,28 @@ public class FileUtil {
     }
 
 
+    public static String getText(String src) throws IOException {
+        String path = src;//文件路径
+        File file = new File(path); // 要读取以上路径的test.txt文件
+        System.out.println(file.getName());
+        byte[] bytes = new byte[1024];
+        StringBuffer sb = new StringBuffer();
+        FileInputStream input = new FileInputStream(file);
+        int len;
+        while ((len = input.read(bytes)) != -1) {
+            sb.append(new String(bytes, 0, len));
+        }
+        System.out.println(sb);
+        input.close();
+        return sb.toString();
+
+    }
+
     public static Map<String, Object> read(String path) throws IOException {
         if (!isFile(path)) {
             log.warn("CANT read this file, please check !");
             return null;
         }
-
         File f = new File(path);
         // 建立一个输入流对象reader
         InputStreamReader reader = new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8);
@@ -219,8 +257,7 @@ public class FileUtil {
         StringBuilder content1 = new StringBuilder();
         StringBuilder content2 = new StringBuilder();
         List<StringBuilder> content3 = new LinkedList<>();
-        while (NullUtil.isNotNull(line)) {
-
+        while (NullUtil.isNotNull(line) || "".equals(line)) {
             // 一次读入一行数据,并显示行数
             // content1.append(i + ". ");
             content1.append(line + System.getProperty("line.separator"));
@@ -259,7 +296,6 @@ public class FileUtil {
     public static LinkedList<String> getFileNameAndDirectory(String path) throws Exception {
         LinkedList<String> list = new LinkedList<>();
         path = convertToPath(path);
-
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
@@ -308,7 +344,6 @@ public class FileUtil {
             }
             // Shift the next lines upwards.
             long readPosition = raf.getFilePointer();
-
             byte[] buff = new byte[1024];
             int n;
             while (-1 != (n = raf.read(buff))) {
@@ -365,7 +400,25 @@ public class FileUtil {
         return osType;
     }
 
-    public void write(String filePath, String fileName, Object obj) {
+
+    public static boolean rewrite(String filepath, String Content) {
+        boolean flag = false;
+        try {
+            //写入的txt文档的路径
+            PrintWriter pw = new PrintWriter(filepath);
+            //写入的内容
+            pw.write(Content);
+            pw.flush();
+            pw.close();
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+
+    public static void write(String filePath, String fileName, Object obj) {
         if (NullUtil.isNull(obj)) {
             log.info("Object is null, File writing exist !");
             return;

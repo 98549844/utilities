@@ -31,8 +31,9 @@ public class SetUtil {
 
     public static <T extends Number> void iterateSet(Set<T> tSet) {
         Iterator<T> iterator = tSet.iterator();
+        int i = 1;
         while (iterator.hasNext()) {
-            log.info("1: " + iterator.next());
+            log.info("{}: {}", i , iterator.next());
         }
     }
 
