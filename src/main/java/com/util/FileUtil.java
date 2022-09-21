@@ -41,16 +41,23 @@ public class FileUtil {
                 continue;
             }
             if (c[i] > 65280 && c[i] < 65375)
-                //其他字符半角(33-126)与全角(65281-65374)的对应关系是：均相差65248
+                //其他字符半角(33-126)与全角(65281-65374)的对应关系是:均相差65248
                 c[i] = (char) (c[i] - 65248);
         }
         return new String(c);
     }
 
 
-    public static Map getFolderList(String path) {
+    public static boolean exist(String path) {
+        return new File(path).exists();
+    }
+
+
+    public static Map getCurrentFolderList(String path) {
+        log.info("get current file and folder list !!!");
+
         File file = new File(path);
-        if (!file.isDirectory()) {
+        if (exist(path) || !file.isDirectory()) {
             log.warn("Path  incorrect, please check !");
         }
         File[] files = file.listFiles();
@@ -69,11 +76,40 @@ public class FileUtil {
         return map;
     }
 
+    /**
+     * current folder and subfolder
+     *
+     * @param path
+     * @return
+     */
+    public static LinkedList getAllFolderList(String path) {
+        LinkedList<String> list = new LinkedList<>();
+        path = convertToPath(path);
+        //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
+        File file = new FileSystemResource(path).getFile();
+        // 获取路径下的所有文件及文件夹
+        File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) {
+                // 如果还是文件夹 递归获取里面的文件 文件夹
+                //add dir into list
+                list.add(files[i].getPath());
+                list.addAll(getAllFolderList(files[i].getPath()));
+            }
+        }
+        return list;
+    }
+
 
     /**
      * 用缓冲区读写，来提升读写效率。
      */
     public static void CopyFileWithNewExt(String path, List<String> fileNames, String ext, Boolean delFile) {
+        if (!exist(path)) {
+            log.error("Directory not exist or incorrect !!!");
+            return;
+        }
+
         path = convertToPath(path);
         log.info("Start copying file ...");
         for (String fileName : fileNames) {
@@ -208,7 +244,7 @@ public class FileUtil {
 
     public static ArrayList<String> getFileNames(String path) throws IOException {
         path = convertToPath(path);
-        log.info("Directory: {}", path);
+        log.info("Directory: => {}", path);
 
         ArrayList<String> files = new ArrayList<String>();
         File file = new File(path);
@@ -216,7 +252,21 @@ public class FileUtil {
         for (int i = 0; i < tempLists.length; i++) {
             if (tempLists[i].isFile() && !tempLists[i].getName().equals(".DS_Store")) {
                 files.add(tempLists[i].getName());//file name
-                // files.add(tempLists[i].toString());//full path
+            }
+        }
+        return files;
+    }
+
+    public static ArrayList<String> getFullFileNames(String path) throws IOException {
+        path = convertToPath(path);
+        log.info("Directory: => {}", path);
+
+        ArrayList<String> files = new ArrayList<String>();
+        File file = new File(path);
+        File[] tempLists = file.listFiles();
+        for (int i = 0; i < tempLists.length; i++) {
+            if (tempLists[i].isFile() && !tempLists[i].getName().equals(".DS_Store")) {
+                files.add(tempLists[i].toString());//full path
             }
         }
         return files;
@@ -286,14 +336,65 @@ public class FileUtil {
         return new File(path).isDirectory();
     }
 
+
+    public static void main(String[] args) throws Exception {
+        String path = "src/main/java/com/entity/dao/hibernate";
+        List aa = getFullFileNames(path);
+
+
+        Map a = getFileNamesMap(path);
+
+        System.out.println("");
+
+
+    }
+
+    /**
+     * accord path to get contented file name
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static Map getFileNamesMap(String path) throws IOException {
+        List<String> ls = getAllFolderList(path);
+        Map<String, List<String>> result = new HashMap();
+        for (int i = 0; i < ls.size(); i++) {
+            String folder = ls.get(i);
+            List<String> files = getFileNames(folder);
+            result.put(folder, files);
+        }
+        return result;
+    }
+
+
+    public static LinkedHashMap getFullPathDirTree(String path) throws IOException {
+        //   LinkedList<String> list = new LinkedList<>();
+        LinkedHashMap m = new LinkedHashMap();
+        path = convertToPath(path);
+        File file = new FileSystemResource(path).getFile();
+        // 获取路径下的所有文件及文件夹
+        File[] files = file.listFiles();
+        int size = files.length;
+        for (int i = 0; i < size; i++) {
+            if (files[i].isDirectory()) {
+                String folder = files[i].getPath();
+                m.put(folder, getFileNamesMap(folder));
+            } else {
+                m.put(i, files[i].getPath());
+            }
+        }
+        return m;
+    }
+
+
     /**
      * 获取路径下所有文件夹
      *
      * @param path
      * @return
      */
-
-    public static LinkedList<String> getFileNameAndDirectory(String path) throws Exception {
+    public static LinkedList<String> getFullPathDirList(String path) {
         LinkedList<String> list = new LinkedList<>();
         path = convertToPath(path);
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
@@ -305,16 +406,11 @@ public class FileUtil {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
                 //add dir into list
                 list.add(files[i].getPath());
-                list.addAll(getFileNameAndDirectory(files[i].getPath()));
-            }
-        }
-        for (int i = 0; i < files.length; i++) {
-            if (!files[i].isDirectory()) {
-                // add file into list
+                list.addAll(getFullPathDirList(files[i].getPath()));
+            } else {
                 list.add(files[i].getPath());
             }
         }
-        list.add("");
         return list;
     }
 
@@ -327,7 +423,7 @@ public class FileUtil {
      * @return
      * @throws IOException
      */
-    public List<String> removeLinesByLineNum(String fullPath, int lineNum) throws IOException {
+    public static List<String> removeLinesByLineNum(String fullPath, int lineNum) throws IOException {
         File file = new File(fullPath);
         List<String> strList = new ArrayList<String>();
         RandomAccessFile raf = null;
@@ -375,7 +471,7 @@ public class FileUtil {
      *
      * @param fullPath
      */
-    public void mkDirs(String fullPath) {
+    public static void mkDirs(String fullPath) {
         File f = new File(fullPath);
         if (!f.exists()) {
             f.mkdirs();
@@ -456,8 +552,8 @@ public class FileUtil {
                     outputStreamWriter.flush();
                 } else if (type.equals("List")) {
                     for (int i = 0; i < contentList.size(); i++) {
-//                        contentInBytes = contentList.get(i).toString().getBytes();
-//                        fop.write(contentInBytes);
+                        // contentInBytes = contentList.get(i).toString().getBytes();
+                        // fop.write(contentInBytes);
                         contentInBytes = contentList.get(i).toString();
                         outputStreamWriter.append(contentInBytes);
                         outputStreamWriter.flush();
@@ -658,13 +754,13 @@ public class FileUtil {
      * extension.
      */
     public static String getFileName(String f) {
-        String fname = "";
+        String fName = "";
         int i = f.lastIndexOf('.');
 
         if (i > 0 && i < f.length() - 1) {
-            fname = f.substring(0, i);
+            fName = f.substring(0, i);
         }
-        return fname;
+        return fName;
     }
 
     public static boolean delete(String file) {
