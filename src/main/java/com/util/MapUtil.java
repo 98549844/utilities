@@ -64,6 +64,19 @@ public class MapUtil {
         return ls;
     }
 
+    public static List getValueSet(Map map) {
+        Iterator iter = map.entrySet().iterator();
+        List ls = new ArrayList();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            Object key = entry.getValue();
+            ls.add(key);
+        }
+        return ls;
+    }
+
+
+
     public void printKeyValuesOnMap(Map<String, Object> map) {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String k = entry.getKey();

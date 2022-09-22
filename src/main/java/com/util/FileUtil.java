@@ -367,12 +367,36 @@ public class FileUtil {
         for (int i = 0; i < size; i++) {
             if (files[i].isDirectory()) {
                 String folder = files[i].getPath();
-                m.put(folder, getFileNamesMap(folder));
+                Map t = getFullPathDirTree(folder);
+                m.put(folder, t);
             } else {
-                m.put(i, files[i].getPath());
+                String fPath = files[i].getPath();
+                m.put(i, fPath);
             }
         }
         return m;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Map a = getFullPathDirTree("src/main/java/com/entity");
+        System.out.println();
+
+        Map b = (Map) a.get("src\\main\\java\\com\\entity\\dao");
+        Map c = (Map) b.get("src\\main\\java\\com\\entity\\dao\\hibernate");
+
+        List d = MapUtil.getValueSet(c);
+
+        for (Object t : d) {
+            System.out.println(t.toString());
+        }
+        System.out.println("-------------------");
+
+        Map b1 = (Map) a.get("src\\main\\java\\com\\entity\\vo");
+        List d1 = MapUtil.getValueSet(b1);
+
+        for (Object t : d1) {
+            System.out.println(t.toString());
+        }
     }
 
 

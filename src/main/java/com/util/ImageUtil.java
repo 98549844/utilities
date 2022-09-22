@@ -38,7 +38,7 @@ public class ImageUtil {
     /**
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
-    public static void compressPicForScale(String path)  {
+    public static void compress(String path)  {
         ImageUtil.compressPicForScale(path, path, 1000, 0.8, 1024, 1024);
     }
 
@@ -160,7 +160,6 @@ public class ImageUtil {
         String src = "src/main/resources/file/images/img_cat2.png";
         String desc = "src/main/resources/file/images/temp/img_cat2.png";
         square(src);
-        compressPicForScale(desc);
     }
 
 

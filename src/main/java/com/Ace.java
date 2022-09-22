@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname: Ace
@@ -21,8 +22,8 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
-        log.debug("File name is C:\\\\{}.", "file.zip");
-
+        Map a = FileUtil.getFullPathDirTree("src/main/java/com/entity");
+        System.out.println();
     }
 
 
