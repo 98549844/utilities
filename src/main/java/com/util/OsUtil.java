@@ -39,7 +39,8 @@ public class OsUtil {
     }
 
     public static void main(String[] args) {
-        getOsInfo();
-        showAll();
+      //  getOsInfo();
+      //  showAll();
+        System.out.println(getOsName());
     }
 }

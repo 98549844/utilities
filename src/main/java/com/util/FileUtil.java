@@ -473,10 +473,10 @@ public class FileUtil {
      * @return
      */
     private static String getOsType(String s) {
-        String osType = "";
-        if (s.startsWith("/")) {
+        String osType;
+        if (OsUtil.getOsName().contains("MAC")) {
             osType = CONSTANT.MAC_OS;
-        } else if (s.contains(":")) {
+        } else if (OsUtil.getOsName().contains("WINDOWS")) {
             osType = CONSTANT.WINDOWS;
         } else {
             osType = CONSTANT.UNKNOWN;
@@ -571,7 +571,6 @@ public class FileUtil {
 
     //check file and dir status
     public static boolean fileStatus(String path, String fileName) {
-        FileUtil fileUtil = new FileUtil();
         path = convertToPath(path);
         //check dir exist
         File folder = new File(path);
@@ -673,7 +672,7 @@ public class FileUtil {
     }
 
     private static String getFileMD5(File file) {
-        MessageDigest digest = null;
+        MessageDigest digest;
         FileInputStream in = null;
         byte[] buffer = new byte[8192];
         int len;
@@ -767,18 +766,7 @@ public class FileUtil {
     }
 
 
-    public static void main(String[] args) {
-        String z = "src/main/java/com/entity";
-        //  ArrayList<Object> a = getFilesLocation(z);
-        ArrayList<Object> a = getFilePaths(z);
-
-        for (Object q : a) {
-            System.out.println(q.toString());
-        }
-    }
-
-    private static final ArrayList<Object> scanFiles = new ArrayList<Object>();
-
+    private static final ArrayList<Object> scanFiles = new ArrayList<>();
 
     /**
      * TODO:递归扫描指定文件夹下面的文件全路径
@@ -792,17 +780,17 @@ public class FileUtil {
         File directory = new File(folderPath);
 
         if (directory.isDirectory()) {
-            File[] filelist = directory.listFiles();
-            for (int i = 0; i < filelist.length; i++) {
+            File[] fileList = directory.listFiles();
+            for (int i = 0; i < fileList.length; i++) {
                 /**如果当前是文件夹，进入递归扫描文件夹**/
-                if (filelist[i].isDirectory()) {
-                    directories.add(filelist[i].getAbsolutePath());
+                if (fileList[i].isDirectory()) {
+                    directories.add(fileList[i].getAbsolutePath());
                     /**递归扫描下面的文件夹**/
-                    getFilesLocation(filelist[i].getAbsolutePath());
+                    getFilesLocation(fileList[i].getAbsolutePath());
                 }
                 /**非文件夹**/
                 else {
-                    scanFiles.add(filelist[i].getAbsolutePath());
+                    scanFiles.add(fileList[i].getAbsolutePath());
                 }
             }
         }
