@@ -31,7 +31,12 @@ public class PathUtil {
         return file;
     }
 
-    public File getResourceFile(String resource) throws IOException {
+    /** 读取resource文内件容
+     * @param resource
+     * @return
+     * @throws IOException
+     */
+    public File getResourceContent(String resource) throws IOException {
         log.info("read file location: ace/src/main/resources");
         log.info("format: /../../xxx.xx");
         File file = new File(PathUtil.class.getResource(resource).getFile());
@@ -53,15 +58,14 @@ public class PathUtil {
             empty = "";
         }
         File directory = new File(empty);//参数为空
-        String path = directory.getCanonicalPath();
-        return path;
+        return directory.getCanonicalPath();
     }
 
     public static void main(String[] args) throws IOException {
         System.out.println(getSystemPath());
         System.out.println(getSystemPath(""));
         PathUtil pathUtil = new PathUtil();
-        pathUtil.getResourceFile("/hbm/TestEntity.hbm.xml");
+      //  pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
     }
 
 

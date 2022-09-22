@@ -31,20 +31,15 @@ import java.util.List;
 public class ImageUtil {
     private static final Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-    final static String src = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\images\\";
-    final static String output = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\images\\temp\\";
-
-    public static void main(String[] args) throws IOException {
-        List<String> ls = FileUtil.getFileNames(src);
-
-    }
+    final static String src = "src/main/resources/file/images";
+    final static String output = "src/main/resources/file/images/temp";
 
 
     /**
-     * 压缩图片for网页显示和缓存用
+     * 压缩图片并复盖原图片for网页显示和缓存用
      */
-    public static void compressPicForScale(String srcPath, String desPath) throws IOException {
-        ImageUtil.compressPicForScale(desPath, desPath, 1000, 0.8, 768, 1024);
+    public static void compressPicForScale(String path) throws IOException {
+        ImageUtil.compressPicForScale(path, path, 1000, 0.8, 768, 1024);
     }
 
 
@@ -158,6 +153,14 @@ public class ImageUtil {
     public static void resizeByRatio(String src, float f) throws IOException {
         String desc = getTempFile(src).getAbsolutePath();
         Thumbnails.of(src).scale(f).toFile(desc);
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        String src = "src/main/resources/file/images/img_cat2.png";
+        String desc = "src/main/resources/file/images/temp/img_cat2.png";
+        square(src);
+        compressPicForScale(desc);
     }
 
 
