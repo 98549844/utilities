@@ -337,18 +337,6 @@ public class FileUtil {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        String path = "src/main/java/com/entity/dao/hibernate";
-        List aa = getFullFileNames(path);
-
-
-        Map a = getFileNamesMap(path);
-
-        System.out.println("");
-
-
-    }
-
     /**
      * accord path to get contented file name
      *
@@ -779,34 +767,36 @@ public class FileUtil {
     }
 
 
+    public static void main(String[] args) {
+        String z = "src/main/java/com/entity";
+        //  ArrayList<Object> a = getFilesLocation(z);
+        ArrayList<Object> a = getFilePaths(z);
+
+        for (Object q : a) {
+            System.out.println(q.toString());
+        }
+    }
+
     private static final ArrayList<Object> scanFiles = new ArrayList<Object>();
 
 
     /**
-     * linkedList实现
-     **/
-    private static final LinkedList<File> queueFiles = new LinkedList<File>();
-
-
-    /**
-     * TODO:递归扫描指定文件夹下面的指定文件
+     * TODO:递归扫描指定文件夹下面的文件全路径
      *
      * @return ArrayList<Object>
-     * @author 邪恶小先生（LQ）
      * @time 2017年11月3日
      */
     public static ArrayList<Object> getFilesLocation(String folderPath) {
-        ArrayList<String> dirctorys = new ArrayList<String>();
+        //   ArrayList<Object> scanFiles = new ArrayList<Object>();
+        ArrayList<String> directories = new ArrayList<>();
         File directory = new File(folderPath);
-        if (!directory.isDirectory()) {
-            folderPath = convertToPath(folderPath);
-        }
+
         if (directory.isDirectory()) {
             File[] filelist = directory.listFiles();
             for (int i = 0; i < filelist.length; i++) {
                 /**如果当前是文件夹，进入递归扫描文件夹**/
                 if (filelist[i].isDirectory()) {
-                    dirctorys.add(filelist[i].getAbsolutePath());
+                    directories.add(filelist[i].getAbsolutePath());
                     /**递归扫描下面的文件夹**/
                     getFilesLocation(filelist[i].getAbsolutePath());
                 }
@@ -824,13 +814,15 @@ public class FileUtil {
      *
      * @param folderPath 需要进行文件扫描的文件夹路径
      * @return ArrayList<Object>
-     * @author 邪恶小先生（LQ）
      * @time 2017年11月3日
      */
     public static ArrayList<Object> getFilePaths(String folderPath) {
+        ArrayList<Object> scanFiles = new ArrayList<>();
+        LinkedList<File> queueFiles = new LinkedList<>();
         File directory = new File(folderPath);
         if (!directory.isDirectory()) {
-            folderPath = convertToPath(folderPath);
+            log.error("incorrect folder path !!!");
+            return null;
         } else {
             //首先将第一层目录扫描一遍
             File[] files = directory.listFiles();
