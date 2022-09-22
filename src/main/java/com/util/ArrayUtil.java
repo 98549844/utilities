@@ -3,7 +3,6 @@ package com.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -23,36 +22,19 @@ public class ArrayUtil {
 	//https://blog.csdn.net/qq_43390235/article/details/106592102
 	//Stream流之List、Integer[]、int[]相互转化
 
-	public static void main(String[] args) {
-		List a = new ArrayList();
-		a.add(4);
-		a.add(34);
-		a.add(44);
-		a.add(47);
-
-		Integer[] ss = listToIntegerArray(a);
-		for (int i = 0; i < ss.length; i++) {
-			System.out.println(ss[i]);
-		}
-	}
-
-
     public static Boolean isArray(Object obj) {
         if (NullUtil.isNull(obj)) {
             return null;
         }
-        Boolean isArray = obj.getClass().isArray();
-        return isArray;
+		return obj.getClass().isArray();
     }
 
 	public static Set arrayIntToHashSet(int[] nums) {
-		Set set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
-		return set;
+		return Arrays.stream(nums).boxed().collect(Collectors.toSet());
 	}
 
 	public static int[] listToIntArray(List<Integer> ls) {
-		int[] arr = ls.stream().mapToInt(Integer::valueOf).toArray();
-		return arr;
+		return ls.stream().mapToInt(Integer::valueOf).toArray();
 	}
 
 	public static Integer[] listToIntegerArray(List ls) {

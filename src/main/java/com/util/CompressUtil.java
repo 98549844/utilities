@@ -121,7 +121,7 @@ public class CompressUtil {
     }
 
     @Deprecated
-    public static void unRar(File rarFile, String outDir) throws Exception {
+    public static void unRAR(File rarFile, String outDir) throws Exception {
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
             boolean isMakDir = outFileDir.mkdirs();
@@ -192,7 +192,7 @@ public class CompressUtil {
     public static void main(String[] args) throws Exception {
         String f = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/a.rar";
         String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
-        unRar(new File(f), out);
+        unRAR(new File(f), out);
     }
 
 }

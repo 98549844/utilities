@@ -26,19 +26,19 @@ public class LogUtil {
     public static void removeRedundantLogExt(String path, List<String> ls) throws Exception {
         int i = 0;
         path = FileUtil.convertToPath(path);
-        ArrayList<String> newls = new ArrayList<>();
+        ArrayList<String> newLs = new ArrayList<>();
         for (String fs : ls) {
             if (FileUtil.isFile(path + fs)) {
-                String[] fset = fs.split("\\.");
+                String[] fSet = fs.split("\\.");
                 ++i;
-                String newFileName = fset[0] + "." + fset[1];
-                if (newls.contains(newFileName)) {
-                    newFileName = fset[0] + "_" + i + "." + fset[1];
+                String newFileName = fSet[0] + "." + fSet[1];
+                if (newLs.contains(newFileName)) {
+                    newFileName = fSet[0] + "_" + i + "." + fSet[1];
                 }
-                newls.add(newFileName);
+                newLs.add(newFileName);
             }
         }
-        FileUtil.renameFilesName(path, newls);
+        FileUtil.renameFilesName(path, newLs);
     }
 
 }

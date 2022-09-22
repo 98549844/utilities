@@ -38,8 +38,8 @@ public class ImageUtil {
     /**
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
-    public static void compressPicForScale(String path) throws IOException {
-        ImageUtil.compressPicForScale(path, path, 1000, 0.8, 768, 1024);
+    public static void compressPicForScale(String path)  {
+        ImageUtil.compressPicForScale(path, path, 1000, 0.8, 1024, 1024);
     }
 
 
@@ -236,7 +236,7 @@ public class ImageUtil {
      */
     public static String getImageType(String image) throws IOException {
         if (!FileUtil.isFile(image)) {
-            log.info("It is not a file");
+            log.error("File path incorrect");
             return null;
         }
         String type = null;
@@ -261,7 +261,7 @@ public class ImageUtil {
 
     public static int getWidth(String image) throws IOException {
         if (!FileUtil.isFile(image)) {
-            log.info("It is not a file");
+            log.error("File path incorrect");
             return 0;
         }
         BufferedImage imageBuff = ImageIO.read(new FileInputStream(image));
@@ -271,7 +271,7 @@ public class ImageUtil {
 
     public static int getHeight(String image) throws IOException {
         if (!FileUtil.isFile(image)) {
-            log.info("It is not a file");
+            log.error("File path incorrect");
             return 0;
         }
         BufferedImage imageBuff = ImageIO.read(new FileInputStream(image));
@@ -282,7 +282,7 @@ public class ImageUtil {
 
     public static void ImageInfo(String image) throws IOException, JpegProcessingException {
         if (!FileUtil.isFile(image)) {
-            log.info("It is not a file");
+            log.error("File path incorrect");
             return;
         }
 
