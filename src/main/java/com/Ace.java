@@ -1,13 +1,16 @@
 package com;
 
+import com.google.gson.internal.LinkedTreeMap;
 import com.util.FileUtil;
 import com.util.JsonUtil;
+import org.apache.hadoop.util.LightWeightGSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.lang.model.element.Element;
+import javax.persistence.Table;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Classname: Ace
@@ -22,8 +25,10 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
-        Map a = FileUtil.getFullPathDirTree("src/main/java/com/entity");
-        System.out.println();
+        LinkedList b = new LinkedList();
+        LinkedHashSet c = new LinkedHashSet();
+        LinkedTreeMap t = new LinkedTreeMap<>();
+
     }
 
 

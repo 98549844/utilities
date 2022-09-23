@@ -377,7 +377,9 @@ public class FileUtil {
         return m;
     }
 
-    public static void main(String[] args) throws IOException {
+
+
+    private static void testGetFullPathDirTree(String[] args) throws IOException {
         Map a = getFullPathDirTree("src/main/java/com/entity");
         System.out.println();
 
@@ -789,8 +791,30 @@ public class FileUtil {
         return isSuccess;
     }
 
+    public static void main(String[] args) throws IOException {
+        FileUtil fileUtil = new FileUtil();
+        List a = fileUtil.getFilesLocation("src/main/java/com/entity/dao/hibernate");
+        List b = getFilePaths("src/main/java/com/entity/dao/hibernate");
+        List c = getFullFileNames("src/main/java/com/entity/dao/hibernate");
 
-    private static final ArrayList<Object> scanFiles = new ArrayList<>();
+        for (int i = 0; i < a.size(); i++) {
+            System.out.println("non-static: " + a.get(i));
+        }
+        System.out.println("------------");
+
+        for (int i = 0; i < b.size(); i++) {
+            System.out.println("static: " + b.get(i));
+
+        }
+        System.out.println("----------");
+        for (int i = 0; i < c.size(); i++) {
+            System.out.println("getFullFileNames: " + b.get(i));
+
+        }
+    }
+
+
+    private ArrayList<Object> scanFiles = new ArrayList<>();
 
     /**
      * TODO:递归扫描指定文件夹下面的文件全路径
@@ -798,7 +822,7 @@ public class FileUtil {
      * @return ArrayList<Object>
      * @time 2017年11月3日
      */
-    public static ArrayList<Object> getFilesLocation(String folderPath) {
+    public ArrayList<Object> getFilesLocation(String folderPath) {
         //   ArrayList<Object> scanFiles = new ArrayList<Object>();
         ArrayList<String> directories = new ArrayList<>();
         File directory = new File(folderPath);

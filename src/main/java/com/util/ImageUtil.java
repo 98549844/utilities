@@ -66,7 +66,7 @@ public class ImageUtil {
         try {
             File srcFile = new File(srcPath);
             long srcFileSize = srcFile.length();
-            System.out.println("源图片：" + srcPath + "，大小：" + srcFileSize / 1024 + "kb");
+            System.out.println("源图片：" + srcPath + "，size：" + srcFileSize / 1024 + "kb");
             //获取图片信息
             BufferedImage bim = ImageIO.read(srcFile);
             int srcWidth = bim.getWidth();
@@ -96,7 +96,7 @@ public class ImageUtil {
             fos.write(bytes);
             fos.close();
 
-            System.out.println("目标图片：" + desPath + "，大小" + desFile.length() / 1024 + "kb");
+            System.out.println("目标图片：" + desPath + "，size" + desFile.length() / 1024 + "kb");
             System.out.println("图片压缩完成！");
         } catch (Exception e) {
             e.printStackTrace();
