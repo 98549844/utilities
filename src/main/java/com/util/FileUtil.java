@@ -378,7 +378,6 @@ public class FileUtil {
     }
 
 
-
     private static void testGetFullPathDirTree(String[] args) throws IOException {
         Map a = getFullPathDirTree("src/main/java/com/entity");
         System.out.println();
@@ -780,18 +779,43 @@ public class FileUtil {
         boolean isSuccess = false;
         File f = new File(file);
         if (!f.isFile()) {
-            log.error("This is not a file");
+            log.error("{} NOT a file or file not found", file);
+            return false;
         }
         if (f.exists()) {
             isSuccess = f.delete();
-            log.info("File deleted");
+            log.info("{} File deleted", f.getAbsolutePath());
         } else {
-            log.info("File not exist");
+            log.info("{} File not exist", f.getAbsolutePath());
         }
         return isSuccess;
     }
 
     public static void main(String[] args) throws IOException {
+        deletes("C:\\ACE\\images\\temp\\");
+    }
+
+
+    public static boolean deletes(String folder) throws IOException {
+        boolean isSuccess = false;
+        List<String> files = getFullFileNames(folder);
+        try {
+            for (String file : files) {
+                File f = new File(file);
+                if (f.exists()) {
+                    isSuccess = f.delete();
+                    log.info("{} File deleted", f.getAbsolutePath());
+                } else {
+                    log.info("{} File not exist", f.getAbsolutePath());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+
+    public static void main1(String[] args) throws IOException {
         FileUtil fileUtil = new FileUtil();
         List a = fileUtil.getFilesLocation("src/main/java/com/entity/dao/hibernate");
         List b = getFilePaths("src/main/java/com/entity/dao/hibernate");

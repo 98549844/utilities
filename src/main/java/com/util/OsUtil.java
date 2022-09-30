@@ -10,6 +10,10 @@ public class OsUtil {
     private final static Logger log = LogManager.getLogger(OsUtil.class.getName());
 
 
+    public static final String WINDOWS = "WINDOWS";
+    public static final String MAC = "MAC OS";
+
+
     public static String getOsInfo() {
         //Java获取当前操作系统的信息
         //https://blog.csdn.net/qq_35981283/article/details/73332040
