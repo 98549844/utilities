@@ -25,10 +25,18 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
-        LinkedList b = new LinkedList();
-        LinkedHashSet c = new LinkedHashSet();
-        LinkedTreeMap t = new LinkedTreeMap<>();
+        String a = "51b2a250-b8b0-4879-b45f-fc0d08e6c157.jpg";
+        String b = "464f2272-01c3-4d72-9e5d-0e9717d65f6e.jpg";
 
+        List<String> h = new ArrayList<>();
+        List<String> h1 = new ArrayList<>();
+        h.add(a);
+        h.add(b);
+
+        h1 = FileUtil.getNames(h);
+
+        String c = FileUtil.getName(a);
+        System.out.println(c);
     }
 
 

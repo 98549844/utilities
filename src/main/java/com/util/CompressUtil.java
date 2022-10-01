@@ -74,7 +74,7 @@ public class CompressUtil {
             }
 
             log.info("Open the output file.");
-            String outFileName = FileUtil.getFileName(inFileName);
+            String outFileName = FileUtil.getName(inFileName);
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(outFileName);

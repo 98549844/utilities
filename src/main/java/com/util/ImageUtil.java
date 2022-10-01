@@ -213,6 +213,7 @@ public class ImageUtil {
 
     /**
      * 修改原图的文件格式
+     * 要求SRC和descPath要全路径, 包括新旧文件名
      *
      * @param src        原图路径
      * @param destPath   新图路径

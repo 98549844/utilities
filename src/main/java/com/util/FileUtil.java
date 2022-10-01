@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.mozilla.universalchardet.UniversalDetector;
 import org.springframework.core.io.FileSystemResource;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -246,7 +247,7 @@ public class FileUtil {
         path = convertToPath(path);
         log.info("Directory: => {}", path);
 
-        ArrayList<String> files = new ArrayList<String>();
+        ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
         File[] tempLists = file.listFiles();
         for (int i = 0; i < tempLists.length; i++) {
@@ -765,7 +766,7 @@ public class FileUtil {
      * @return <code>String</code> representing the filename without its
      * extension.
      */
-    public static String getFileName(String f) {
+    public static String getName(String f) {
         String fName = "";
         int i = f.lastIndexOf('.');
 
@@ -773,6 +774,19 @@ public class FileUtil {
             fName = f.substring(0, i);
         }
         return fName;
+    }
+
+    /**
+     * @param ls
+     * @return
+     */
+    public static List<String> getNames(List<String> ls) {
+        List<String> result = new ArrayList<>();
+        for (String s : ls) {
+            String name = getName(s);
+            result.add(name);
+        }
+        return result;
     }
 
     public static boolean delete(String file) {
@@ -790,11 +804,6 @@ public class FileUtil {
         }
         return isSuccess;
     }
-
-    public static void main(String[] args) throws IOException {
-        deletes("C:\\ACE\\images\\temp\\");
-    }
-
 
     public static boolean deletes(String folder) throws IOException {
         boolean isSuccess = false;
@@ -914,5 +923,126 @@ public class FileUtil {
         return scanFiles;
     }
 
+
+    /** sorting: true=desc; false=asc
+     * windows的命名规则是，特殊字符（标点、符号）> 数字 > 字母顺序 > 汉字拼音
+     *
+     * @param filePath
+     */
+    public static List<String> getNamesOrderByName(String filePath, boolean sorting) {
+        File file = new File(filePath);
+        File[] files = file.listFiles();
+        List fileList = Arrays.asList(files);
+        Collections.sort(fileList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isFile()) {
+                    if (sorting) {
+                        return 1;
+                    }
+                    return -1;
+                }
+                if (o1.isFile() && o2.isDirectory()) {
+                    if (sorting) {
+                        return -1;
+                    }
+                    return 1;
+                }
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        List<String> ls = new ArrayList<>();
+        for (File f : files) {
+            System.out.println(f.getName());
+            ls.add(f.getName());
+        }
+        return ls;
+    }
+
+
+
+
+    /** sorting: true=desc; false=asc
+     * @param filePath
+     * @param sorting
+     * @return
+     */
+    //按 文件修改日期: 递增
+    public static List<String> getNamesOrderByLastModifiedDate(String filePath, boolean sorting) {
+        File file = new File(filePath);
+        File[] files = file.listFiles();
+        Arrays.sort(files, new Comparator<>() {
+            public int compare(File f1, File f2) {
+                long diff = f1.lastModified() - f2.lastModified();
+                if (diff > 0) {
+                    if (sorting) {
+                        return -1;
+                    }
+                    return 1;
+                } else if (diff == 0) {
+                    return 0;
+                } else {
+                    if (sorting) {
+                        return 1;
+                    }
+                    return -1;
+                } //如果 if 中修改为 返回-1 同时此处修改为返回 1  排序就会是递减
+            }
+
+            public boolean equals(Object obj) {
+                return true;
+            }
+        });
+
+        List<String> ls = new ArrayList<>();
+        int size = files.length;
+        for (int i = 0; i < size; i++) {
+            ls.add(files[i].getName());
+            System.out.print(files[i].getName() + " => ");
+            System.out.println(new Date(files[i].lastModified()));
+        }
+        return ls;
+    }
+
+    /**
+     * sorting: true=desc; false=asc
+     * @param filePath 按 文件大小 排序
+     */
+    public static List<String> getNamesOrderBySize(String filePath, boolean sorting) {
+        File file = new File(filePath);
+        File[] files = file.listFiles();
+        List<File> fileList = Arrays.asList(files);
+        Collections.sort(fileList, new Comparator<>() {
+            public int compare(File f1, File f2) {
+                long diff = f1.length() - f2.length();
+                if (diff > 0) {
+                    if (sorting) {
+                        return -1;
+                    }
+                    return 1;
+                } else if (diff == 0) {
+                    return 0;
+                } else {
+                    if (sorting) {
+                        return 1;
+                    }
+                    return -1;
+                }
+                //如果 if 中修改为 返回-1 同时此处修改为返回 1  排序就会是递减
+            }
+
+            public boolean equals(Object obj) {
+                return true;
+            }
+        });
+
+        List<String> ls = new ArrayList<>();
+        for (File f : files) {
+            if (f.isDirectory()) continue;
+            //System.out.println(f.getName() + "    :" + f.length());
+            ls.add(f.getName());
+        }
+        return ls;
+    }
 
 }
