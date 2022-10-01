@@ -95,6 +95,7 @@ public class ImageUtil {
             FileOutputStream fos = new FileOutputStream(desFile);
             fos.write(bytes);
             fos.close();
+            baos.close();
 
             System.out.println("目标图片：" + desPath + "，size" + desFile.length() / 1024 + "kb");
             System.out.println("图片压缩完成！");
@@ -156,11 +157,6 @@ public class ImageUtil {
     }
 
 
-    public static void main(String[] args) throws IOException {
-        String src = "src/main/resources/file/images/img_cat2.png";
-        String desc = "src/main/resources/file/images/temp/img_cat2.png";
-        square(src);
-    }
 
 
     /**
@@ -210,6 +206,9 @@ public class ImageUtil {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        compress("C:\\ACE\\images\\001.png");
+    }
 
     /**
      * 修改原图的文件格式
