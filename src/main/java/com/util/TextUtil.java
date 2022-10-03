@@ -65,7 +65,7 @@ public class TextUtil {
 
 
     public static void main(String[] args) throws TesseractException, IOException {
-        String imagesPath = "src/main/resources/file/images/img.png";
+        String imagesPath = "src/main/resources/file/images/1110.jpg";
         getTextImage(imagesPath , TextUtil.ENGLISH);
 
     }

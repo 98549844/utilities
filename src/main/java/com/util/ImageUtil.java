@@ -38,7 +38,7 @@ public class ImageUtil {
     /**
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
-    public static void compress(String path)  {
+    public static void compress(String path) {
         ImageUtil.compressPicForScale(path, path, 1000, 0.8, 1024, 1024);
     }
 
@@ -157,8 +157,6 @@ public class ImageUtil {
     }
 
 
-
-
     /**
      * 矩形图片转换成正方形
      *
@@ -166,7 +164,7 @@ public class ImageUtil {
      * @return
      * @throws IOException
      */
-    public static boolean square(String src) throws IOException {
+    public boolean square(String src) throws IOException {
         log.info("compressed and squared image store in /temp folder !");
         File outFile = getTempFile(src);
         int width = ImageUtil.getWidth(src);
@@ -198,11 +196,14 @@ public class ImageUtil {
             graphics.drawImage(image, x, y, width, height, null);
 
             String type = "jpg";
-            return ImageIO.write(bufferedImage, type, outFile);
 
-        } finally {
+            boolean result = ImageIO.write(bufferedImage, type, outFile);
             graphics.dispose();//释放画笔
             log.info("Success");
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
