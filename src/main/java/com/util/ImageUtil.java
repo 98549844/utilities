@@ -42,6 +42,17 @@ public class ImageUtil {
         ImageUtil.compressPicForScale(path, path, 1000, 0.8, 1024, 1024);
     }
 
+    public static void main(String[] args) throws IOException {
+        String ss = "C:\\ACE\\images\\";
+        List l = FileUtil.getFileNames(ss);
+        ImageUtil imageUtil = new ImageUtil();
+        for (int i = 0; i < 4; i++) {
+            String s = ss + l.get(i);
+            imageUtil.square(s);
+            compress(s);
+        }
+
+    }
 
     /**
      * 根据指定大小和指定精度压缩图片
@@ -97,7 +108,7 @@ public class ImageUtil {
             fos.close();
             baos.close();
 
-            System.out.println("目标图片：" + desPath + "，size" + desFile.length() / 1024 + "kb");
+            System.out.println("目标图片：" + desPath + "，size: " + desFile.length() / 1024 + "kb");
             System.out.println("图片压缩完成！");
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,9 +218,6 @@ public class ImageUtil {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        compress("C:\\ACE\\images\\001.png");
-    }
 
     /**
      * 修改原图的文件格式
