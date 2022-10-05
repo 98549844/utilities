@@ -39,17 +39,23 @@ public class ImageUtil {
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
     public static void compress(String path) {
-        ImageUtil.compressPicForScale(path, path, 1000, 0.8, 1024, 1024);
+        ImageUtil.compressPicForScale(path, path, 1000, 0.6, 768, 768);
     }
 
     public static void main(String[] args) throws IOException {
         String ss = "C:\\ACE\\images\\";
         List l = FileUtil.getFileNames(ss);
+        for (int i = 0; i < l.size(); i++) {
+            File f = new File(ss);
+            f.delete();
+        }
+
         ImageUtil imageUtil = new ImageUtil();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < l.size(); i++) {
             String s = ss + l.get(i);
+            // rotation(s, 90);
             imageUtil.square(s);
-            compress(s);
+            // compress(s);
         }
 
     }
@@ -152,8 +158,8 @@ public class ImageUtil {
      *
      * @throws IOException
      */
-    public static void rotation(String src, int rotate) throws IOException {
-        String desc = getTempFile(src).getAbsolutePath();
+    public static void rotation(String src, String desc, int rotate) throws IOException {
+        //String desc = new File(src).getAbsolutePath();
         Thumbnails.of(src).scale(1).rotate(rotate).toFile(desc);
     }
 
@@ -204,6 +210,7 @@ public class ImageUtil {
 
 
             Image image = ImageIO.read(new FileInputStream(src));
+            /* ???hgf*/
             graphics.drawImage(image, x, y, width, height, null);
 
             String type = "jpg";
