@@ -18,6 +18,12 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.swing.ImageIcon;
 
 
 /**
@@ -31,34 +37,15 @@ import java.util.List;
 public class ImageUtil {
     private static final Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-    final static String src = "src/main/resources/file/images";
-    final static String output = "src/main/resources/file/images/temp";
-
 
     /**
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
     public static void compress(String path) {
         ImageUtil.compressPicForScale(path, path, 1000, 0.6, 768, 768);
+        log.info("Compress success !!!");
     }
 
-    public static void main(String[] args) throws IOException {
-        String ss = "C:\\ACE\\images\\";
-        List l = FileUtil.getFileNames(ss);
-        for (int i = 0; i < l.size(); i++) {
-            File f = new File(ss);
-            f.delete();
-        }
-
-        ImageUtil imageUtil = new ImageUtil();
-        for (int i = 0; i < l.size(); i++) {
-            String s = ss + l.get(i);
-            // rotation(s, 90);
-            imageUtil.square(s);
-            // compress(s);
-        }
-
-    }
 
     /**
      * 根据指定大小和指定精度压缩图片
@@ -115,7 +102,7 @@ public class ImageUtil {
             baos.close();
 
             System.out.println("目标图片：" + desPath + "，size: " + desFile.length() / 1024 + "kb");
-            System.out.println("图片压缩完成！");
+            //  System.out.println("图片压缩完成！");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -174,6 +161,23 @@ public class ImageUtil {
     }
 
 
+    public static void main(String[] args) throws IOException {
+        String ss = "C:\\ACE\\images\\";
+        List l = FileUtil.getFileNames(ss);
+    /*    for (int i = 0; i < l.size(); i++) {
+            File f = new File(ss);
+            f.delete();
+        }*/
+        ImageUtil imageUtil = new ImageUtil();
+        for (int i = 0; i < l.size(); i++) {
+            String s = ss + l.get(i);
+            // rotation(s, 90);
+            imageUtil.square(s);
+            // compress(s);
+        }
+    }
+
+
     /**
      * 矩形图片转换成正方形
      *
@@ -210,7 +214,6 @@ public class ImageUtil {
 
 
             Image image = ImageIO.read(new FileInputStream(src));
-            /* ???hgf*/
             graphics.drawImage(image, x, y, width, height, null);
 
             String type = "jpg";

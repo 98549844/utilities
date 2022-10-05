@@ -24,6 +24,9 @@ public class FileUtil {
     public static final String ONE_LINE = "ONE_LINE";
     public static final String LIST = "LIST";
 
+    public static final String FILENAME = "fileName";
+    public static final String EXT = "ext";
+
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -243,6 +246,13 @@ public class FileUtil {
         return path;
     }
 
+    /**
+     * get list of xxxx.xx
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<String> getFileNames(String path) throws IOException {
         path = convertToPath(path);
         log.info("Directory: => {}", path);
@@ -759,6 +769,20 @@ public class FileUtil {
         return ext;
     }
 
+    public static List<String> getExtensions(List<String> fs) {
+        List<String> extensions = new ArrayList<>();
+        for (String f : fs) {
+            String ext = "";
+            int i = f.lastIndexOf('.');
+            if (i > 0 && i < f.length() - 1) {
+                ext = f.substring(i + 1);
+            }
+            extensions.add(ext);
+        }
+        return extensions;
+    }
+
+
     /**
      * Used to extract the filename without its extension.
      *
@@ -769,22 +793,55 @@ public class FileUtil {
     public static String getName(String f) {
         String fName = "";
         int i = f.lastIndexOf('.');
-
         if (i > 0 && i < f.length() - 1) {
             fName = f.substring(0, i);
         }
         return fName;
     }
 
+
+    /**
+     * Used to extract the filename with its extension.
+     *
+     * @param f Incoming file to get the filename
+     * @return <code>String</code> representing the filename without its
+     * extension.
+     */
+    public static Map getNameExt(String f) {
+        String fName;
+        String ext;
+        int i = f.lastIndexOf('.');
+        Map map = new HashMap();
+        if (i > 0 && i < f.length() - 1) {
+            fName = f.substring(0, i);
+            ext = f.substring(i);
+            map.put(FileUtil.FILENAME, fName);
+            map.put(FileUtil.EXT, ext);
+        }
+        return map;
+    }
+
     /**
      * @param ls
      * @return
      */
+  /*  public static List<Map> getNames(List<String> ls) {
+        List<Map> result = new ArrayList<>();
+        for (String s : ls) {
+            Map name = getName(s);
+            result.add(name);
+        }
+        return result;
+    }*/
     public static List<String> getNames(List<String> ls) {
         List<String> result = new ArrayList<>();
+        if (NullUtil.isNull(ls)) {
+            log.warn("List is empty !!!");
+            return result;
+        }
         for (String s : ls) {
-            String name = getName(s);
-            result.add(name);
+            Map name = getNameExt(s);
+            result.add((String) name.get(FileUtil.FILENAME));
         }
         return result;
     }
@@ -924,7 +981,8 @@ public class FileUtil {
     }
 
 
-    /** sorting: true=desc; false=asc
+    /**
+     * sorting: true=desc; false=asc
      * windows的命名规则是，特殊字符（标点、符号）> 数字 > 字母顺序 > 汉字拼音
      *
      * @param filePath
@@ -960,15 +1018,15 @@ public class FileUtil {
     }
 
 
-
-
-    /** sorting: true=desc; false=asc
+    /**
+     * sorting: true=desc; false=asc
+     *
      * @param filePath
      * @param sorting
      * @return
      */
     //按 文件修改日期: 递增
-    public static List<String> getNamesOrderByLastModifiedDate(String filePath, boolean sorting) {
+    public static List<Map> getNamesOrderByLastModifiedDate(String filePath, boolean sorting) {
         File file = new File(filePath);
         File[] files = file.listFiles();
         Arrays.sort(files, new Comparator<>() {
@@ -994,18 +1052,29 @@ public class FileUtil {
             }
         });
 
-        List<String> ls = new ArrayList<>();
+        List<Map> ls = new ArrayList<>();
         int size = files.length;
         for (int i = 0; i < size; i++) {
-            ls.add(files[i].getName());
+            Map map = new HashMap();
+            String fileName = files[i].getName();
+            map.put(FileUtil.FILENAME, getName(fileName));
+            map.put(FileUtil.EXT, getExtension(fileName));
+            ls.add(map);
             System.out.print(files[i].getName() + " => ");
             System.out.println(new Date(files[i].lastModified()));
         }
         return ls;
     }
 
+    public static void main(String[] args) {
+        List<Map> a = getNamesOrderByLastModifiedDate("C:\\ACE\\images\\temp\\", true);
+
+        System.out.println();
+    }
+
     /**
      * sorting: true=desc; false=asc
+     *
      * @param filePath 按 文件大小 排序
      */
     public static List<String> getNamesOrderBySize(String filePath, boolean sorting) {
