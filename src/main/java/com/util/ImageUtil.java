@@ -171,8 +171,8 @@ public class ImageUtil {
         ImageUtil imageUtil = new ImageUtil();
         for (int i = 0; i < l.size(); i++) {
             String s = ss + l.get(i);
-            // rotation(s, 90);
-            imageUtil.square(s);
+            rotation(s, s, 90);
+//            imageUtil.square(s);
             // compress(s);
         }
     }

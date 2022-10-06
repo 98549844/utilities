@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.CollectionUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,7 +34,9 @@ public class StringUtil {
     }
 
 
-    /** 去除句子内的空格
+    /**
+     * 去除句子内的空格
+     *
      * @param content
      * @return
      */
@@ -320,24 +323,6 @@ public class StringUtil {
         return location;
     }
 
-    public static void main(String[] args) {
-        String a = "Spring Boot is the starting point for building all Spring-based applications";
-        String b = "Spring Boot is the starting point for building start alls Spring-based applications";
-       /* List<String> stringList = stringToList(sql);
-
-        for (int i = 0; i < stringList.size(); i++) {
-            System.out.println(stringList.get(i));
-        }*/
-
-        // compareStrings(a, b);
-
-        System.out.println(isCnOrEn("applications"));
-
-
-        String s = "AAA_AAA_AAA_AAA\n" + "AAA_AAA_AAA_AAA\n" + "AAA_AAA_AAA_AAA";
-        reformatColToObjName(s);
-
-    }
 
     /**
      * 判断字符串的内容是不是全是数字
@@ -359,7 +344,40 @@ public class StringUtil {
     }
 
     public static char[] stringToCharset(String s) {
-        // char[] charArray = s.toCharArray();
         return s.toCharArray();
+    }
+
+    public static String[] split(String s, String spliter) {
+        String[] results;
+        if (s.contains(".")) {
+            results = s.split("\\.");
+        } else if (s.contains("|")) {
+            results = s.split("\\|");
+
+        } else if (s.contains("*")) {
+            results = s.split("\\*");
+
+        } else if (s.contains("\\")) {
+            results = s.split("\\\\");
+
+        } else if (s.contains("[]")) {
+            results = s.split("\\[\\]");
+
+        } else if (s.contains("^")) {
+            results = s.split("\\^");
+
+        } /*else if (s.contains(":")) {
+            results = s.split("\\:");
+
+        } else if (s.contains(".")) {
+            results = s.split("\\.");
+
+        } else if (s.contains(".")) {
+            results = s.split("\\.");
+
+        }*/ else {
+            results = s.split(spliter);
+        }
+        return results;
     }
 }
