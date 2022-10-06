@@ -10,6 +10,8 @@ import javax.xml.bind.SchemaOutputResolver;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -179,6 +181,22 @@ public class FileUtil {
             oldFile.renameTo(newFile);
         }
         log.info("Finish rename file");
+    }
+
+    public static void rename(String src, String desc) throws Exception {
+        log.info("Start rename file");
+        // 旧的文件或目录
+        File oldName = new File(src);
+        // 新的文件或目录
+        File newName = new File(desc);
+        if (newName.exists()) {  //  确保新的文件名不存在
+            throw new java.io.IOException("target file exists !!!");
+        }
+        if (oldName.renameTo(newName)) {
+            log.info("File renamed success => {}" + src);
+        } else {
+            log.error("File rename fail !!!");
+        }
     }
 
 
@@ -1066,11 +1084,6 @@ public class FileUtil {
         return ls;
     }
 
-    public static void main(String[] args) {
-        List<Map> a = getNamesOrderByLastModifiedDate("C:\\ACE\\images\\temp\\", true);
-
-        System.out.println();
-    }
 
     /**
      * sorting: true=desc; false=asc
@@ -1112,6 +1125,13 @@ public class FileUtil {
             ls.add(f.getName());
         }
         return ls;
+    }
+
+
+    public static void main(String[] args) {
+        List<Map> a = getNamesOrderByLastModifiedDate("C:\\ACE\\images\\temp\\", true);
+
+        System.out.println();
     }
 
 }
