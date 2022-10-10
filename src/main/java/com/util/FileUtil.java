@@ -193,12 +193,18 @@ public class FileUtil {
             throw new java.io.IOException("target file exists !!!");
         }
         if (oldName.renameTo(newName)) {
-            log.info("File renamed success => {}" + src);
+            log.info("File renamed success => {}", desc);
         } else {
+            if (src.equals(desc)) {
+                log.error("New file name same with original !!!");
+            }
             log.error("File rename fail !!!");
         }
     }
 
+    public static void main(String[] args) throws Exception {
+        rename("C:\\tmp\\001.jpg", "C:\\tmp\\002.jpg");
+    }
 
     private static String addDotIfMissing(String ext) throws Exception {
         boolean isExist = NullUtil.isNotNull(ext);
@@ -339,7 +345,7 @@ public class FileUtil {
         while (NullUtil.isNotNull(line) || "".equals(line)) {
             // 一次读入一行数据,并显示行数
             // content1.append(i + ". ");
-            content1.append(line + System.getProperty("line.separator"));
+            content1.append(line + SystemUtil.separator());
             content2.append(line);
             content3.add(new StringBuilder(line));
             i++;
@@ -1127,11 +1133,5 @@ public class FileUtil {
         return ls;
     }
 
-
-    public static void main(String[] args) {
-        List<Map> a = getNamesOrderByLastModifiedDate("C:\\ACE\\images\\temp\\", true);
-
-        System.out.println();
-    }
 
 }

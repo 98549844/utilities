@@ -7,6 +7,7 @@ public class SystemUtil {
     private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
 
     public static final String LINE = "----------------------------------------";
+
     public static void getSystemInfo() {
         Console.print("Java版本号:\t", Console.BLUE);
         Console.println(System.getProperty("java.version"), Console.BLACK); // java版本号
@@ -68,5 +69,9 @@ public class SystemUtil {
 
     public static void main(String[] args) {
         getSystemInfo();
+    }
+
+    public static String separator() {
+        return System.getProperty("line.separator");
     }
 }
