@@ -4,11 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
 
 @SuppressWarnings("unchecked")
 public class StringUtil {
@@ -379,5 +380,10 @@ public class StringUtil {
             results = s.split(spliter);
         }
         return results;
+    }
+
+    public static String bytesToString(byte[] bytes) {
+        String result = Base64.encodeBase64String(bytes);
+        return result;
     }
 }
