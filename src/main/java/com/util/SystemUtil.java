@@ -3,6 +3,8 @@ package com.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+
 public class SystemUtil {
     private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
 
@@ -68,7 +70,7 @@ public class SystemUtil {
     }
 
     public static void main(String[] args) {
-        getSystemInfo();
+        System.out.println("aaa"+ File.separator);
     }
 
     public static String separator() {

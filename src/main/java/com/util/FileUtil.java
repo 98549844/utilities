@@ -28,6 +28,7 @@ public class FileUtil {
 
     public static final String FILENAME = "fileName";
     public static final String EXT = "ext";
+    public static final String separator = File.separator;
 
 
     /**
@@ -203,7 +204,14 @@ public class FileUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        rename("C:\\tmp\\001.jpg", "C:\\tmp\\002.jpg");
+        String location = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\files\\";
+
+        List<Object> a = getFilePaths(location);
+        for (Object aa : a) {
+            System.out.println((String) aa);
+        }
+
+
     }
 
     private static String addDotIfMissing(String ext) throws Exception {
