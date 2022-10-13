@@ -207,7 +207,6 @@ public class FileUtil {
     }
 
 
-
     private static String addDotIfMissing(String ext) throws Exception {
         boolean isExist = NullUtil.isNotNull(ext);
         if (isExist) {
@@ -1135,7 +1134,13 @@ public class FileUtil {
         return ls;
     }
 
-    public static MultipartFile getMultipartFile(File file) {
+    /**
+     * File 转 MultipartFile
+     *
+     * @param file
+     * @return
+     */
+    public static MultipartFile fileToMultipartFile(File file) {
         FileInputStream fileInputStream = null;
         MultipartFile multipartFile = null;
         try {
@@ -1146,6 +1151,53 @@ public class FileUtil {
         }
         return multipartFile;
     }
+
+    /**
+     * MultipartFile 转 File
+     *
+     * @param multipartFile
+     * @throws Exception
+     */
+    public static File multipartFileToFile(MultipartFile multipartFile) {
+
+        File file = null;
+        //判断是否为null
+        if (multipartFile.equals("") || multipartFile.getSize() <= 0) {
+            return null;
+        }
+        //MultipartFile转换为File
+        InputStream ins = null;
+        OutputStream os = null;
+        try {
+            ins = multipartFile.getInputStream();
+            file = new File(multipartFile.getOriginalFilename());
+            os = new FileOutputStream(file);
+            int bytesRead;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ins != null) {
+                try {
+                    ins.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+
 
     public static void main(String[] args) {
         System.out.println(ContentType.APPLICATION_OCTET_STREAM.toString());
