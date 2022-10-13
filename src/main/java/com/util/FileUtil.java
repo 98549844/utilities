@@ -1,10 +1,13 @@
 package com.util;
 
 import com.util.constant.CONSTANT;
+import org.apache.http.entity.ContentType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mozilla.universalchardet.UniversalDetector;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.SchemaOutputResolver;
 import java.io.*;
@@ -203,16 +206,7 @@ public class FileUtil {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        String location = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\files\\";
 
-        List<Object> a = getFilePaths(location);
-        for (Object aa : a) {
-            System.out.println((String) aa);
-        }
-
-
-    }
 
     private static String addDotIfMissing(String ext) throws Exception {
         boolean isExist = NullUtil.isNotNull(ext);
@@ -1141,5 +1135,19 @@ public class FileUtil {
         return ls;
     }
 
+    public static MultipartFile getMultipartFile(File file) {
+        FileInputStream fileInputStream = null;
+        MultipartFile multipartFile = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            multipartFile = new MockMultipartFile(file.getName(), file.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return multipartFile;
+    }
 
+    public static void main(String[] args) {
+        System.out.println(ContentType.APPLICATION_OCTET_STREAM.toString());
+    }
 }
