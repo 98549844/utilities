@@ -12,28 +12,31 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>2.7.2</version>
+            <version>2.7.4</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>2.7.3</version>
+            <version>2.7.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.23</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.3.23</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.7.2</version>
+            <version>2.7.4</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
@@ -97,7 +100,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.5.2</version>
+            <version>4.2.3</version>
         </dependency>
 
         <dependency>
@@ -136,7 +139,7 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
-            <version>5.5.13.2</version>
+            <version>5.5.13.3</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.birt.runtime.3_7_1</groupId>
@@ -151,7 +154,7 @@
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>2.0.24</version>
+            <version>2.0.27</version>
         </dependency>
         <dependency>
             <groupId>com.drewnoakes</groupId>
@@ -193,24 +196,7 @@
             <artifactId>ant</artifactId>
             <version>1.10.12</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>6.0.0-M5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>6.0.0-M5</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>6.0.0-M5</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 
 
@@ -251,18 +237,7 @@
     </build>
     <!--配置环境映射-->
     <profiles>
-<!--        <profile>
-            <id>jdk-${java.version}</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <jdk>${java.version}</jdk>
-            </activation>
-            <properties>
-                <maven.compiler.source>${java.version}</maven.compiler.source>
-                <maven.compiler.target>${java.version}</maven.compiler.target>
-                <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
-            </properties>
-        </profile>-->
+
         <profile>
             <!-- 生产环境 -->
             <id>prod</id>

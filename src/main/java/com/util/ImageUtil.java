@@ -186,8 +186,8 @@ public class ImageUtil {
      * @throws IOException
      */
     public boolean square(String src) throws IOException {
-        log.info("compressed and squared image store in /temp folder !");
-        File outFile = getTempFile(src);
+        log.info("compressed and squared image store in /thumbnail folder !");
+        File outFile = getThumbnailFile(src);
         int width = ImageUtil.getWidth(src);
         int height = ImageUtil.getHeight(src);
 
@@ -330,6 +330,14 @@ public class ImageUtil {
         return file;
     }
 
-
+    private static File getThumbnailFile(String src) throws IOException {
+        File f = new File(src);
+        File t = new File(f.getParentFile() + File.separator + "thumbnail");
+        if (!t.exists()) {
+            t.mkdirs();
+        }
+        File file = new File(t.getCanonicalFile() + File.separator + f.getName());
+        return file;
+    }
 }
 
