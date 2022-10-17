@@ -1,6 +1,7 @@
 package com.util;
 
 import com.util.constant.CONSTANT;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.entity.ContentType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,7 @@ public class FileUtil {
     private static final Logger log = LogManager.getLogger(FileUtil.class.getName());
 
     public static final String FOLDERLIST = "FOLDERLIST";
+    public static final String FOLDERNAME = "FOLDERNAME";
     public static final String FILELIST = "FILELIST";
     public static final String ORIGINAL = "ORIGINAL";
     public static final String ONE_LINE = "ONE_LINE";
@@ -63,25 +65,32 @@ public class FileUtil {
     }
 
 
+    public static void main(String[] args) {
+        System.out.println(getCurrentFolderList("C:\\ACE\\videos\\m3u8\\"));
+    }
+
     public static Map getCurrentFolderList(String path) {
         log.info("get current file and folder list !!!");
 
         File file = new File(path);
-        if (exist(path) || !file.isDirectory()) {
-            log.warn("Path  incorrect, please check !");
+        if (NullUtil.isNull(path) || !file.isDirectory()) {
+            log.warn("Path incorrect, please check !");
         }
         File[] files = file.listFiles();
+        List fullFolderList = new ArrayList();
         List folderList = new ArrayList();
         List fileList = new ArrayList();
         for (File f : files) {
             if (f.isDirectory()) {
-                folderList.add(f.getAbsolutePath());
+                fullFolderList.add(f.getAbsolutePath() + FileUtil.separator);
+                folderList.add(f.getName());
             } else if (f.isFile()) {
                 fileList.add(f.getAbsolutePath());
             }
         }
         Map map = new HashMap();
-        map.put(FOLDERLIST, folderList);
+        map.put(FOLDERLIST, fullFolderList);
+        map.put(FOLDERNAME, folderList);
         map.put(FILELIST, fileList);
         return map;
     }
@@ -110,6 +119,16 @@ public class FileUtil {
         return list;
     }
 
+    public static void copy(String source, String dest) throws IOException {
+        File src = new File(source);
+        File desc = new File(dest);
+        if (NullUtil.isNull(source) || NullUtil.isNull(dest) || !src.isFile() || !desc.isFile()) {
+            log.error("source / Desc incorrect !!!");
+            log.error("source: {}", source);
+            log.error("desc: {}", dest);
+        }
+        FileUtils.copyFile(src, desc);
+    }
 
     /**
      * 用缓冲区读写，来提升读写效率。
@@ -853,7 +872,9 @@ public class FileUtil {
         return map;
     }
 
-    /** 不包括ext
+    /**
+     * 不包括ext
+     *
      * @param ls
      * @return
      */
@@ -1221,13 +1242,11 @@ public class FileUtil {
     }
 
 
-
-
     /**
      * 删除文件或文件夹
      *
      * @param fileName 文件名
-     * @return 删除成功返回true,失败返回false
+     * @return 删除成功返回true, 失败返回false
      */
     public static boolean deleteFileOrDirectory(String fileName) {
         File file = new File(fileName);  // fileName是路径或者file.getPath()获取的文件路径
@@ -1247,7 +1266,7 @@ public class FileUtil {
      * 删除文件
      *
      * @param fileName 文件名
-     * @return 删除成功返回true,失败返回false
+     * @return 删除成功返回true, 失败返回false
      */
     private static boolean deleteFile(String fileName) {
         File file = new File(fileName);
@@ -1266,7 +1285,7 @@ public class FileUtil {
      * 删除文件夹需要把包含的文件及文件夹先删除，才能成功
      *
      * @param directory 文件夹名
-     * @return 删除成功返回true,失败返回false
+     * @return 删除成功返回true, 失败返回false
      */
     private static boolean deleteDirectory(String directory) {
         // directory不以文件分隔符（/或\）结尾时，自动添加文件分隔符，不同系统下File.separator方法会自动添加相应的分隔符

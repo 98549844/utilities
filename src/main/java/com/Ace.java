@@ -3,6 +3,7 @@ package com;
 import com.google.gson.internal.LinkedTreeMap;
 import com.util.FileUtil;
 import com.util.JsonUtil;
+import com.util.StringUtil;
 import org.apache.hadoop.util.LightWeightGSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +27,8 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-
+        String a = "e9aeacf2-d9d7-457b-acef-e1f177165eca.mp4";
+        System.out.println(StringUtil.split(a,".")[0]);
     }
 
 

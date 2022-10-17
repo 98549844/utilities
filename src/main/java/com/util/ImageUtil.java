@@ -146,7 +146,6 @@ public class ImageUtil {
      * @throws IOException
      */
     public static void rotation(String src, String desc, int rotate) throws IOException {
-        //String desc = new File(src).getAbsolutePath();
         Thumbnails.of(src).scale(1).rotate(rotate).toFile(desc);
     }
 
@@ -162,19 +161,10 @@ public class ImageUtil {
 
 
     public static void main(String[] args) throws IOException {
-        String ss = "C:\\ACE\\images\\";
-        List l = FileUtil.getFileNames(ss);
-    /*    for (int i = 0; i < l.size(); i++) {
-            File f = new File(ss);
-            f.delete();
-        }*/
+        String location = "C:\\ACE\\videos\\m3u8\\3ba15105-d47f-4cb2-9f21-7b6e4c29b301\\thumbnail.jpg";
         ImageUtil imageUtil = new ImageUtil();
-        for (int i = 0; i < l.size(); i++) {
-            String s = ss + l.get(i);
-            rotation(s, s, 90);
-//            imageUtil.square(s);
-            // compress(s);
-        }
+       // imageUtil.square(location, false);
+        compress(location);
     }
 
 
@@ -185,9 +175,14 @@ public class ImageUtil {
      * @return
      * @throws IOException
      */
-    public boolean square(String src) throws IOException {
-        log.info("compressed and squared image store in /thumbnail folder !");
-        File outFile = getThumbnailFile(src);
+    public boolean square(String src, boolean thumbnail) throws IOException {
+        File outFile;
+        if (thumbnail) {
+            log.info("compressed and squared image store in /thumbnail folder !");
+            outFile = getThumbnailFile(src);
+        } else {
+            outFile = new File(src);
+        }
         int width = ImageUtil.getWidth(src);
         int height = ImageUtil.getHeight(src);
 
