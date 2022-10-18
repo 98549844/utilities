@@ -46,6 +46,9 @@ public class ImageUtil {
         log.info("Compress success !!!");
     }
 
+    public static void main(String[] args) throws IOException {
+
+    }
 
     /**
      * 根据指定大小和指定精度压缩图片
@@ -157,14 +160,6 @@ public class ImageUtil {
     public static void resizeByRatio(String src, float f) throws IOException {
         String desc = getTempFile(src).getAbsolutePath();
         Thumbnails.of(src).scale(f).toFile(desc);
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        String location = "C:\\ACE\\videos\\m3u8\\3ba15105-d47f-4cb2-9f21-7b6e4c29b301\\thumbnail.jpg";
-        ImageUtil imageUtil = new ImageUtil();
-       // imageUtil.square(location, false);
-        compress(location);
     }
 
 

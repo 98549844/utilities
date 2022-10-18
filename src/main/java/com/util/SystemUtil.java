@@ -4,13 +4,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class SystemUtil {
     private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
 
     public static final String LINE = "----------------------------------------";
 
-    public static void getSystemInfo() {
+    public static void getSystemInfo() throws UnknownHostException {
+        InetAddress inetAddress = InetAddress.getLocalHost();
+
+        Console.println("system hostname:\t" + inetAddress.getHostName(), Console.BLUE);
+        Console.println("system ip address:\t" + inetAddress.getHostAddress(), Console.BLUE);
         Console.print("Java版本号:\t", Console.BLUE);
         Console.println(System.getProperty("java.version"), Console.BLACK); // java版本号
         Console.print("Java提供商名称:\t", Console.BLUE);
@@ -69,8 +75,8 @@ public class SystemUtil {
         Console.println(System.getProperty("user.dir"), Console.BLACK); // 当前程序所在目录
     }
 
-    public static void main(String[] args) {
-        System.out.println("aaa"+ File.separator);
+    public static void main(String[] args) throws UnknownHostException {
+        getSystemInfo();
     }
 
     public static String separator() {

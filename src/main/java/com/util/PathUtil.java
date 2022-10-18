@@ -31,7 +31,9 @@ public class PathUtil {
         return file;
     }
 
-    /** 读取resource文内件容
+    /**
+     * 读取resource文内件容
+     *
      * @param resource
      * @return
      * @throws IOException
@@ -62,10 +64,10 @@ public class PathUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println(getSystemPath());
-        System.out.println(getSystemPath(""));
+        // System.out.println(getSystemPath());
+        // System.out.println(getSystemPath(""));
         PathUtil pathUtil = new PathUtil();
-      //  pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
+        pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
     }
 
 
