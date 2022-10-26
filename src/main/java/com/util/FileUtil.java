@@ -122,10 +122,9 @@ public class FileUtil {
     public static void copy(String source, String dest) throws IOException {
         File src = new File(source);
         File desc = new File(dest);
-        if (NullUtil.isNull(source) || NullUtil.isNull(dest) || !src.isFile() || !desc.isFile()) {
-            log.error("source / Desc incorrect !!!");
+        if (NullUtil.isNull(source) || !src.isFile()) {
+            log.error("source incorrect !!!");
             log.error("source: {}", source);
-            log.error("desc: {}", dest);
         }
         FileUtils.copyFile(src, desc);
     }
