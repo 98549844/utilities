@@ -504,6 +504,11 @@ public class ListUtil {
         }
         log.info("List<Object[]> print completed !");
     }
+
+    public static List removeElement(List source, Object target) {
+        source.removeIf(o -> o.equals(target));
+        return source;
+    }
 }
 
 
