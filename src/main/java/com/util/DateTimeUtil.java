@@ -283,7 +283,7 @@ public class DateTimeUtil {
 
     private static Duration getDuration(LocalDateTime start, LocalDateTime end) {
         if (NullUtil.isNull(start) || NullUtil.isNull(end)) {
-            log.error("LocalDateTime is null");
+            log.warn("LocalDateTime is null");
             return null;
         }
         Duration duration = Duration.between(start, end);
