@@ -61,19 +61,15 @@ public class NullUtil {
             return true;
         } else if (object instanceof String) {
             String s = (String) object;
-            if (s.equals("") || s.isEmpty()) {
+            if (s.isEmpty()) {
                 return true;
             }
         } else if (object instanceof List) {
             List ls = (List) object;
-            if (ls.size() == 0) {
-                return true;
-            }
+            return ls.size() == 0;
         } else if (object instanceof Map) {
             Map m = (Map) object;
-            if (m.keySet().size() == 0) {
-                return true;
-            }
+            return m.keySet().size() == 0;
         }
 
         return false;
