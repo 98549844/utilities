@@ -325,9 +325,9 @@ public class FileUtil {
         ArrayList<String> files = new ArrayList<String>();
         File file = new File(path);
         File[] tempLists = file.listFiles();
-        for (int i = 0; i < tempLists.length; i++) {
-            if (tempLists[i].isFile() && !tempLists[i].getName().equals(".DS_Store")) {
-                files.add(tempLists[i].toString());//full path
+        for (File tempList : tempLists) {
+            if (tempList.isFile() && !tempList.getName().equals(".DS_Store")) {
+                files.add(tempList.toString());//full path
             }
         }
         return files;
@@ -408,8 +408,7 @@ public class FileUtil {
     public static Map getFileNamesMap(String path) throws IOException {
         List<String> ls = getAllFolderList(path);
         Map<String, List<String>> result = new HashMap();
-        for (int i = 0; i < ls.size(); i++) {
-            String folder = ls.get(i);
+        for (String folder : ls) {
             List<String> files = getFileNames(folder);
             result.put(folder, files);
         }
@@ -789,11 +788,11 @@ public class FileUtil {
             return -1;
         }
         DecimalFormat df = new DecimalFormat("#.00");
-        if (file.length() / (1024l * 1024l) > 0) {
-            double r = (double) file.length() / (1024l * 1024l);
+        if (file.length() / (1024L * 1024L) > 0) {
+            double r = (double) file.length() / (1024L * 1024L);
             log.info(df.format(r) + " mb");
-        } else if (file.length() / (1024l) > 0) {
-            double r = (double) file.length() / (1024l);
+        } else if (file.length() / (1024L) > 0) {
+            double r = (double) file.length() / (1024L);
             log.info(df.format(r) + " kb");
         } else {
             log.info(file.length() + " bytes");
