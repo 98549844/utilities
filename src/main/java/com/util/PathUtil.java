@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * @Classname: PathUtil
@@ -62,6 +63,18 @@ public class PathUtil {
         File directory = new File(empty);//参数为空
         return directory.getCanonicalPath();
     }
+
+    /** 返回resource下的文件的路径
+     * @param resource
+     * @return
+     */
+    public String getResourcePath(String resource) {
+        log.info("directly access resource/{} ", resource);
+        URL url = this.getClass().getResource("/" + resource);
+        assert url != null;
+        return new File(url.getFile()).getAbsolutePath();
+    }
+
 
     public static void main(String[] args) throws IOException {
         // System.out.println(getSystemPath());
