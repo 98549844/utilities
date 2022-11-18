@@ -1246,7 +1246,7 @@ public class FileUtil {
      * @param fileName 文件名
      * @return 删除成功返回true, 失败返回false
      */
-    public static boolean deleteFileOrDirectory(String fileName) {
+    public static boolean deleteDirectories(String fileName) {
         File file = new File(fileName);  // fileName是路径或者file.getPath()获取的文件路径
         if (file.exists()) {
             if (file.isFile()) {
