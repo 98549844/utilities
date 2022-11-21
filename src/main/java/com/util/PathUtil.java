@@ -69,6 +69,7 @@ public class PathUtil {
      * @return
      */
     public String getResourcePath(String resource) {
+        // 直接folder名, 不用resource开头
         log.info("directly access resource/{} ", resource);
         URL url = this.getClass().getResource("/" + resource);
         assert url != null;
