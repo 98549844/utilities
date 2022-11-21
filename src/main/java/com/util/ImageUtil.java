@@ -12,18 +12,16 @@ import org.apache.logging.log4j.Logger;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-
-import javax.swing.ImageIcon;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -59,16 +57,15 @@ public class ImageUtil {
      * @param accuracy     精度，递归压缩的比率，建议小于0.9
      * @param desMaxWidth  目标最大宽度
      * @param desMaxHeight 目标最大高度
-     * @return 目标文件路径
      */
-    public static String compressPicForScale(String srcPath, String desPath, long desFileSize, double accuracy, int desMaxWidth, int desMaxHeight) {
+    public static void compressPicForScale(String srcPath, String desPath, long desFileSize, double accuracy, int desMaxWidth, int desMaxHeight) {
         if (NullUtil.isEmpty(srcPath) || NullUtil.isEmpty(desPath)) {
             log.error("srcPath/desPath is empty !");
-            return null;
+            return;
         }
         if (!new File(srcPath).exists()) {
             log.error("src image not found !");
-            return null;
+            return;
         }
         try {
             File srcFile = new File(srcPath);
@@ -108,9 +105,7 @@ public class ImageUtil {
             //  System.out.println("图片压缩完成！");
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
-        return desPath;
     }
 
     private static byte[] compressPicCycle(byte[] bytes, long desFileSize, double accuracy) throws IOException {
@@ -328,6 +323,10 @@ public class ImageUtil {
         }
         File file = new File(t.getCanonicalFile() + File.separator + f.getName());
         return file;
+    }
+
+    public void write(String location, String ext, HttpServletResponse response) throws IOException {
+        ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
     }
 }
 
