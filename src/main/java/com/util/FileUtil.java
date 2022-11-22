@@ -544,11 +544,13 @@ public class FileUtil {
      *
      * @param fullPath
      */
-    public static void mkDirs(String fullPath) {
+    public static boolean mkDirs(String fullPath) {
         File f = new File(fullPath);
+        boolean result = false;
         if (!f.exists()) {
-            f.mkdirs();
+            result = f.mkdirs();
         }
+        return result;
     }
 
     /**
