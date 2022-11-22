@@ -21,9 +21,9 @@ public class OsUtil {
         String osName = props.getProperty("os.name").toUpperCase();
         String osVersion = props.getProperty("os.version").toUpperCase();
         String osArch = props.getProperty("os.arch").toUpperCase();
-        log.info("OS Type: {}", osName);
-        log.info("OS Version: {}", osVersion);
-        log.info("OS architecture: {}", osArch);
+        log.info("Type: {}", osName);
+        log.info("Version: {}", osVersion);
+        log.info("architecture: {}", osArch);
         return osName;
     }
 
