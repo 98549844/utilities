@@ -4,10 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -59,7 +56,7 @@ public class StringUtil {
     }
 
     /**
-     * @param coll list转String并用符号拼接在一起
+     * @param coll list转String并用逗号拼接在一起
      * @param ","
      * @return
      */
@@ -160,7 +157,7 @@ public class StringUtil {
      * @param a
      * @param b
      */
-    public static void compareStrings(String a, String b) {
+    public static void compareSentences(String a, String b) {
         if (NullUtil.isNull(a) || a.isEmpty() || NullUtil.isNull(b) || b.isEmpty()) {
             System.out.println("Compare data empty, please check !");
             return;
@@ -175,7 +172,7 @@ public class StringUtil {
         }
 
         //compare sentence
-        int init = 0;
+        int init;
         if (aList.size() >= bList.size()) {
             init = aList.size();
             System.out.println(b);
@@ -276,9 +273,7 @@ public class StringUtil {
         String[] sourceArray = source.split(" ");
 
         List<String> stringList = new ArrayList<>();
-        for (int i = 0; i < sourceArray.length; i++) {
-            stringList.add(sourceArray[i]);
-        }
+        Collections.addAll(stringList, sourceArray);
         return stringList;
     }
 
