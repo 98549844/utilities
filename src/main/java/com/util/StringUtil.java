@@ -50,7 +50,7 @@ public class StringUtil {
     private static String appendCollectionWithSymbol(Collection<?> coll, String symbol) {
         if (NullUtil.isNull(symbol)) {
             symbol = ",";
-            System.out.println("symbol is empty, default using comma");
+            log.warn("symbol is NULL, default using comma");
         }
         return collectionToDelimitedString(coll, symbol);
     }
