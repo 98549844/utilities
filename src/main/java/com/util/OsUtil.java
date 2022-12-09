@@ -12,6 +12,7 @@ public class OsUtil {
 
     public static final String WINDOWS = "WINDOWS";
     public static final String MAC = "MAC OS";
+    public static final String LINUX = "LINUX";
 
 
     public static String getOsInfo() {

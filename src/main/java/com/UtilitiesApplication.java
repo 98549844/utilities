@@ -11,15 +11,9 @@ public class UtilitiesApplication {
 
     private static final Logger log = LogManager.getLogger(UtilitiesApplication.class.getName());
 
-
-
-
     public static void main(String[] args) {
         SpringApplication.run(UtilitiesApplication.class, args);
     }
-
-
-
 
     public static void getHello() {
         log.traceEntry();
