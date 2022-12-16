@@ -3,6 +3,7 @@ package com.util;
 import com.util.constant.CONSTANT;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.entity.ContentType;
+import org.apache.http.util.TextUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mozilla.universalchardet.UniversalDetector;
@@ -10,12 +11,13 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.xml.bind.SchemaOutputResolver;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -34,7 +36,7 @@ public class FileUtil {
     public static final String FILENAME = "fileName";
     public static final String EXT = "ext";
     public static final String separator = File.separator;
-
+    private static final String PREFIX_VIDEO = "video/";
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -1328,5 +1330,51 @@ public class FileUtil {
             System.out.println("删除失败：" + directory);
             return false;
         }
+    }
+
+    public static boolean isImage(String location) {
+        File file = new File(location);
+        if (!file.exists()) {
+            log.error("File not exist !!!");
+            return false;
+        }
+        BufferedImage image;
+        try {
+            image = ImageIO.read(file);
+            if (image == null || image.getWidth() <= 0 || image.getHeight() <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Get the Mime Type from a File
+     *
+     * @param fileName 文件名
+     * @return 返回MIME类型
+     * thx https://www.oschina.net/question/571282_223549
+     */
+    private static String getMimeType(String fileName) {
+        FileNameMap fileNameMap = URLConnection.getFileNameMap();
+        String type = fileNameMap.getContentTypeFor(fileName);
+        return type;
+    }
+
+    /**
+     * 根据文件后缀名判断 文件是否是视频文件
+     *
+     * @param fileName 文件名
+     * @return 是否是视频文件
+     */
+    public static boolean isVideo(String fileName) {
+        String mimeType = getMimeType(fileName);
+        if (!TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_VIDEO)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -328,5 +328,24 @@ public class ImageUtil {
     public void write(String location, String ext, HttpServletResponse response) throws IOException {
         ImageIO.write(ImageIO.read(new File(location)), ext, response.getOutputStream());
     }
+
+    public static boolean isImage(String location) {
+        File file = new File(location);
+        if (!file.exists()) {
+            log.error("File not exist !!!");
+            return false;
+        }
+        BufferedImage image;
+        try {
+            image = ImageIO.read(file);
+            if (image == null || image.getWidth() <= 0 || image.getHeight() <= 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 
