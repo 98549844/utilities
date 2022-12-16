@@ -11,8 +11,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.FileNameMap;
@@ -26,17 +24,19 @@ import java.util.*;
 public class FileUtil {
     private static final Logger log = LogManager.getLogger(FileUtil.class.getName());
 
-    public static final String FOLDERLIST = "FOLDERLIST";
-    public static final String FOLDERNAME = "FOLDERNAME";
-    public static final String FILELIST = "FILELIST";
-    public static final String ORIGINAL = "ORIGINAL";
-    public static final String ONE_LINE = "ONE_LINE";
+    public static final String FOLDER_LIST = "folderList";
+    public static final String FOLDER_NAME = "folderName";
+    public static final String FILE_LIST = "fileList";
+    public static final String ORIGINAL = "original";
+    public static final String ONE_LINE = "oneLine";
     public static final String LIST = "LIST";
 
     public static final String FILENAME = "fileName";
     public static final String EXT = "ext";
     public static final String separator = File.separator;
     private static final String PREFIX_VIDEO = "video/";
+    private static final String PREFIX_IMAGE = "image/";
+    private static final String PREFIX_APPLICATION = "application/";
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -67,9 +67,7 @@ public class FileUtil {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(getCurrentFolderList("C:\\ACE\\videos\\m3u8\\"));
-    }
+
 
     public static Map getCurrentFolderList(String path) {
         log.info("get current file and folder list !!!");
@@ -91,9 +89,9 @@ public class FileUtil {
             }
         }
         Map map = new HashMap();
-        map.put(FOLDERLIST, fullFolderList);
-        map.put(FOLDERNAME, folderList);
-        map.put(FILELIST, fileList);
+        map.put(FOLDER_LIST, fullFolderList);
+        map.put(FOLDER_NAME, folderList);
+        map.put(FILE_LIST, fileList);
         return map;
     }
 
@@ -1332,23 +1330,12 @@ public class FileUtil {
         }
     }
 
-    public static boolean isImage(String location) {
-        File file = new File(location);
-        if (!file.exists()) {
-            log.error("File not exist !!!");
-            return false;
-        }
-        BufferedImage image;
-        try {
-            image = ImageIO.read(file);
-            if (image == null || image.getWidth() <= 0 || image.getHeight() <= 0) {
-                return false;
-            }
+    public static boolean isImage(String fileName) {
+        String mimeType = getMimeType(fileName);
+        if (!TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_IMAGE)) {
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     /**
@@ -1377,4 +1364,9 @@ public class FileUtil {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        System.out.println(getMimeType("C:\\Users\\Kalam_au\\Downloads\\TeamViewer_Setup_x64.exe"));
+    }
+
 }
