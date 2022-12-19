@@ -224,7 +224,7 @@ public class FTPUtil {
     /**
      * 上传文件
      *
-     * @param remoteDir  ftp服务保存地址
+     * @param remoteDir   ftp服务保存地址
      * @param fileName    上传到ftp的文件名
      * @param inputStream 输入文件流
      * @return
@@ -357,7 +357,7 @@ public class FTPUtil {
                 FTPFile ftpFile = files[i];
                 // 此处只打印文件，未遍历子目录（如果需要遍历，加上递归逻辑即可）
                 if (ftpFile.isFile()) {
-                //log.info(ftpDirPath + ftpFile.getName());
+                    //log.info(ftpDirPath + ftpFile.getName());
                     list.add(ftpFile.getName());
                 }
             }
