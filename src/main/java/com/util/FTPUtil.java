@@ -292,7 +292,7 @@ public class FTPUtil {
             end = directory.indexOf("/", start);
             String path = "";
             String paths = "";
-            while (true) {
+            do {
                 String subDirectory = new String(remote.substring(start, end).getBytes("GBK"), "iso-8859-1");
                 path = path + "/" + subDirectory;
                 if (!exist(ftpClient, path)) {
@@ -310,10 +310,7 @@ public class FTPUtil {
                 start = end + 1;
                 end = directory.indexOf("/", start);
                 // 检查所有目录是否创建完毕
-                if (end <= start) {
-                    break;
-                }
-            }
+            } while (end > start);
         }
         return success;
     }
@@ -335,7 +332,6 @@ public class FTPUtil {
             flag = ftpClient.makeDirectory(dir);
             if (flag) {
                 log.info("创建文件夹" + dir + " 成功！");
-
             } else {
                 log.info("创建文件夹" + dir + " 失败！");
             }
@@ -352,9 +348,8 @@ public class FTPUtil {
      * @param ftpDirPath FTP上的目标文件路径
      */
     public List<String> getFileNameList(FTPClient ftpClient, String ftpDirPath) {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<>();
         try {
-
             // 通过提供的文件路径获取FTPFile对象列表
             FTPFile[] files = ftpClient.listFiles(ftpDirPath);
             // 遍历文件列表，打印出文件名称
@@ -386,7 +381,7 @@ public class FTPUtil {
         if (files == null) {
             throw new Exception("文件数组为空");
         }
-        Arrays.sort(files, new Comparator<FTPFile>() {
+        Arrays.sort(files, new Comparator<>() {
             @Override
             public int compare(FTPFile f1, FTPFile f2) {
                 return f1.getTimestamp().compareTo(f2.getTimestamp());
