@@ -362,7 +362,7 @@ public class FTPUtil {
                 FTPFile ftpFile = files[i];
                 // 此处只打印文件，未遍历子目录（如果需要遍历，加上递归逻辑即可）
                 if (ftpFile.isFile()) {
-//                        log.info(ftpDirPath + ftpFile.getName());
+                //log.info(ftpDirPath + ftpFile.getName());
                     list.add(ftpFile.getName());
                 }
             }
@@ -397,9 +397,6 @@ public class FTPUtil {
             }
         });
         return ftpDirPath + "/" + files[files.length - 1].getName();
-
     }
-
-
 }
 
