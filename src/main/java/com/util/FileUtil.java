@@ -1,6 +1,5 @@
 package com.util;
 
-import com.util.constant.CONSTANT;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.TextUtils;
@@ -34,9 +33,15 @@ public class FileUtil {
     public static final String FILENAME = "fileName";
     public static final String EXT = "ext";
     public static final String separator = File.separator;
+
     private static final String PREFIX_VIDEO = "video/";
     private static final String PREFIX_IMAGE = "image/";
     private static final String PREFIX_APPLICATION = "application/";
+
+    private static final String WINDOWS = "WINDOWS";
+    private static final String MAC = "MAC OS";
+    private static final String LINUX = "LINUX";
+    private final static String UNKNOWN = "UNKNOWN";
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -65,8 +70,6 @@ public class FileUtil {
     public static boolean exist(String path) {
         return new File(path).exists();
     }
-
-
 
 
     public static Map getCurrentFolderList(String path) {
@@ -277,11 +280,11 @@ public class FileUtil {
         String path = "";
         String osType = getOsType(file);
         if (new File(file).isAbsolute()) {
-            if (CONSTANT.WINDOWS.equals(osType)) {
+            if (WINDOWS.equals(osType)) {
                 String[] fileSet = file.split("\\\\");
                 path = file.replace(fileSet[fileSet.length - 1], "");
                 log.info("File path: " + path);
-            } else if (CONSTANT.MAC_OS.equals(osType)) {
+            } else if (MAC.equals(osType)) {
                 String[] fileSet = file.split("/");
                 path = file.replace(fileSet[fileSet.length - 1], "");
             }
@@ -561,12 +564,14 @@ public class FileUtil {
      */
     private static String getOsType(String s) {
         String osType;
-        if (OsUtil.getOsName().contains("MAC")) {
-            osType = CONSTANT.MAC_OS;
-        } else if (OsUtil.getOsName().contains("WINDOWS")) {
-            osType = CONSTANT.WINDOWS;
+        if (OsUtil.getOsName().contains(MAC)) {
+            osType = MAC;
+        } else if (OsUtil.getOsName().contains(WINDOWS)) {
+            osType = WINDOWS;
+        } else if (OsUtil.getOsName().contains(LINUX)) {
+            osType = WINDOWS;
         } else {
-            osType = CONSTANT.UNKNOWN;
+            osType = UNKNOWN;
         }
         return osType;
     }
