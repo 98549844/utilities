@@ -6,6 +6,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.google.gson.Gson;
+import com.util.entity.TestEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,8 +25,9 @@ import java.util.Map;
 public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
     private static final Logger log = LogManager.getLogger(EasyExcelUtil.class.getName());
 
-    final static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
-    final static String fileName = path + "excel.xls";
+    final static String mac_path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
+    final static String windows_path = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\output\\";
+    final static String fileName = windows_path + "excel.xls";
 
     private static final int BATCH_COUNT = 3000;
 
@@ -46,6 +48,11 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         EasyExcel.read(fileName, new EasyExcelUtil()).sheet().doRead();
     }
 
+    /**
+     *  excel读取后的数据处理手段
+     * @param data    one row value. Is is same as {@link AnalysisContext#readRowHolder()}
+     * @param context analysis context
+     */
     @Override
     public void invoke(Map<Integer, String> data, AnalysisContext context) {
         Gson gson = new Gson();
@@ -59,8 +66,31 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
     }
 
     public static void main(String[] args) {
+        String xls = "C:\\ACE\\aaa.xls";
+
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
         easyExcelUtil.read(fileName);
+
+        List<TestEntity> ls = new ArrayList<>();
+
+        TestEntity a = new TestEntity();
+        a.setId(10);
+        a.setUserName("garlam_1");
+
+        TestEntity b = new TestEntity();
+        b.setId(11);
+        b.setUserName("garlam_2");
+
+
+        TestEntity c = new TestEntity();
+        c.setId(13);
+        c.setUserName("garlam_3");
+
+        ls.add(a);
+        ls.add(b);
+        ls.add(c);
+
+     //   easyExcelUtil.write(xls, ls, new TestEntity());
     }
 
 
@@ -73,12 +103,11 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         // 写法2
         // 这里 需要指定写用哪个class去写
         ExcelWriter excelWriter = EasyExcel.write(saveLocation, obj.getClass()).build();
-        WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
+        WriteSheet writeSheet = EasyExcel.writerSheet("template").build();
         excelWriter.write(objList, writeSheet);
         // 千万别忘记finish 会帮忙关闭流
         excelWriter.finish();
     }
-
 
 
     @Override

@@ -64,7 +64,9 @@ public class PathUtil {
         return directory.getCanonicalPath();
     }
 
-    /** 返回resource下的文件的路径
+    /**
+     * 返回resource下的文件的路径
+     *
      * @param resource
      * @return
      */
@@ -78,10 +80,11 @@ public class PathUtil {
 
 
     public static void main(String[] args) throws IOException {
-        // System.out.println(getSystemPath());
+         System.out.println(getSystemPath());
         // System.out.println(getSystemPath(""));
         PathUtil pathUtil = new PathUtil();
-        pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
+       // pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
+        System.out.println(pathUtil.getResourcePath("output/excel.xls"));
     }
 
 
