@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.google.gson.Gson;
 import com.util.entity.TestEntity;
@@ -38,25 +39,27 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         // 这里每次会读取3000条数据 然后返回过来 直接调用使用数据就行
 
-//        Gson gson = new Gson();
-//        EasyExcel.read(fileName, obj.getClass(), new PageReadListener<Users>(dataList -> {
-//            int size = dataList.size();
-//            for (int i = 0; i < size; i++) {
-//                log.info("row{}: {}", i, gson.toJson(dataList.get(i)));
-//            }
-//        })).sheet().doRead();
+        //Gson gson = new Gson();
+        //EasyExcel.read(fileName, obj.getClass(), new PageReadListener<Users>(dataList -> {
+        //    int size = dataList.size();
+        //    for (int i = 0; i < size; i++) {
+        //        log.info("row{}: {}", i, gson.toJson(dataList.get(i)));
+        //    }
+        //})).sheet().doRead();
         EasyExcel.read(fileName, new EasyExcelUtil()).sheet().doRead();
     }
 
+
     /**
-     *  excel读取后的数据处理手段
-     * @param data    one row value. Is is same as {@link AnalysisContext#readRowHolder()}
+     * excel读取后的数据处理手段, 重写invoke方法封装数据和保存数据
+     *
+     * @param data    one row value. It is same as {@link AnalysisContext#readRowHolder()}
      * @param context analysis context
      */
     @Override
     public void invoke(Map<Integer, String> data, AnalysisContext context) {
         Gson gson = new Gson();
-        List<Map<Integer, String>> list = new ArrayList<Map<Integer, String>>();
+        List<Map<Integer, String>> list = new ArrayList<>();
         log.info("row data: {}", gson.toJson(data));
 
         list.add(data);
@@ -65,11 +68,20 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         }
     }
 
+    // 读取header内容
+    @Override
+    public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
+        Gson gson = new Gson();
+        List<Map<Integer, String>> list = new ArrayList<>();
+        log.info("header: {}", gson.toJson(headMap));
+    }
+
+
     public static void main(String[] args) {
         String xls = "C:\\ACE\\aaa.xls";
 
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        easyExcelUtil.read(fileName);
+        ExcelReaderBuilder l = EasyExcel.read(xls, TestEntity.class, new EasyExcelUtil());
 
         List<TestEntity> ls = new ArrayList<>();
 
@@ -90,7 +102,7 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         ls.add(b);
         ls.add(c);
 
-     //   easyExcelUtil.write(xls, ls, new TestEntity());
+        //   easyExcelUtil.write(xls, ls, new TestEntity());
     }
 
 
