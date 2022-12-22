@@ -55,6 +55,8 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
      *
      * @param data    one row value. It is same as {@link AnalysisContext#readRowHolder()}
      * @param context analysis context
+     *
+     * Map<Integer, String> data 可以改用dataModel封装
      */
     @Override
     public void invoke(Map<Integer, String> data, AnalysisContext context) {
@@ -81,7 +83,7 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         String xls = "C:\\ACE\\aaa.xls";
 
         EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        ExcelReaderBuilder l = EasyExcel.read(xls, TestEntity.class, new EasyExcelUtil());
+        easyExcelUtil.read(xls);
 
         List<TestEntity> ls = new ArrayList<>();
 
@@ -102,7 +104,7 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
         ls.add(b);
         ls.add(c);
 
-        //   easyExcelUtil.write(xls, ls, new TestEntity());
+        easyExcelUtil.write(xls, ls, new TestEntity());
     }
 
 
