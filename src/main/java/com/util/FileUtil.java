@@ -72,6 +72,18 @@ public class FileUtil {
     }
 
 
+    public static boolean create(String path) {
+        File file = new File(path);
+        boolean result = false;
+        try {
+            result = file.createNewFile();
+            System.out.println("File created !!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static Map getCurrentFolderList(String path) {
         log.info("get current file and folder list !!!");
 
@@ -606,8 +618,7 @@ public class FileUtil {
         if (obj instanceof String) {
             content = new StringBuilder((String) obj);
             type = "String";
-        }
-        if (obj instanceof List) {
+        } else if (obj instanceof List) {
             contentList = (List) obj;
             type = "List";
         } else {
