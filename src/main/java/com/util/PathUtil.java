@@ -79,14 +79,19 @@ public class PathUtil {
     }
 
 
-    public static void main(String[] args) throws IOException {
-         System.out.println(getSystemPath());
-        // System.out.println(getSystemPath(""));
-        PathUtil pathUtil = new PathUtil();
-       // pathUtil.getResourceContent("/hbm/TestEntity.hbm.xml");
-        System.out.println(pathUtil.getResourcePath("output/excel.xls"));
+
+
+    public static void main(String[] args) {
+        System.out.println(getSystemPath());
+
+    }
+
+    /**
+     * @return 编辑后java class位置
+     */
+    public static String getClassLoaderAbsolutePath(){
+        return String.valueOf(ClassLoader.getSystemResource(""));
     }
 
 
 }
-
