@@ -287,7 +287,11 @@ public class HibernateUtil {
      * @return
      */
     public List<Object[]> getResultSetBySQL(String sql) {
-        Query query = session.createSQLQuery(sql);
+        //hibernate 5
+        //Query query = session.createSQLQuery(sql);
+
+        //hibernate 6
+        Query query = session.createQuery(sql);
         List<Object[]> entityList = query.getResultList();
         return entityList;
     }

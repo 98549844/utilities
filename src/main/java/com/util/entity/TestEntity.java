@@ -1,10 +1,9 @@
 package com.util.entity;
 
-//import lombok.Data;
-
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+//import javax.persistence.*;
 import java.io.Serializable;
 
 //@Data

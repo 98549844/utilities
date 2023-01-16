@@ -13,6 +13,7 @@ public class UtilitiesApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UtilitiesApplication.class, args);
+        log.info("UtilitiesApplication start up complete !!!");
     }
 
     public static void getHello() {
