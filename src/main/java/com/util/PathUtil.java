@@ -90,6 +90,7 @@ public class PathUtil {
      * @return 编辑后java class位置
      */
     public static String getClassLoaderAbsolutePath(){
+        System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
         return String.valueOf(ClassLoader.getSystemResource(""));
     }
 
