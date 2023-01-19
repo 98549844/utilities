@@ -26,22 +26,26 @@ public class DBConfig {
 
 
     public DBConfig(@NonNull String dbType) {
-        if (MARIADB.equals(dbType)) {
-            this.dbClassName = "org.mariadb.jdbc.Driver";
-            this.connection = "jdbc:mariadb://192.168.31.131:3306/";
-            this.username = "root";
-            this.password = "garlamau";
-        } else if (ORACLE19C.equals(dbType)) {
-            this.dbClassName = "oracle.jdbc.OracleDriver";
-            this.connection = "jdbc:oracle:thin:@192.168.8.66:1521:MPFADB";
-            this.username = "USERPROV";
-            this.password = "Passw0rd";
-        } else if (MYSQL.equals(dbType)) {
-            this.dbClassName = "com.mysql.cj.jdbc.Driver";
-            this.connection = "jdbc:mysql://localhost:3306/";
+        switch (dbType) {
+            case MARIADB -> {
+                this.dbClassName = "org.mariadb.jdbc.Driver";
+                this.connection = "jdbc:mariadb://192.168.31.131:3306/";
+                this.username = "root";
+                this.password = "garlamau";
+            }
+            case ORACLE19C -> {
+                this.dbClassName = "oracle.jdbc.OracleDriver";
+                this.connection = "jdbc:oracle:thin:@192.168.8.66:1521:MPFADB";
+                this.username = "USERPROV";
+                this.password = "Passw0rd";
+            }
+            case MYSQL -> {
+                this.dbClassName = "com.mysql.cj.jdbc.Driver";
+                this.connection = "jdbc:mysql://localhost:3306/";
 //            this.connection = "jdbc:mysql://localhost:3306/ace?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false";
-            this.username = "root";
-            this.password = "root";
+                this.username = "root";
+                this.password = "root";
+            }
         }
 
     }

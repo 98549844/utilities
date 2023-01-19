@@ -36,8 +36,7 @@ public class JavaUtil {
 
     @SuppressWarnings("static-access")
     public static String getJdkVersion() {
-        JdkVersion jdkVersion = new JdkVersion() {
-        };
+        JdkVersion jdkVersion = new JdkVersion() {};
         String jdkVer = jdkVersion.getJavaVersion();
         log.info("JKD version:  " + jdkVer);
         return jdkVer;

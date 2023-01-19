@@ -31,17 +31,6 @@ public class StringUtil {
         return collectionToDelimitedString(coll, symbol, "", "");
     }
 
-
-    /**
-     * 去除句子内的空格
-     *
-     * @param content
-     * @return
-     */
-    public static String trimAll(String content) {
-        return content.replace(" ", "");
-    }
-
     /**
      * @param coll   list转String并用符号拼接在一起
      * @param symbol
@@ -64,6 +53,18 @@ public class StringUtil {
         return collectionToDelimitedString(coll, ",");
     }
 
+
+
+
+    /**
+     * 去除句子内的空格
+     *
+     * @param content
+     * @return
+     */
+    public static String trimAll(String content) {
+        return content.replace(" ", "");
+    }
 
     /**
      * @param input
