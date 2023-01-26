@@ -1,12 +1,12 @@
 package com.util;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,16 +26,16 @@ import java.util.regex.Pattern;
 public class FTPUtil {
     private static final Logger log = LogManager.getLogger(FTPUtil.class.getName());
 
-
-    @Value("${cw.ftp.host}")
+    //读取properties value
+    // @Value("${cw.ftp.host}")
     private String host = "10.128.1.1";
-    @Value("${cw.ftp.username}")
+    // @Value("${cw.ftp.username}")
     private String username = "abc";
-    @Value("${cw.ftp.password}")
+    // @Value("${cw.ftp.password}")
     private String password = "123456";
-    @Value("${cw.ftp.port}")
+    // @Value("${cw.ftp.port}")
     private int port = 21;
-    @Value("${cw.ftp.path}")
+    // @Value("${cw.ftp.path}")
     private String path = "./";
 
     public String getPath() {
@@ -117,20 +117,20 @@ public class FTPUtil {
     /**
      * 按前后缀查询文件
      *
-     * @param facepic
+     * @param facePic
      * @param prefix
      * @param suffix
      * @return
      */
-    public List<String> getPatternFiles(String facepic, String prefix, String suffix) {
+    public List<String> getPatternFiles(String facePic, String prefix, String suffix) {
         List<String> ret = new ArrayList();
         String fileName = null;
         FTPClient ftpClient = null;
         try {
             ftpClient = getFTPConnection();
-            boolean changeFlag = ftpClient.changeWorkingDirectory(facepic);
+            boolean changeFlag = ftpClient.changeWorkingDirectory(facePic);
             if (!changeFlag) {
-                throw new IOException("进入Ftp目录" + facepic + "失败");
+                throw new IOException("进入Ftp目录" + facePic + "失败");
             }
             FTPFile[] files = ftpClient.listFiles(getPath());
             for (FTPFile ftpFile : files) {

@@ -2,7 +2,7 @@ package com.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.boot.SpringBootVersion;
+//import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.SpringVersion;
 
 /**
@@ -19,16 +19,16 @@ public class VersionUtil {
 
     public static void main(String[] args) {
         showSpringFrameworkVersion();
-        showSpringbootVersion();
+      //  showSpringbootVersion();
     }
 
     public static void showSpringFrameworkVersion() {
         Console.println("Spring Framework Version: " + SpringVersion.getVersion(), Console.BOLD);
     }
 
-    public static void showSpringbootVersion() {
+/*    public static void showSpringbootVersion() {
         Console.println("Spring Boot Version: " + SpringBootVersion.getVersion(), Console.BOLD);
-    }
+    }*/
 
 
 }
