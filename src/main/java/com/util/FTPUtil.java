@@ -43,7 +43,6 @@ public class FTPUtil {
     }
 
     /**
-     * 示例
      *
      * @param args
      * @throws IOException
