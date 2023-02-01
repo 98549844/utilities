@@ -34,6 +34,7 @@ public class SmbUtil {
     private static final String LOCAL_DIR = "C:\\tamp";
 
     public static void main(String[] args) {
+        log.error("still has error");
         System.out.println(checkSmbFile(SMB_SHARE_FOLDER, SHARE_FOLDER_PATH, FILE_NAME));
         getSmbFolderList(SMB_SHARE_FOLDER);
         // downloadSmbFile(SMB_SHARE_FOLDER, SHARE_FOLDER_PATH, FILE_NAME, LOCAL_DIR);
