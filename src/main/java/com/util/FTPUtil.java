@@ -73,7 +73,7 @@ public class FTPUtil {
         try {
             ftpClient = new FTPClient();
             ftpClient.setConnectTimeout(1000 * 30);//设置连接超时时间
-            ftpClient.connect(host, Integer.valueOf(port));// 连接FTP服务器
+            ftpClient.connect(host, port);// 连接FTP服务器
             ftpClient.login(username, password);// 登陆FTP服务器
             ftpClient.setControlEncoding("UTF-8");// 中文支持
             // 设置文件类型为二进制（如果从FTP下载或上传的文件是压缩文件的时候，不进行该设置可能会导致获取的压缩文件解压失败）
@@ -86,13 +86,13 @@ public class FTPUtil {
             //模式3，查询文件失败
             //ftpClient.enterRemotePassiveMode();
             if (!FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
-                log.info("连接FTP失败，用户名或密码错误。");
+                log.info("连接FTP失败,用户名或密码错误.");
                 ftpClient.disconnect();
             } else {
                 log.info("FTP连接成功!");
             }
         } catch (Exception e) {
-            log.info("登陆FTP失败，请检查FTP相关配置信息是否正确！" + e);
+            log.info("登陆FTP失败,请检查FTP相关配置信息是否正确!" + e);
             return null;
         }
         return ftpClient;
@@ -149,11 +149,7 @@ public class FTPUtil {
             }
         } catch (Exception e) {
             log.error("获取文件失败", e);
-        } /*finally {
-            if (ftpClient != null) {
-                close(ftpClient);
-            }
-        }*/
+        }
         return ret;
     }
 
@@ -183,9 +179,9 @@ public class FTPUtil {
             // 文件读取方式二
             //ftpClient.retrieveFile(fileName, new FileOutputStream(new File(downloadPath)));
             ftpClient.completePendingCommand();
-            log.info("FTP文件下载成功！");
+            log.info("FTP文件下载成功!");
         } catch (Exception e) {
-            log.error("FTP文件下载失败！", e);
+            log.error("FTP文件下载失败!", e);
         } finally {
             try {
                 if (fos != null) {
@@ -264,10 +260,10 @@ public class FTPUtil {
         try {
             flag = ftpClient.changeWorkingDirectory(directory);
             if (flag) {
-                log.info("进入文件夹" + directory + " 成功！");
+                log.info("进入文件夹" + directory + " 成功!");
 
             } else {
-                log.info("进入文件夹" + directory + " 失败！开始创建文件夹");
+                log.info("进入文件夹" + directory + " 失败!开始创建文件夹");
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -330,9 +326,9 @@ public class FTPUtil {
         try {
             flag = ftpClient.makeDirectory(dir);
             if (flag) {
-                log.info("创建文件夹" + dir + " 成功！");
+                log.info("创建文件夹" + dir + " 成功!");
             } else {
-                log.info("创建文件夹" + dir + " 失败！");
+                log.info("创建文件夹" + dir + " 失败!");
             }
         } catch (Exception e) {
             e.printStackTrace();
