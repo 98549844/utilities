@@ -60,6 +60,7 @@ public class FTPUtil {
         for (String s : ls) {
             System.out.println(s);
         }
+        ftpUtils.download(ftpClient, "tmp", "WAFW_UserProv.ear", "C:\\tamp");
 
         ftpUtils.close(ftpClient);
 
@@ -161,8 +162,8 @@ public class FTPUtil {
      * 从FTP下载文件到本地
      */
     public String download(FTPClient ftpClient, String remotePath, String fileName, String downloadPath) {
-        log.info("File from FTP {}", remotePath);
-        log.info("File to local {}", downloadPath);
+        log.info("From FTP {}", remotePath);
+        log.info("To local {}", downloadPath);
         InputStream is = null;
         FileOutputStream fos = null;
         final File targetFile = new File(downloadPath + File.separator + fileName);
