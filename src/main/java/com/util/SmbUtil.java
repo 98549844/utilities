@@ -19,7 +19,7 @@ import java.io.*;
  * @Description:
  */
 
-
+//https://blog.csdn.net/qq_41429510/article/details/105038274
 public class SmbUtil {
     private static final Logger log = LogManager.getLogger(SmbUtil.class.getName());
 
