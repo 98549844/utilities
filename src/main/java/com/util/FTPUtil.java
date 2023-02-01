@@ -23,16 +23,18 @@ import java.util.regex.Pattern;
  */
 
 
+//https://filezilla-project.org/
+//build filezilla FTp server
 public class FTPUtil {
     private static final Logger log = LogManager.getLogger(FTPUtil.class.getName());
 
     //读取properties value
     // @Value("${cw.ftp.host}")
-    private String host = "10.128.1.1";
+    private String host = "192.168.2.75";
     // @Value("${cw.ftp.username}")
-    private String username = "abc";
+    private String username = "garlam";
     // @Value("${cw.ftp.password}")
-    private String password = "123456";
+    private String password = "P@ssw0rd";
     // @Value("${cw.ftp.port}")
     private int port = 21;
     // @Value("${cw.ftp.path}")
@@ -43,7 +45,6 @@ public class FTPUtil {
     }
 
     /**
-     *
      * @param args
      * @throws IOException
      */
@@ -54,12 +55,14 @@ public class FTPUtil {
 
         FTPClient ftpClient = ftpUtils.getFTPConnection();
         System.out.println(ftpClient.getDataConnectionMode());
-        System.out.println(ftpClient.listFiles("zip")[0].getName());
+        List<String> ls = ftpUtils.getFileNames(ftpClient, "tmp");
 
-        final List<String> zip = ftpUtils.getFileNameList(ftpClient, "zip");
-        System.out.println(zip);
+        for (String s : ls) {
+            System.out.println(s);
+        }
 
         ftpUtils.close(ftpClient);
+
 
     }
 
@@ -342,14 +345,13 @@ public class FTPUtil {
      * @param ftpClient  已经登陆成功的FTPClient
      * @param ftpDirPath FTP上的目标文件路径
      */
-    public List<String> getFileNameList(FTPClient ftpClient, String ftpDirPath) {
+    public List<String> getFileNames(FTPClient ftpClient, String ftpDirPath) {
         List<String> list = new ArrayList<>();
         try {
             // 通过提供的文件路径获取FTPFile对象列表
             FTPFile[] files = ftpClient.listFiles(ftpDirPath);
             // 遍历文件列表，打印出文件名称
-            for (int i = 0; i < files.length; i++) {
-                FTPFile ftpFile = files[i];
+            for (FTPFile ftpFile : files) {
                 // 此处只打印文件，未遍历子目录（如果需要遍历，加上递归逻辑即可）
                 if (ftpFile.isFile()) {
                     //log.info(ftpDirPath + ftpFile.getName());
