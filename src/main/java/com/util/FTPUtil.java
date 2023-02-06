@@ -49,7 +49,6 @@ public class FTPUtil {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        log.error("只是get下来, 未做测试");
 
         final FTPUtil ftpUtils = new FTPUtil();
 
@@ -229,6 +228,7 @@ public class FTPUtil {
      * @return
      */
     private boolean uploadFile(FTPClient ftpClient, String remoteDir, String fileName, InputStream inputStream) {
+        boolean result = true;
         try {
             log.info("开始上传文件");
             ftpClient.setFileType(ftpClient.BINARY_FILE_TYPE);
@@ -251,10 +251,10 @@ public class FTPUtil {
                 }
             } catch (IOException e) {
                 log.error("上传文件失败" + e);
-                return false;
+                result = false;
             }
         }
-        return true;
+        return result;
     }
 
 
