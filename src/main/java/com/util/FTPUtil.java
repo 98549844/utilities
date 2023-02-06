@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 
 //https://filezilla-project.org/
 //build filezilla FTp server
+//@Component 没有springboot
 public class FTPUtil {
     private static final Logger log = LogManager.getLogger(FTPUtil.class.getName());
 
