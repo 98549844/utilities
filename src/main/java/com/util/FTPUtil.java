@@ -162,7 +162,7 @@ public class FTPUtil {
      * 从FTP下载文件到本地
      */
     public String download(FTPClient ftpClient, String remotePath, String fileName, String downloadPath) {
-        log.info("From FTP {}", remotePath);
+        log.info("From FTP {}/{}", host, remotePath);
         log.info("To local {}", downloadPath);
         InputStream is = null;
         FileOutputStream fos = null;
