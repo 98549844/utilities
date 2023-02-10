@@ -22,13 +22,13 @@ public class PoUtil {
     }
 
     public static void iteratePoGetterValue(Object object) {
-        Class c = object.getClass();
+        Class<? extends Object> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
 
-        for (int i = 0; i < m.length; i++) {
-            if (m[i].getName().contains("get")) {
+        for (Method method : m) {
+            if (method.getName().contains("get")) {
                 try {
-                    System.out.println("Method：" + m[i].getName() + " Value：" + m[i].invoke(object));
+                    System.out.println("Method：" + method.getName() + " Value：" + method.invoke(object));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -395,7 +395,7 @@ public class ListUtil {
         }
     }
 
-    public String listToString(List list, String separator) {
+    public static String listToString(List list, String separator) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i)).append(separator);
