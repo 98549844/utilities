@@ -34,6 +34,7 @@ public class CpuRamUtil {
 
     public static void cpuAndRamUsage() throws InterruptedException {
         /*while (true) {
+            //使用buildin function 获取cpu and ram使用量
             //获取CPU
             double cpuLoad = osmxb.getCpuLoad();
             int percentCpuLoad = (int) (cpuLoad * 100);
