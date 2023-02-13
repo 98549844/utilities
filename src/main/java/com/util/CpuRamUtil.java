@@ -24,6 +24,14 @@ public class CpuRamUtil {
 
     private static OperatingSystemMXBean osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            cpuUsage();
+            memoryUsage();
+            System.out.println();
+        }
+    }
+
     public static void cpuAndRamUsage() throws InterruptedException {
         while (true) {
             //获取CPU
