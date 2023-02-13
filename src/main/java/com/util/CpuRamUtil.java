@@ -33,7 +33,7 @@ public class CpuRamUtil {
     }
 
     public static void cpuAndRamUsage() throws InterruptedException {
-        while (true) {
+        /*while (true) {
             //获取CPU
             double cpuLoad = osmxb.getCpuLoad();
             int percentCpuLoad = (int) (cpuLoad * 100);
@@ -45,13 +45,12 @@ public class CpuRamUtil {
 
             log.info("CPU = {}, Mem = {}", percentCpuLoad, percentMemoryLoad);
             Thread.sleep(1000);
-        }
-
-     /*   while (true){
+        }*/
+        while (true) {
             cpuUsage();
             memoryUsage();
             System.out.println();
-        }*/
+        }
     }
 
     public static void memoryUsage() throws InterruptedException {
