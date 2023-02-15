@@ -82,7 +82,10 @@ public class CpuRamUtil {
         long idle = ticks[CentralProcessor.TickType.IDLE.getIndex()] - prevTicks[CentralProcessor.TickType.IDLE.getIndex()];
         long totalCpu = user + nice + cSys + idle + ioWait + irq + softIrq + steal;
 
-        log.info("CPU总数 = {}, CPU利用率 ={}", processor.getLogicalProcessorCount(), new DecimalFormat("#.##%").format(1.0 - (idle * 1.0 / totalCpu)));
+        int cpuTotal = processor.getLogicalProcessorCount();
+        String cpuUsage = new DecimalFormat("#.##%").format(1.0 - (idle * 1.0 / totalCpu));
+
+        log.info("CPU总数 = {}, CPU利用率 = {}", cpuTotal, cpuUsage);
         Thread.sleep(1000);
     }
 
