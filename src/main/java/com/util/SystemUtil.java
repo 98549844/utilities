@@ -78,6 +78,9 @@ public class SystemUtil {
         getSystemInfo();
     }
 
+    /** 通用换行符
+     * @return
+     */
     public static String separator() {
         return System.getProperty("line.separator");
     }

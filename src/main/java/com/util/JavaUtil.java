@@ -19,9 +19,9 @@ public class JavaUtil {
     @SuppressWarnings("static-access")
     public static List getCurrentJdkInfo() throws IOException {
         List<String> jdkInfo = new ArrayList<>();
-        String Command = "java -version";
+        String command = "java -version";
         log.info("Current Java Version On " + OsUtil.getOsName());
-        Process process = Runtime.getRuntime().exec(Command);
+        Process process = Runtime.getRuntime().exec(command);
         log.info("PID:  " + process.pid());
         String[] infos = process.info().toString().split(",");
         for (String s : infos) {
