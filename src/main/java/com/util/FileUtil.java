@@ -30,8 +30,10 @@ public class FileUtil {
     public static final String ONE_LINE = "oneLine";
     public static final String LIST = "LIST";
 
+    public static final String PATH = "path";
     public static final String FILENAME = "fileName";
     public static final String EXT = "ext";
+    public static final String FILENAME_WITH_EXT = "fileNameWithExt";
     public static final String separator = File.separator;
 
     private static final String PREFIX_VIDEO = "video/";
@@ -610,50 +612,9 @@ public class FileUtil {
         return flag;
     }
 
-    public static void main(String[] args) {
-        //  append("C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\installedDependency.txt");
-    }
-
-    /**
-     * 续写/追加内容
-     *
-     * @param filePath
-     */
-/*    public static void append(String filePath, Object obj) {
-        //写入的文件的内容
-        List<Map<String, Object>> list = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            FileOutputStream fos;
-            if (!file.exists()) {
-                file.createNewFile();//如果文件不存在，就创建该文件
-                fos = new FileOutputStream(file);//首次写入获取
-            } else {
-                //如果文件已存在，那么就在文件末尾追加写入
-                fos = new FileOutputStream(file, true);//这里构造方法多了一个参数true,表示在文件末尾追加写入
-            }
-            OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);//指定以UTF-8格式写入文件
-
-            //遍历list
-            for (Map<String, Object> map : list) {
-                //遍历Map
-                for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    //以英文","逗号隔开多个写入的str，每个Map写一行
-                    String str = entry.getKey() + "=" + entry.getValue();
-                    osw.write(str + ",");
-                }
-                //每写入一个Map就换一行
-                osw.write(SystemUtil.separator());
-            }
-            //写入完成关闭流
-            osw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
     public static void write(String filePath, String fileName, Object obj, boolean append) {
         if (NullUtil.isNull(obj)) {
-            log.info("Object is null, File writing exist !");
+            log.error("Object is null !!!");
             return;
         }
         //boolean isOk = false;
@@ -667,7 +628,7 @@ public class FileUtil {
             contentList = (List) obj;
             type = "List";
         } else {
-            log.info("un-default type");
+            log.error("un-default type");
             return;
         }
 
@@ -705,7 +666,7 @@ public class FileUtil {
                 outputStreamWriter.close();
                 // fop.flush();
                 // fop.close();
-                log.info("File writing complete");
+                log.info("File writing complete !!!");
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -747,16 +708,12 @@ public class FileUtil {
             log.info("File is exist");
             if (file.exists() && file.length() == 0) {
                 log.info("File is empty");
-            } else {
-                log.info("File is not empty, please check !!!");
-
             }
             if (file.canWrite()) {
                 log.info("File can write");
                 isOK = true;
             } else {
                 log.info("File can't write");
-                isOK = false;
             }
         }
         return isOK;
@@ -772,7 +729,7 @@ public class FileUtil {
         File file = new File(f);
         String ENCODING = "GBK";
         if (!file.exists()) {
-            System.err.println("get File In code: file not exists!");
+            log.error("get File In code: file not exists!");
             return ENCODING;
         }
         byte[] buf = new byte[4096];
@@ -782,9 +739,9 @@ public class FileUtil {
             // (1)
             UniversalDetector detector = new UniversalDetector(null);
             // (2)
-            int nread;
-            while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
-                detector.handleData(buf, 0, nread);
+            int nRead;
+            while ((nRead = fis.read(buf)) > 0 && !detector.isDone()) {
+                detector.handleData(buf, 0, nRead);
             }
             // (3)
             detector.dataEnd();
@@ -901,7 +858,7 @@ public class FileUtil {
     /**
      * 去除ext
      *
-     * @param f Incoming file to get the filename
+     * @param f fileName.ext
      * @return <code>String</code> representing the filename without its
      * extension.
      */
@@ -935,6 +892,31 @@ public class FileUtil {
         }
         return map;
     }
+
+    /**
+     * @param f 完整路径 xxx/xxx/xxx/xxx.txt
+     * @return
+     */
+    public static Map getPathAndFileMap(String f) {
+        int i = f.lastIndexOf(File.separator);
+        String p = f.substring(0, i);
+        String fNameWithExt = f.substring(i + 1); // +1 为了去除分隔符
+
+        String name;
+        String ext;
+        int k = fNameWithExt.lastIndexOf('.');
+        Map map = new HashMap();
+        if (i > 0 && k < f.length() - 1) {
+            name = fNameWithExt.substring(0, k);
+            ext = fNameWithExt.substring(k);
+            map.put(FileUtil.PATH, p);
+            map.put(FileUtil.FILENAME_WITH_EXT, fNameWithExt);
+            map.put(FileUtil.FILENAME, name);
+            map.put(FileUtil.EXT, ext);
+        }
+        return map;
+    }
+
 
     /**
      * 不包括ext

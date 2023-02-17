@@ -72,6 +72,7 @@ public class PathUtil {
      */
     public String getResourcePath(String resource) {
         // 直接folder名, 不用resource开头
+        // 不能直接在main方法运行
         log.info("directly access resource/{} ", resource);
         URL url = this.getClass().getResource("/" + resource);
         assert url != null;
@@ -79,17 +80,17 @@ public class PathUtil {
     }
 
 
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(getSystemPath());
-
+        getClassLoaderAbsolutePath();
+        PathUtil p = new PathUtil();
+        System.out.println(p.getResourceContent("ace/src/main/resources/file/maven/installedDependency.txt"));
     }
 
     /**
      * @return 编辑后java class位置
      */
-    public static String getClassLoaderAbsolutePath(){
+    public static String getClassLoaderAbsolutePath() {
         System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
         return String.valueOf(ClassLoader.getSystemResource(""));
     }

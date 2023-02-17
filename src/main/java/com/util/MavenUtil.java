@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+/*import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
 import org.apache.maven.artifact.versioning.VersionRange;
-import org.apache.maven.cli.MavenCli;
+import org.apache.maven.cli.MavenCli;*/
 
 /**
  * @Classname: MavenUtil
@@ -28,22 +28,27 @@ public class MavenUtil {
     private static final Logger log = LogManager.getLogger(MavenUtil.class.getName());
 
     // static final String mavenWindowsHome = "C:\\Users\\Kalam_au\\AppData\\Local\\JetBrains\\Toolbox\\apps\\IDEA-U\\ch-0\\223.8214.52\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd";
-    static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
-    static final String space = " ";
-    static final String groupId = "com.ace";
-    static final String version = "1.0";
+    private static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
+    private static final String space = " ";
+    private static final String groupId = "com.ace";
+    private static final String version = "1.0";
+    private static final String bootDir = PathUtil.getSystemPath();
 
     public static void main(String[] args) throws IOException {
+        System.out.println(PathUtil.getSystemPath());
+        PathUtil p = new PathUtil();
+        System.out.println(p.getResourcePath("maven/installedDependency.txt"));
+
         //  getMavenVersion();
         //  getMavenRepositoryLocation();
 
-        String ExternalJarPath = "C:\\ideaPorject\\mpfa-core2\\src\\lib\\plugins\\com.ibm.ws.runtime.jar";
-        installExternalJar(ExternalJarPath);
+        // String ExternalJarPath = "C:\\ideaPorject\\mpfa-core2\\src\\lib\\plugins\\com.ibm.ws.runtime.jar";
+        // installExternalJar(ExternalJarPath);
 
         // logInstalledDependency();
     }
 
-    public static void installExternalJar(String ExternalJarPath) throws IOException {
+    private static void installExternalJar(String ExternalJarPath) throws IOException {
         if (new File(ExternalJarPath).isDirectory()) {
             log.error("this is directory, please check !!!");
             return;
@@ -65,10 +70,10 @@ public class MavenUtil {
         run(preparedCommands(commands));
         log.info("Maven jar installation complete !!!");
 
-        StringBuilder dependencyLog = new StringBuilder("<dependency>" + SystemUtil.separator());
-        StringBuilder groupIdLogLog = new StringBuilder("    <groupId>" + groupId + "</groupId>" + SystemUtil.separator());
-        StringBuilder artifactIdLog = new StringBuilder("    <artifactId>" + jar + "</artifactId>" + SystemUtil.separator());
-        StringBuilder versionLog = new StringBuilder("    <version>" + version + "</version>" + SystemUtil.separator());
+        StringBuilder dependencyLog = new StringBuilder("<dependency>");
+        StringBuilder groupIdLogLog = new StringBuilder("    <groupId>" + groupId + "</groupId>");
+        StringBuilder artifactIdLog = new StringBuilder("    <artifactId>" + jar + "</artifactId>");
+        StringBuilder versionLog = new StringBuilder("    <version>" + version + "</version>");
         StringBuilder dependency2Log = new StringBuilder("</dependency>");
         System.out.println(dependencyLog);
         System.out.println(groupIdLogLog);
@@ -78,11 +83,11 @@ public class MavenUtil {
 
         List<StringBuilder> dependency = new ArrayList<>();
         dependency.add(new StringBuilder(SystemUtil.separator()));
-        dependency.add(dependencyLog);
-        dependency.add(groupIdLogLog);
-        dependency.add(artifactIdLog);
-        dependency.add(versionLog);
-        dependency.add(dependency2Log);
+        dependency.add(dependencyLog.append(SystemUtil.separator()));
+        dependency.add(groupIdLogLog.append(SystemUtil.separator()));
+        dependency.add(artifactIdLog.append(SystemUtil.separator()));
+        dependency.add(versionLog.append(SystemUtil.separator()));
+        dependency.add(dependency2Log.append(SystemUtil.separator()));
         dependency.add(new StringBuilder(SystemUtil.separator()));
 
 
@@ -90,38 +95,30 @@ public class MavenUtil {
 
     }
 
+    /**
+     * install jar
+     *
+     * @param dependency
+     */
     private static void logInstalledDependency(List<StringBuilder> dependency) {
-/*        StringBuilder dependencyLog = new StringBuilder("<dependency>" + SystemUtil.separator());
-        StringBuilder groupIdLogLog = new StringBuilder("    <groupId>" + groupId + "</groupId>" + SystemUtil.separator());
-        StringBuilder artifactIdLog = new StringBuilder("    <artifactId>" + "jar" + "</artifactId>" + SystemUtil.separator());
-        StringBuilder versionLog = new StringBuilder("    <version>" + version + "</version>" + SystemUtil.separator());
-        StringBuilder dependency2Log = new StringBuilder("</dependency>");
-
-        List<StringBuilder> dependency = new ArrayList<>();
-        dependency.add(new StringBuilder(SystemUtil.separator()));
-        dependency.add(dependencyLog);
-        dependency.add(groupIdLogLog);
-        dependency.add(artifactIdLog);
-        dependency.add(versionLog);
-        dependency.add(dependency2Log);*/
-
-
         String installedDependency = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\installedDependency.txt";
         if (!FileUtil.exist(installedDependency)) {
             FileUtil.create(installedDependency);
         }
         log.info("logging installed maven dependency ...");
-        if (FileUtil.exist(installedDependency)) {
-            FileUtil.write(FileUtil.convertToPath(installedDependency), "installedDependency.txt", dependency, true);
-        } else {
-            FileUtil.write(FileUtil.convertToPath(installedDependency), "installedDependency.txt", dependency, false);
-        }
+        FileUtil.write(FileUtil.convertToPath(installedDependency), "installedDependency.txt", dependency, FileUtil.exist(installedDependency));
 
         log.info("Installed maven dependency log complete !!!");
     }
 
 
-    public static void installExternalJars(String ExternalJarPath) throws IOException {
+    /**
+     * 装安文件夹里所有jars
+     *
+     * @param ExternalJarPath
+     * @throws IOException
+     */
+    private static void installExternalJars(String ExternalJarPath) throws IOException {
         if (new File(ExternalJarPath).isFile()) {
             log.error("this is file, please check !!!");
             return;
@@ -149,7 +146,7 @@ public class MavenUtil {
     }
 
 
-    public static void getMavenVersion() {
+    private static void getMavenVersion() {
         String command = "-v";
         List<String> commands = new ArrayList();
         commands.add(mavenWindowsHome);
@@ -158,7 +155,7 @@ public class MavenUtil {
 
     }
 
-    public static String getMavenRepositoryLocation() {
+    private static String getMavenRepositoryLocation() {
         String command = "help:effective-settings";
         List<String> commands = new ArrayList();
         commands.add(mavenWindowsHome);
