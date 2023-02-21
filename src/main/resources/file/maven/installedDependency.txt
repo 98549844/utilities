@@ -1,7 +1,35 @@
 
 <dependency>
     <groupId>com.ace</groupId>
-    <artifactId>com.ibm.cds_2.1.0</artifactId>
+    <artifactId>com.ibm.ws.runtime</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>com.ibm.ws.wlm</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>com.ibm.ws.admin.core</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>com.ibm.ws.admin.core</artifactId>
+    <version>1.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>mybatis2-2.3.7</artifactId>
     <version>1.0</version>
 </dependency>
 

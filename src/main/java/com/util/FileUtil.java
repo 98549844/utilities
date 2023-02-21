@@ -334,6 +334,23 @@ public class FileUtil {
     }
 
     /**
+     * 绝对路经 xxx/xxx/xxx/xxx.xx
+     *
+     * @param path
+     * @return xxx.xx
+     * @throws IOException
+     */
+    public static String getFileName(String path) throws IOException {
+        File file = new File(path);
+        if (file.isDirectory() || !file.exists()) {
+            log.error("File occur error !!!");
+            return null;
+        }
+        return path.substring(path.lastIndexOf(File.separator) + 1);
+    }
+
+
+    /**
      * list 绝对路经 xxx/xxx/xxx/xxx.xx
      *
      * @param path

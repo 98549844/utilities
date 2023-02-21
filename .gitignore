@@ -19,7 +19,8 @@ target/
 *.iml
 *.ipr
 
-
+src/main/resources/file/oracle
+src/main/resources/file/maven
 
 
 ### VS Code ###

@@ -35,15 +35,13 @@ public class MavenUtil {
     private static final String bootDir = PathUtil.getSystemPath();
 
     public static void main(String[] args) throws IOException {
-        System.out.println(PathUtil.getSystemPath());
-        PathUtil p = new PathUtil();
-        System.out.println(p.getResourcePath("maven/installedDependency.txt"));
 
         //  getMavenVersion();
         //  getMavenRepositoryLocation();
 
-        // String ExternalJarPath = "C:\\ideaPorject\\mpfa-core2\\src\\lib\\plugins\\com.ibm.ws.runtime.jar";
-        // installExternalJar(ExternalJarPath);
+        String ExternalJarPath = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\WEB-INF\\lib\\mybatis2-2.3.7.jar";
+        installExternalJar(ExternalJarPath);
+
 
         // logInstalledDependency();
     }
@@ -54,7 +52,7 @@ public class MavenUtil {
             return;
         }
 
-        String jarName = FileUtil.getFileNames(ExternalJarPath).get(0);
+        String jarName = FileUtil.getFileName(ExternalJarPath);
         String jar = FileUtil.getName(jarName);
 
         log.info("Maven install starting ...");
