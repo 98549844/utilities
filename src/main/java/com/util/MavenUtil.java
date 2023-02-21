@@ -28,7 +28,7 @@ public class MavenUtil {
     private static final Logger log = LogManager.getLogger(MavenUtil.class.getName());
 
     // static final String mavenWindowsHome = "C:\\Users\\Kalam_au\\AppData\\Local\\JetBrains\\Toolbox\\apps\\IDEA-U\\ch-0\\223.8214.52\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd";
-    private static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
+    static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
     private static final String space = " ";
     private static final String groupId = "com.ace";
     private static final String version = "1.0";
@@ -148,11 +148,10 @@ public class MavenUtil {
 
     private static void getMavenVersion() {
         String command = "-v";
-        List<String> commands = new ArrayList();
+        List<String> commands = new ArrayList<>();
         commands.add(mavenWindowsHome);
         commands.add(command);
         run(preparedCommands(commands));
-
     }
 
     private static String getMavenRepositoryLocation() {
@@ -164,7 +163,7 @@ public class MavenUtil {
     }
 
 
-    private static String run(String commands) {
+    public static String run(String commands) {
         String result = "";
         try {
             Process process = Runtime.getRuntime().exec(commands);
@@ -187,7 +186,7 @@ public class MavenUtil {
         Process p = new ProcessBuilder(commands).start();
     }
 
-    private static String preparedCommands(String... commands) {
+    public static String preparedCommands(String... commands) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String s : commands) {
             stringBuilder.append(s).append(space);
@@ -195,7 +194,7 @@ public class MavenUtil {
         return stringBuilder.toString().trim();
     }
 
-    private static String preparedCommands(List<String> commands) {
+    public static String preparedCommands(List<String> commands) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String s : commands) {
             stringBuilder.append(s).append(space);

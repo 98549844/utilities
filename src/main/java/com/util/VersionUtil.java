@@ -5,6 +5,11 @@ import org.apache.logging.log4j.Logger;
 //import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.SpringVersion;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.util.MavenUtil.*;
+
 /**
  * @Classname: SpringUtil
  * @Date: 2022/8/4 上午 11:44
@@ -18,17 +23,36 @@ public class VersionUtil {
 
 
     public static void main(String[] args) {
-        showSpringFrameworkVersion();
-      //  showSpringbootVersion();
+        getSpringFrameworkVersion();
+        getThymeleafVersion();
+        //  showSpringbootVersion();
     }
 
-    public static void showSpringFrameworkVersion() {
+    public static String getSpringFrameworkVersion() {
+        String springVersion = SpringVersion.getVersion();
         Console.println("Spring Framework Version: " + SpringVersion.getVersion(), Console.BOLD);
+        return springVersion;
     }
 
-/*    public static void showSpringbootVersion() {
+/*    public static void SpringbootVersion() {
         Console.println("Spring Boot Version: " + SpringBootVersion.getVersion(), Console.BOLD);
     }*/
+
+    public static void getMavenVersion() {
+        String command = "-v";
+        List<String> commands = new ArrayList<>();
+        commands.add(mavenWindowsHome);
+        commands.add(command);
+        run(preparedCommands(commands));
+    }
+
+    public static void getThymeleafVersion() {
+        String command = "dependency:list -DincludeArtifactIds=thymeleaf";
+        List<String> commands = new ArrayList<>();
+        commands.add(mavenWindowsHome);
+        commands.add(command);
+        run(preparedCommands(commands));
+    }
 
 
 }
