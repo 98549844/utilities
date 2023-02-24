@@ -9,23 +9,33 @@
     <version>3.0</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <!--编译文件时用UTF-8-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+        <springframework>6.0.4</springframework>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.3.25</version>
+            <version>${springframework}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.3.25</version>
+            <version>${springframework}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <!--<version>5.3.25</version>-->
+            <version>${springframework}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -228,15 +238,6 @@
 
     </dependencies>
 
-
-    <properties>
-        <!--编译文件时用UTF-8-->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <java.version>17</java.version>
-    </properties>
     <build>
         <plugins>
             <plugin>
