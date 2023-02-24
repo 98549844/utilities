@@ -33,3 +33,10 @@
     <version>1.0</version>
 </dependency>
 
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>mybatis2-2.3.7</artifactId>
+    <version>1.0</version>
+</dependency>
+
