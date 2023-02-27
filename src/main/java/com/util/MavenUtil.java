@@ -39,8 +39,16 @@ public class MavenUtil {
         //  getMavenVersion();
         //  getMavenRepositoryLocation();
 
-        String ExternalJarPath = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\WEB-INF\\lib\\mybatis2-2.3.7.jar";
-        installExternalJar(ExternalJarPath);
+        // String ExternalJarPath = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\WEB-INF\\lib\\mybatis2-2.3.7.jar";
+        String p = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\";
+        String icefaces_ee_ace = p + "icefaces-ee-ace.jar";
+        String runtime = p + "com.ibm.ws.runtime.jar";
+        String admin_core = p + "com.ibm.ws.admin.core.jar";
+        String wlm = p + "com.ibm.ws.wlm.jar";
+        installExternalJar(runtime);
+        installExternalJar(admin_core);
+        installExternalJar(wlm);
+        installExternalJar(icefaces_ee_ace);
 
 
         // logInstalledDependency();
