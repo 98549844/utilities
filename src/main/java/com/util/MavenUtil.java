@@ -45,9 +45,9 @@ public class MavenUtil {
         String runtime = p + "com.ibm.ws.runtime.jar";
         String admin_core = p + "com.ibm.ws.admin.core.jar";
         String wlm = p + "com.ibm.ws.wlm.jar";
-        installExternalJar(runtime);
-        installExternalJar(admin_core);
-        installExternalJar(wlm);
+        // installExternalJar(runtime);
+        // installExternalJar(admin_core);
+        // installExternalJar(wlm);
         installExternalJar(icefaces_ee_ace);
 
 
@@ -176,9 +176,14 @@ public class MavenUtil {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                Console.println(line, Console.BOLD);
+              //  Console.println(line, Console.BOLD);
                 if (line.contains("<localRepository>")) {
                     result = "LocalRepository: " + line;
+                }
+                if (line.contains("[ERROR]")) {
+                    Console.println(line, Console.RED, Console.BOLD);
+                } else {
+                    Console.println(line, Console.BOLD);
                 }
             }
         } catch (IOException e) {

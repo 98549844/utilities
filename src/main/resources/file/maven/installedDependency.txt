@@ -54,3 +54,10 @@
     <version>1.0</version>
 </dependency>
 
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>icefaces-ee-ace</artifactId>
+    <version>1.0</version>
+</dependency>
+
