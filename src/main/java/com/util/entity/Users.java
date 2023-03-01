@@ -1,53 +1,78 @@
-package com.entity.dao.hibernate;
+package com.util.entity;
 
+import com.util.entity.base.BaseEntity;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Users implements Serializable {
+//@EntityListeners(AuditingEntityListener.class)
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = {"userAccount"}), @UniqueConstraint(name = "constraint_email", columnNames = {"email"})})
+@Entity
+public class Users extends BaseEntity implements Serializable {
 
+    //users_description
+    public static final String ADMINISTRATOR = "administrator";
+    // public static final String Editor = "Editor"; // part of read update insert
+    public static final String DISABLE = "disable";
+    public static final String USER = "user"; // read update
+    public static final String VIEWER = "viewer"; // read only
+
+    public static final String ACTIVE = "ACTIVE";
+    public static final String INACTIVE = "INACTIVE";
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(strategy = "identity", name = "id")
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long userId;
+    @Column
     private String password;
 
 
     //personal info
-
+    @Column
     private String userAccount;
-
+    @Column
 
     private String username;
-
+    @Column
     private String description;
-
+    @Column
     private String email;
-
+    @Column
     private String mobile;
-
+    @Column
     private String gender;
-
-
-    //   private LocalDateTime birthday;
+    @Column
     private LocalDateTime dateOfBirth;
     private long age = 0l;
-
+    @Column
     private LocalDateTime loginDateTime;
+    @Column
+    private String status = "ACTIVE"; // ACTIVE || INACTIVE //决定模组功能是否开启
 
-    private String status = "ACTIVE"; // ACTIVE || INACTIVE
 
-
+    @Column
     private String domain;
-
+    @Column
     private String ip;
-
+    @Column
     private String hostName;
-
+    @Column
     private String remark;
 
-
+    @Column
     private LocalDateTime expireDate;
 
+    @Column
+    private boolean enabled = true; // user account
 
-    private boolean enabled = true; // user control
+
+
 
     public Long getUserId() {
         return userId;
@@ -113,13 +138,14 @@ public class Users implements Serializable {
         this.gender = gender;
     }
 
-/*    public LocalDateTime getBirthday() {
-        return birthday;
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
-        this.birthday = birthday;
-    }*/
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public String getDomain() {
         return domain;
@@ -192,13 +218,4 @@ public class Users implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public LocalDateTime getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
 }

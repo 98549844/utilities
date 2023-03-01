@@ -4,10 +4,8 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.google.gson.Gson;
-import com.util.entity.TestEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,33 +77,7 @@ public class EasyExcelUtil extends AnalysisEventListener<Map<Integer, String>> {
     }
 
 
-    public static void main(String[] args) {
-        String xls = "C:\\ACE\\aaa.xls";
 
-        EasyExcelUtil easyExcelUtil = new EasyExcelUtil();
-        easyExcelUtil.read(xls);
-
-        List<TestEntity> ls = new ArrayList<>();
-
-        TestEntity a = new TestEntity();
-        a.setId(10);
-        a.setUserName("garlam_1");
-
-        TestEntity b = new TestEntity();
-        b.setId(11);
-        b.setUserName("garlam_2");
-
-
-        TestEntity c = new TestEntity();
-        c.setId(13);
-        c.setUserName("garlam_3");
-
-        ls.add(a);
-        ls.add(b);
-        ls.add(c);
-
-        easyExcelUtil.write(xls, ls, new TestEntity());
-    }
 
 
     public void write(String saveLocation, List objList, Object obj) {

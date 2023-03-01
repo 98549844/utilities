@@ -2,8 +2,8 @@ package com.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Ordering;
-import com.testDate.DataGenerator;
-import com.util.entity.TestEntity;
+import com.generator.DataGenerator;
+import com.util.entity.Users;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
@@ -314,34 +314,33 @@ public class ListUtil {
      * just a sample
      * need override
      */
-    public static void sortListByGuava(List<TestEntity> testList) {
-        if (testList == null) {
-            testList = DataGenerator.getTestEntity();
+    public static void sortListByGuava(List<Users> ls) {
+        if (ls == null) {
+            ls = DataGenerator.generateUsers();
         }
-        int size = testList.size();
+        int size = ls.size();
         System.out.println("********before sorting");
         for (int i = 0; i < size; i++) {
             if (i % 10 != 0) {
-                System.out.print(testList.get(i).getId() + " ; ");
+                System.out.print(ls.get(i).getUserId() + " ; ");
             } else {
                 System.out.println();
             }
         }
-        System.out.println("");
+        System.out.println();
         System.out.println("********after sorting");
 
-        Ordering<TestEntity> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<TestEntity, Integer>() {
-            //  @com.sun.istack.Nullable
+        Ordering<Users> ordering = Ordering.natural().nullsFirst().onResultOf(new Function<Users, Integer>() {
             @Override
-            public Integer apply(TestEntity testEntity) {
-                return testEntity.getId();
+            public Integer apply(Users user) {
+                return Math.toIntExact(user.getUserId());
             }
         });
-        testList.sort(ordering);
+        ls.sort(ordering);
 
         for (int i = 0; i < size; i++) {
             if (i % 10 != 0) {
-                System.out.print(testList.get(i).getId() + " ; ");
+                System.out.print(ls.get(i).getUserId() + " ; ");
             } else {
                 System.out.println();
             }
@@ -352,15 +351,15 @@ public class ListUtil {
      * just a sample
      * need override
      */
-    public static void sortListByCollections(List<TestEntity> testList) {
-        if (testList == null) {
-            testList = DataGenerator.getTestEntity();
+    public static void sortListByCollections(List<Users> ls) {
+        if (ls == null) {
+            ls = DataGenerator.generateUsers();
         }
-        int size = testList.size();
+        int size = ls.size();
         System.out.println("********before sorting");
         for (int i = 0; i < size; i++) {
             if (i % 10 != 0) {
-                System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
+                System.out.print(ls.get(i).getUserId() + "(" + ls.get(i).getUsername() + ")" + " ; ");
             } else {
                 System.out.println();
             }
@@ -371,16 +370,16 @@ public class ListUtil {
 
         //compare函数的返回值-1, 1, 0
         //-1表示两个数位置交换，1表示不交换，0岂不是没有什么存在意义
-        Collections.sort(testList, new Comparator<TestEntity>() {
+        Collections.sort(ls, new Comparator<Users>() {
             @Override
-            public int compare(TestEntity o1, TestEntity o2) {
+            public int compare(Users o1, Users o2) {
                 int i = 0;
                 if (i == 0) {
-                    i = o1.getUserName().compareTo(o2.getUserName());
+                    i = o1.getUsername().compareTo(o2.getUsername());
                 }
 
                 if (i == 0) {
-                    i = o1.getId().compareTo(o2.getId());
+                    i = o1.getUserId().compareTo(o2.getUserId());
                 }
                 return i;
             }
@@ -388,7 +387,7 @@ public class ListUtil {
 
         for (int i = 0; i < size; i++) {
             if (i % 10 != 0) {
-                System.out.print(testList.get(i).getId() + "(" + testList.get(i).getUserName() + ")" + " ; ");
+                System.out.print(ls.get(i).getUserId() + "(" + ls.get(i).getUsername() + ")" + " ; ");
             } else {
                 System.out.println();
             }

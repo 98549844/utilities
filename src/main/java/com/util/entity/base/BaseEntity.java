@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 
 @MappedSuperclass
-public class baseEntity {
+public class BaseEntity {
 
 
 	//https://blog.csdn.net/qq_28804275/article/details/84801457?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.showsourcetag&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.showsourcetag

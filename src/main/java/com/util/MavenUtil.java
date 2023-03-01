@@ -11,11 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
-import org.apache.maven.artifact.versioning.VersionRange;
-import org.apache.maven.cli.MavenCli;*/
-
 /**
  * @Classname: MavenUtil
  * @Date: 2023/2/16 上午 10:38

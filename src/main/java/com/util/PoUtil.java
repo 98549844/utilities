@@ -1,7 +1,7 @@
 package com.util;
 
 
-import com.testDate.DataGenerator;
+import com.generator.DataGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +17,8 @@ public class PoUtil {
 
     public static void main(String[] args) {
       //  DataGenerator.getTestEntity();
-        iteratePoSetterValue(DataGenerator.getTestEntity().get(0));
-        iteratePoGetterValue(DataGenerator.getTestEntity().get(0));
+        iteratePoSetterValue(DataGenerator.generateUsers().get(0));
+        iteratePoGetterValue(DataGenerator.generateUsers().get(0));
     }
 
     public static void iteratePoGetterValue(Object object) {
