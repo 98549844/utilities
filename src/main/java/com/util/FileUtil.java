@@ -344,7 +344,7 @@ public class FileUtil {
         File file = new File(path);
         if (file.isDirectory() || !file.exists()) {
             log.error("File occur error !!!");
-            return null;
+            throw new IOException();
         }
         return path.substring(path.lastIndexOf(File.separator) + 1);
     }
