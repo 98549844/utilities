@@ -24,7 +24,7 @@ import org.apache.maven.cli.MavenCli;*/
  */
 
 
-public class MavenUtil {
+class MavenUtil {
     private static final Logger log = LogManager.getLogger(MavenUtil.class.getName());
 
     // static final String mavenWindowsHome = "C:\\Users\\Kalam_au\\AppData\\Local\\JetBrains\\Toolbox\\apps\\IDEA-U\\ch-0\\223.8214.52\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd";
