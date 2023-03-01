@@ -1,27 +1,17 @@
 package com.util.entity;
 
 import com.util.entity.base.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-//@EntityListeners(AuditingEntityListener.class)
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(name = "constraint_userAccount", columnNames = {"userAccount"}), @UniqueConstraint(name = "constraint_email", columnNames = {"email"})})
-@Entity
+
 public class Users extends BaseEntity implements Serializable {
-
-    //users_description
-    public static final String ADMINISTRATOR = "administrator";
-    // public static final String Editor = "Editor"; // part of read update insert
-    public static final String DISABLE = "disable";
-    public static final String USER = "user"; // read update
-    public static final String VIEWER = "viewer"; // read only
-
-    public static final String ACTIVE = "ACTIVE";
-    public static final String INACTIVE = "INACTIVE";
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
