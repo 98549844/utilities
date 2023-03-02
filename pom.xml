@@ -86,6 +86,7 @@
                     <groupId>org.jboss.logging</groupId>
                 </exclusion>
             </exclusions>
+            <scope>provided</scope>
         </dependency>
 
         <!--读取图片文字, refer to textUtil-->
