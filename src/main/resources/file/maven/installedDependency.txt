@@ -61,3 +61,10 @@
     <version>1.0</version>
 </dependency>
 
+
+<dependency>
+    <groupId>com.ace</groupId>
+    <artifactId>mpfa-web-1.0.0</artifactId>
+    <version>1.0</version>
+</dependency>
+

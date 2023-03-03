@@ -40,10 +40,13 @@ class MavenUtil {
         String runtime = p + "com.ibm.ws.runtime.jar";
         String admin_core = p + "com.ibm.ws.admin.core.jar";
         String wlm = p + "com.ibm.ws.wlm.jar";
+        String web = "C:\\ideaPorject\\framework_upgrade\\SDBDemoWeb\\WebContent\\WEB-INF\\lib\\mpfa-web-1.0.0.jar";
+
         // installExternalJar(runtime);
         // installExternalJar(admin_core);
         // installExternalJar(wlm);
-        installExternalJar(icefaces_ee_ace);
+        //installExternalJar(icefaces_ee_ace);
+        installExternalJar(web);
 
 
         // logInstalledDependency();
@@ -171,7 +174,7 @@ class MavenUtil {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-              //  Console.println(line, Console.BOLD);
+                //  Console.println(line, Console.BOLD);
                 if (line.contains("<localRepository>")) {
                     result = "LocalRepository: " + line;
                 }
