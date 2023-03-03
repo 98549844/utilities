@@ -28,6 +28,8 @@ class MavenUtil {
     private static final String groupId = "com.ace";
     private static final String version = "1.0";
     private static final String bootDir = PathUtil.getSystemPath();
+    private static final String localDependencyRecord = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\localDependencyRecord.txt";
+
 
     public static void main(String[] args) throws IOException {
 
@@ -93,34 +95,13 @@ class MavenUtil {
         dependency.add(versionLog.append(SystemUtil.separator()));
         dependency.add(dependency2Log.append(SystemUtil.separator()));
         dependency.add(new StringBuilder(SystemUtil.separator()));
-
-
         logInstalledDependency(dependency);
-
     }
-
-    /**
-     * install jar
-     *
-     * @param dependency
-     */
-    private static void logInstalledDependency(List<StringBuilder> dependency) {
-        String installedDependency = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\installedDependency.txt";
-        if (!FileUtil.exist(installedDependency)) {
-            FileUtil.create(installedDependency);
-        }
-        log.info("logging installed maven dependency ...");
-        FileUtil.write(FileUtil.convertToPath(installedDependency), "installedDependency.txt", dependency, FileUtil.exist(installedDependency));
-
-        log.info("Installed maven dependency log complete !!!");
-    }
-
 
     /**
      * 装安文件夹里所有jars
      *
      * @param ExternalJarPath
-     * @throws IOException
      */
     private static void installExternalJars(String ExternalJarPath) throws IOException {
         if (new File(ExternalJarPath).isFile()) {
@@ -190,6 +171,21 @@ class MavenUtil {
         return result;
     }
 
+    /**
+     * write install jar dependency record into txt file
+     *
+     */
+    private static void logInstalledDependency(List<StringBuilder> dependency) {
+        if (!FileUtil.exist(localDependencyRecord)) {
+            FileUtil.create(localDependencyRecord);
+        }
+        log.info("logging installed maven dependency ...");
+        FileUtil.write(FileUtil.convertToPath(localDependencyRecord),
+                "localDependencyRecord.txt",
+                dependency,
+                FileUtil.exist(localDependencyRecord));
+        log.info("Installed maven dependency log complete !!!");
+    }
 
     private static void process(List<String> commands) throws IOException {
         Process p = new ProcessBuilder(commands).start();
