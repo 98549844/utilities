@@ -32,10 +32,8 @@ class MavenUtil {
 
 
     public static void main(String[] args) throws IOException {
-
         //  getMavenVersion();
         //  getMavenRepositoryLocation();
-
         // String ExternalJarPath = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\WEB-INF\\lib\\mybatis2-2.3.7.jar";
         String p = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\";
         String icefaces_ee_ace = p + "icefaces-ee-ace.jar";
@@ -49,9 +47,6 @@ class MavenUtil {
         // installExternalJar(wlm);
         //installExternalJar(icefaces_ee_ace);
         installExternalJar(web);
-
-
-        // logInstalledDependency();
     }
 
     private static void installExternalJar(String ExternalJarPath) throws IOException {

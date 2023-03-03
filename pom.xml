@@ -25,13 +25,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${springframework}</version>
-            <!--<scope>provided</scope>--> <!--comment it for run main method-->
+            <scope>provided</scope> <!--comment it for run main method-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${springframework}</version>
-            <!--<scope>provided</scope>--> <!--comment it for run main method-->
+            <scope>provided</scope> <!--comment it for run main method-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
