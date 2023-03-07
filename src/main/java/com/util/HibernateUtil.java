@@ -13,7 +13,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 
-public class HibernateUtil {
+class HibernateUtil {
     private static final Logger log = LogManager.getLogger(HibernateUtil.class.getName());
 
     private Session session;
@@ -22,9 +22,9 @@ public class HibernateUtil {
         HibernateUtil hibernateUtil = new HibernateUtil();
         Session session = hibernateUtil.getConnection();
         hibernateUtil.isOpen();
-        String sql = "select userAccount , username from users";
-        String sql1 = "select * from users";
-        List<Object[]> sqlResult = hibernateUtil.getResultSetBySQL(sql1);
+        String hql = "select userAccount , username from users";
+        String sql = "select * from users";
+        List<Object[]> sqlResult = hibernateUtil.getResultSetBySQL(sql);
 
         ListUtil.printListObjectSet(sqlResult);
         hibernateUtil.close();
@@ -101,7 +101,6 @@ public class HibernateUtil {
 
     /**
      * submit request to db
-     *
      */
     public void commitTransaction(Session session) {
         try {
@@ -130,7 +129,6 @@ public class HibernateUtil {
 
     /**
      * close connection
-     *
      */
     public void close(Session session) {
         try {
@@ -289,7 +287,8 @@ public class HibernateUtil {
         //Query query = session.createSQLQuery(sql);
 
         //hibernate 6
-        Query query = session.createQuery(sql);
+        // Query query = session.createNativeQuery(sql, Users.class); //部分col datatype未处理
+        Query query = session.createNativeQuery(sql);
         List<Object[]> entityList = query.getResultList();
         return entityList;
     }

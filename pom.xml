@@ -136,13 +136,12 @@
         </dependency>-->
 
         <!--for mysql 8-->
-        <!--
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.29</version>
+            <scope>provided</scope>
         </dependency>
-        -->
 
         <!-- for mysql 5-->
         <!--<dependency>
