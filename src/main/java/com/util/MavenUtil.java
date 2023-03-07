@@ -40,13 +40,13 @@ class MavenUtil {
         String runtime = p + "com.ibm.ws.runtime.jar";
         String admin_core = p + "com.ibm.ws.admin.core.jar";
         String wlm = p + "com.ibm.ws.wlm.jar";
-        String web = "C:\\ideaPorject\\framework_upgrade\\SDBDemoWeb\\WebContent\\WEB-INF\\lib\\mpfa-web-1.0.0.jar";
+        String web2 = "C:\\Users\\Kalam_au\\Downloads\\20230306\\mpfa-web2.jar";
 
         // installExternalJar(runtime);
         // installExternalJar(admin_core);
         // installExternalJar(wlm);
         //installExternalJar(icefaces_ee_ace);
-        installExternalJar(web);
+        installExternalJar(web2);
     }
 
     private static void installExternalJar(String ExternalJarPath) throws IOException {
