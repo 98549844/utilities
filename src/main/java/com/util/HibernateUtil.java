@@ -1,5 +1,6 @@
 package com.util;
 
+import com.util.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -24,9 +25,12 @@ class HibernateUtil {
         hibernateUtil.isOpen();
         String hql = "select userAccount , username from users";
         String sql = "select * from users";
-        List<Object[]> sqlResult = hibernateUtil.getResultSetBySQL(sql);
+        List<Users> sqlResult = hibernateUtil.getResultSetBySQL(sql, Users.class);
 
-        ListUtil.printListObjectSet(sqlResult);
+        for (Users user : sqlResult) {
+            System.out.println(user.getUserAccount());
+        }
+
         hibernateUtil.close();
     }
 
@@ -272,8 +276,8 @@ class HibernateUtil {
      * @param hql
      * @return
      */
-    public List getResultSetByHQL(String hql) {
-        Query query = session.createQuery(hql);
+    public <R> List getResultSetByHQL(String hql, Class<R> resultClass) {
+        Query query = session.createQuery(hql, resultClass);
         List entityList = query.list();
         return entityList;
     }
@@ -282,14 +286,13 @@ class HibernateUtil {
      * @param sql
      * @return
      */
-    public List<Object[]> getResultSetBySQL(String sql) {
+    public <R> List getResultSetBySQL(String sql, Class<R> resultClass) {
         //hibernate 5
         //Query query = session.createSQLQuery(sql);
 
         //hibernate 6
-        // Query query = session.createNativeQuery(sql, Users.class); //部分col datatype未处理
-        Query query = session.createNativeQuery(sql);
-        List<Object[]> entityList = query.getResultList();
+        Query query = session.createNativeQuery(sql, resultClass);
+        List entityList = query.getResultList();
         return entityList;
     }
 }

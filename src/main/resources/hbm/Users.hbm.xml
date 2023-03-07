@@ -84,7 +84,7 @@
                 <comment>remark</comment>
             </column>
         </property>
-        <property name="enabled" type="java.lang.String">
+        <property name="enabled" type="java.lang.Boolean">
             <column name="enabled">
                 <comment>enabled</comment>
             </column>
