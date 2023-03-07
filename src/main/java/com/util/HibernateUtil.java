@@ -92,6 +92,7 @@ class HibernateUtil {
      */
     public Session getConnection() {
         if (NullUtil.isNull(session)) {
+            log.info("getResourceAsStream(\"hibernate.cfg.xml\")");
             try {
                 StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
                 SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
