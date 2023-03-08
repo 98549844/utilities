@@ -316,11 +316,10 @@ public class FileUtil {
      *
      * @param path
      * @return
-     * @throws IOException
      */
-    public static ArrayList<String> getFileNames(String path) throws IOException {
+    public static ArrayList<String> getFileNames(String path) {
         path = convertToPath(path);
-        log.info("Directory: => {}", path);
+        log.info("getFileNames: {}", path);
 
         ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
@@ -355,11 +354,10 @@ public class FileUtil {
      *
      * @param path
      * @return
-     * @throws IOException
      */
-    public static ArrayList<String> getFullFileNames(String path) throws IOException {
+    public static ArrayList<String> getFullFileNames(String path) {
         path = convertToPath(path);
-        log.info("Directory: => {}", path);
+        log.info("getFullFileNames: {}", path);
 
         ArrayList<String> files = new ArrayList<String>();
         File file = new File(path);
@@ -989,25 +987,52 @@ public class FileUtil {
         return isSuccess;
     }
 
-    public static void main1(String[] args) throws IOException {
+    /**
+     * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
+     * @param ext
+     * @throws IOException
+     */
+    public static void count(String path, String ext) throws IOException {
+        int count = 0;
         FileUtil fileUtil = new FileUtil();
-        List a = fileUtil.getFilesLocation("src/main/java/com/entity/dao/hibernate");
-        List b = getFilePaths("src/main/java/com/entity/dao/hibernate");
-        List c = getFullFileNames("src/main/java/com/entity/dao/hibernate");
-
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println("non-static: " + a.get(i));
+        List fileList = fileUtil.getFilesLocation(path);
+        for (Object obj : fileList) {
+            String f = obj.toString();
+            String type = getExtension(FileUtil.getFileName(f));
+            if (type.equals(ext)) {
+                ++count;
+            }
         }
+        log.info("{} count: {}", ext, count);
+    }
+
+    public static void main(String[] args) throws IOException {
+        FileUtil fileUtil = new FileUtil();
+        List a = fileUtil.getFilesLocation("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
+        List b = getFilePaths("src/main/java/com/models");
+        List c = getFullFileNames("src/main/java/com/models");
+
+        int count = 0;
+        log.info("start a ...");
+        for (int i = 0; i < a.size(); i++) {
+            String t = getFileName(a.get(i).toString());
+            if ("html".equalsIgnoreCase(getExtension(t))) {
+                System.out.println("non-static: " + a.get(i));
+                count++;
+            }
+        }
+        log.info("count result : " + count);
         System.out.println("------------");
 
+        log.info("start b ...");
         for (int i = 0; i < b.size(); i++) {
-            System.out.println("static: " + b.get(i));
+            // System.out.println("static: " + b.get(i));
 
         }
         System.out.println("----------");
+        log.info("start c ...");
         for (int i = 0; i < c.size(); i++) {
             System.out.println("getFullFileNames: " + b.get(i));
-
         }
     }
 
@@ -1033,9 +1058,8 @@ public class FileUtil {
                     directories.add(fileList[i].getAbsolutePath());
                     /**递归扫描下面的文件夹**/
                     getFilesLocation(fileList[i].getAbsolutePath());
-                }
-                /**非文件夹**/
-                else {
+                } else {
+                    /**非文件夹**/
                     scanFiles.add(fileList[i].getAbsolutePath());
                 }
             }
