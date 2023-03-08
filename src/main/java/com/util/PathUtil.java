@@ -21,6 +21,10 @@ public class PathUtil {
     private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
 
+    /** 处理路径内有空格问题
+     * @param path
+     * @return
+     */
     public static String space(String path) {
         return path.trim().replace(" ", "%20");
     }
