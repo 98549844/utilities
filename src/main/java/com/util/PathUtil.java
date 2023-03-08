@@ -21,6 +21,10 @@ public class PathUtil {
     private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
 
+    public static String space(String path) {
+        return path.trim().replace(" ", "%20");
+    }
+
     public File getSrcFile(String srcFile) throws IOException {
         log.info("format: src/main/java/com/.../xx.xx");
         File file = new File(srcFile);

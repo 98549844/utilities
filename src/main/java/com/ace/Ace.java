@@ -1,6 +1,7 @@
 package com.ace;
 
 import com.util.FileUtil;
+import com.util.PathUtil;
 import com.util.TimerUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,15 +22,8 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-        TimerUtil timer = new TimerUtil();
-        log.info("counting start ...");
-        long start = timer.start();
-        String location = "C:\\ibmProjects\\";
-        // String ext = null;
-        FileUtil.countByType(location, null);
-        timer.calc(start);
-        log.info("counting complete !!!");
-
+        String location = "C:\\ibmPro jects\\";
+        System.out.println(PathUtil.space(location.trim()));
     }
 }
 
