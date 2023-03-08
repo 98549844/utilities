@@ -18,8 +18,8 @@ class MybatisUtil {
     private static final Logger log = LogManager.getLogger(MybatisUtil.class.getName());
 
     public static void main(String[] args) throws IOException {
-        String countLocation = "C:\\ideaPorject\\eORSO_schedulejob\\";
-        FileUtil.count(countLocation, "java");
+        String countLocation = "C:\\ideaPorject\\";
+        count(countLocation);
     }
 
     private static void count(String MybatisXmlLocation) throws IOException {

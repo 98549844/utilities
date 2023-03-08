@@ -992,18 +992,22 @@ public class FileUtil {
      * @param ext
      * @throws IOException
      */
-    public static void count(String path, String ext) throws IOException {
+    public static void countByType(String path, String ext) throws IOException {
         int count = 0;
         FileUtil fileUtil = new FileUtil();
         List fileList = fileUtil.getFilesLocation(path);
-        for (Object obj : fileList) {
-            String f = obj.toString();
-            String type = getExtension(FileUtil.getFileName(f));
-            if (type.equals(ext)) {
-                ++count;
+        log.info("starting count ... {}", path);
+        log.info("contained file size: {}", fileList.size());
+        if (NullUtil.isNotNull(ext)) {
+            for (Object obj : fileList) {
+                String f = obj.toString();
+                String type = getExtension(FileUtil.getFileName(f));
+                if (type.equals(ext)) {
+                    ++count;
+                }
             }
+            log.info("{} count: {}", ext, count);
         }
-        log.info("{} count: {}", ext, count);
     }
 
     public static void main(String[] args) throws IOException {

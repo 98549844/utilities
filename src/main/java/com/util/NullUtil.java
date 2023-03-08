@@ -80,7 +80,7 @@ public class NullUtil {
             return false;
         } else if (object instanceof String) {
             String s = (String) object;
-            if (s.equals("") || s.isEmpty()) {
+            if (s.isEmpty()) {
                 return false;
             }
         } else if (object instanceof List) {
