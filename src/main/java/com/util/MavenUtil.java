@@ -55,7 +55,7 @@ class MavenUtil {
             return;
         }
 
-        String jarName = FileUtil.getFileName(ExternalJarPath);
+        String jarName = FileUtil.getFileName(PathUtil.space(ExternalJarPath));
         String jar = FileUtil.getName(jarName);
 
         log.info("Maven install starting ...");
@@ -104,7 +104,7 @@ class MavenUtil {
             return;
         }
 
-        List<String> jarNames = FileUtil.getFileNames(ExternalJarPath);
+        List<String> jarNames = FileUtil.getFileNames(PathUtil.space(ExternalJarPath));
 
         log.info("Maven install starting ...");
         for (String jarName : jarNames) {
@@ -168,17 +168,13 @@ class MavenUtil {
 
     /**
      * write install jar dependency record into txt file
-     *
      */
     private static void logInstalledDependency(List<StringBuilder> dependency) {
         if (!FileUtil.exist(localDependencyRecord)) {
             FileUtil.create(localDependencyRecord);
         }
         log.info("logging installed maven dependency ...");
-        FileUtil.write(FileUtil.convertToPath(localDependencyRecord),
-                "localDependencyRecord.txt",
-                dependency,
-                FileUtil.exist(localDependencyRecord));
+        FileUtil.write(FileUtil.convertToPath(localDependencyRecord), "localDependencyRecord.txt", dependency, FileUtil.exist(localDependencyRecord));
         log.info("Installed maven dependency log complete !!!");
     }
 

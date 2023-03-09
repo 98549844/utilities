@@ -22,8 +22,16 @@ public class Ace {
 
     public static void main(String[] args) throws IOException {
 
-        String location = "C:\\ibmPro jects\\";
-        System.out.println(PathUtil.space(location.trim()));
+        String location = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb";
+        FileUtil fileUtil = new FileUtil();
+        for (Object obj : fileUtil.getFilesLocation(location)) {
+            if (obj.toString().contains("jar")) {
+                System.out.println(obj.toString());
+            }
+        }
+
+        FileUtil.countByType(location, null);
+
     }
 }
 

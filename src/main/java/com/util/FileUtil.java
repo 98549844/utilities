@@ -1010,6 +1010,56 @@ public class FileUtil {
         }
     }
 
+    /**
+     * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
+     * @throws IOException
+     */
+    public static void count(String path) throws IOException {
+        FileUtil fileUtil = new FileUtil();
+        List<Object> fileList = fileUtil.getFilesLocation(path);
+        log.info("count result: {}", fileList.size());
+    }
+
+    /**
+     * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
+     * @param ext
+     * @throws IOException
+     */
+    public static void findByType(String path, String ext) throws IOException {
+        FileUtil fileUtil = new FileUtil();
+        List<Object> fileList = fileUtil.getFilesLocation(path);
+        log.info("starting searching ... {}", path);
+        log.info("searching file size: {}", fileList.size());
+        for (Object obj : fileList) {
+            String f = obj.toString();
+            String type = getExtension(FileUtil.getFileName(f));
+            if (type.equals(ext)) {
+                Console.println(f, Console.BOLD);
+            }
+        }
+        log.info("search complete !!!");
+    }
+
+    /**
+     * @param path     绝对路经 xxx/xxx/xxx/xxx.xx
+     * @param fileName
+     * @throws IOException
+     */
+    public static void findByName(String path, String fileName) throws IOException {
+        FileUtil fileUtil = new FileUtil();
+        List<Object> fileList = fileUtil.getFilesLocation(path);
+        log.info("starting searching ... {}", path);
+        log.info("searching file size: {}", fileList.size());
+        for (Object obj : fileList) {
+            String f = obj.toString();
+            String name = getName(FileUtil.getFileName(f));
+            if (name.toLowerCase().contains(fileName.toLowerCase())) {
+                Console.println(f, Console.BOLD);
+            }
+        } log.info("search complete !!!");
+    }
+
+
     public static void main(String[] args) throws IOException {
         FileUtil fileUtil = new FileUtil();
         List a = fileUtil.getFilesLocation("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
