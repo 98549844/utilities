@@ -1,5 +1,6 @@
-package com.util;
+package com.mainUtil;
 
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
