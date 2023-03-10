@@ -992,21 +992,30 @@ public class FileUtil {
      * @param ext
      * @throws IOException
      */
-    public static void countByType(String path, String ext) throws IOException {
-        int count = 0;
+    public static void countByType(String path, String... ext) throws IOException {
+        //   int count = 0;
         FileUtil fileUtil = new FileUtil();
         List fileList = fileUtil.getFilesLocation(path);
         log.info("starting count ... {}", path);
         log.info("contained file size: {}", fileList.size());
-        if (NullUtil.isNotNull(ext)) {
+
+        Map<String, Integer> resultMap = new HashMap<>();
+        if (NullUtil.isNotNull(ext) && ext.length > 0) {
             for (Object obj : fileList) {
                 String f = obj.toString();
                 String type = getExtension(FileUtil.getFileName(f));
-                if (type.equals(ext)) {
-                    ++count;
+                for (String s : ext) {
+                    if (type.equals(s)) {
+                        int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
+                        resultMap.put(s, ++count);
+
+                    }
                 }
+
             }
-            log.info("{} count: {}", ext, count);
+            for (String s : ext) {
+                log.info("{} count: {}", s, resultMap.get(s));
+            }
         }
     }
 
@@ -1056,7 +1065,8 @@ public class FileUtil {
             if (name.toLowerCase().contains(fileName.toLowerCase())) {
                 Console.println(f, Console.BOLD);
             }
-        } log.info("search complete !!!");
+        }
+        log.info("search complete !!!");
     }
 
 
