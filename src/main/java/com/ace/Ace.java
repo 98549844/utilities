@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Classname: Ace
@@ -21,13 +23,6 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
-
-        String location = "C:\\ideaPorject\\eORSO_schedulejob\\src";
-        FileUtil fileUtil = new FileUtil();
-
-
-        FileUtil.countByType(location, "xml","java","abc");
-
     }
 }
 
