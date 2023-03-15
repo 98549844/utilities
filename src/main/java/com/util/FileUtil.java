@@ -992,7 +992,7 @@ public class FileUtil {
      * @param ext
      * @throws IOException
      */
-    public static void countByType(String path, String... ext) throws IOException {
+    public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
         //   int count = 0;
         FileUtil fileUtil = new FileUtil();
         List fileList = fileUtil.getFilesLocation(PathUtil.space(path));
@@ -1017,6 +1017,7 @@ public class FileUtil {
                 log.info("{} count: {}", s, resultMap.get(s));
             }
         }
+        return resultMap;
     }
 
     /**
