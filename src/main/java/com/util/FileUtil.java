@@ -474,30 +474,6 @@ public class FileUtil {
         return m;
     }
 
-
-    private static void testGetFullPathDirTree(String[] args) throws IOException {
-        Map a = getFullPathDirTree("src/main/java/com/entity");
-        System.out.println();
-
-        Map b = (Map) a.get("src\\main\\java\\com\\entity\\dao");
-        Map c = (Map) b.get("src\\main\\java\\com\\entity\\dao\\hibernate");
-
-        List d = MapUtil.getValueSet(c);
-
-        for (Object t : d) {
-            System.out.println(t.toString());
-        }
-        System.out.println("-------------------");
-
-        Map b1 = (Map) a.get("src\\main\\java\\com\\entity\\vo");
-        List d1 = MapUtil.getValueSet(b1);
-
-        for (Object t : d1) {
-            System.out.println(t.toString());
-        }
-    }
-
-
     /**
      * 获取路径下所有文件夹
      *
