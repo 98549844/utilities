@@ -26,7 +26,7 @@ public class PathUtil {
      * @return
      */
     public static String space(String path) {
-        return path.trim().replace(" ", "%20");
+        return path.trim().replaceAll(" ", "%20");
     }
 
     public File getSrcFile(String srcFile) throws IOException {
