@@ -19,7 +19,7 @@
         <java.version>17</java.version>
         <springframework>6.0.4</springframework>
         <springBootMavenPlugin>3.0.2</springBootMavenPlugin> <!--version depend on springboot3-->
-        <util.scope>provided</util.scope> <!--compile / provided-->
+        <util.scope>compile</util.scope> <!--compile / provided-->
     </properties>
 
     <dependencies>

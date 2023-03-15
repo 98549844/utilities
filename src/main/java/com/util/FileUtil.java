@@ -995,7 +995,7 @@ public class FileUtil {
     public static void countByType(String path, String... ext) throws IOException {
         //   int count = 0;
         FileUtil fileUtil = new FileUtil();
-        List fileList = fileUtil.getFilesLocation(path);
+        List fileList = fileUtil.getFilesLocation(PathUtil.space(path));
         log.info("starting count ... {}", path);
         log.info("contained file size: {}", fileList.size());
 

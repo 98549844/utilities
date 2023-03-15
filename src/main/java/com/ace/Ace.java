@@ -23,6 +23,9 @@ public class Ace {
 
 
     public static void main(String[] args) throws IOException {
+        String p = "C:\\ideaPorject\\ace\\src";
+        FileUtil.countByType(p,"java","xml","properties","html","yml");
+
     }
 }
 
