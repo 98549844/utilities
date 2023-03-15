@@ -1035,19 +1035,29 @@ public class FileUtil {
      * @param ext
      * @throws IOException
      */
-    public static void findByType(String path, String ext) throws IOException {
+    public static Map<String, List<String>> findByType(String path, String... ext) throws IOException {
         FileUtil fileUtil = new FileUtil();
         List<Object> fileList = fileUtil.getFilesLocation(path);
-        log.info("starting searching ... {}", path);
         log.info("searching file size: {}", fileList.size());
-        for (Object obj : fileList) {
-            String f = obj.toString();
-            String type = getExtension(FileUtil.getFileName(f));
-            if (type.equals(ext)) {
-                Console.println(f, Console.BOLD);
+
+        Map<String, List<String>> resultMap = new HashMap<>();
+        if (NullUtil.isNotNull(ext) && ext.length > 0) {
+            log.info("starting searching ... {}", path);
+            for (Object obj : fileList) {
+                String f = obj.toString();
+                String type = getExtension(FileUtil.getFileName(f));
+                for (int i = 0; i < ext.length; i++) {
+                    List<String> resulList = resultMap.get(ext[i]) == null ? new ArrayList<>() : resultMap.get(ext[i]);
+                    if (type.equals(ext[i])) {
+                        Console.println(f, Console.BOLD); //print as console
+                        resulList.add(f);
+                        resultMap.put(ext[i], resulList);
+                    }
+                }
             }
+            log.info("search complete !!!");
         }
-        log.info("search complete !!!");
+        return resultMap;
     }
 
     /**
