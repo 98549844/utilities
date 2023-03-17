@@ -41,12 +41,13 @@ class MavenUtil {
         String admin_core = p + "com.ibm.ws.admin.core.jar";
         String wlm = p + "com.ibm.ws.wlm.jar";
         String web2 = "C:\\Users\\Kalam_au\\Downloads\\20230306\\mpfa-web2.jar";
+        String tools = "C:\\Users\\Kalam_au\\.jdks\\azul-1.8.0_362\\lib\\tools.jar";
 
         // installExternalJar(runtime);
         // installExternalJar(admin_core);
         // installExternalJar(wlm);
         //installExternalJar(icefaces_ee_ace);
-        installExternalJar(web2);
+        installExternalJar(tools);
     }
 
     private static void installExternalJar(String ExternalJarPath) throws IOException {

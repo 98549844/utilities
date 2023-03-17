@@ -78,10 +78,21 @@ public class SystemUtil {
         getSystemInfo();
     }
 
-    /** 通用换行符
+    /**
+     * 通用换行符
+     *
      * @return
      */
     public static String separator() {
         return System.getProperty("line.separator");
+    }
+
+    /**
+     * 退回到当前行的行首
+     *
+     * @return
+     */
+    public static String backToLineStart() {
+        return "\r";
     }
 }
