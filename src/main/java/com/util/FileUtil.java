@@ -973,8 +973,6 @@ public class FileUtil {
         FileUtil fileUtil = new FileUtil();
         List fileList = fileUtil.getFilesLocation(PathUtil.space(path));
         log.info("starting count ... {}", path);
-        log.info("contained file size: {}", fileList.size());
-
         Map<String, Integer> resultMap = new HashMap<>();
         if (NullUtil.isNotNull(ext) && ext.length > 0) {
             for (Object obj : fileList) {
@@ -990,7 +988,7 @@ public class FileUtil {
 
             }
             for (String s : ext) {
-                log.info("{} count: {}", s, resultMap.get(s));
+                log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
             }
         }
         return resultMap;
@@ -1033,6 +1031,12 @@ public class FileUtil {
             }
             log.info("search complete !!!");
         }
+        for (String s : ext) {
+            int size = resultMap.get(s) == null ? 0 : resultMap.get(s).size();
+            Console.println("type: " + s + " found: " + size, Console.BOLD); //print as console
+
+        }
+
         return resultMap;
     }
 
