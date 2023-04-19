@@ -21,7 +21,7 @@ public class DateTimeUtil {
         return cal.toGregorianCalendar().getTime();
     }
 
-    public static void printCurrentDateTime(Object time) {
+    public static void printDateTime(Object time) {
         Date date = null;
         if (time instanceof Long) {
             date = new Date((Long) time);
@@ -38,6 +38,24 @@ public class DateTimeUtil {
         System.out.println(formatter.format(date));
     }
 
+    public static void printCurrentDateTime() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+        System.out.println(formatter.format(date));
+    }
+
+    public static String getCurrentDateTime() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+        String formattedDate = formatter.format(date);
+        System.out.println(formattedDate);
+        return formattedDate;
+    }
+
+    public static void main(String[] args) {
+        printCurrentDateTime();
+    }
+
     public static void differenceSystemCurrentTimeMillis(Long start, Long end) {
         Long temp;
         if (NullUtil.isNotNull(start) || NullUtil.isNotNull(end)) {
@@ -47,7 +65,7 @@ public class DateTimeUtil {
                 start = temp;
             }
             Long result = end - start;
-            printCurrentDateTime(result);
+            printDateTime(result);
         } else {
             Console.println("Start time or End time is null , pLease check", Console.BOLD, Console.RED);
         }
@@ -179,7 +197,7 @@ public class DateTimeUtil {
     }
 
 
-    public static void printSimpleDate(Date date) throws ParseException {
+    public static void printSimpleDate(Date date) {
         if (NullUtil.isNull(date)) {
             date = new Date();
         }
@@ -188,7 +206,7 @@ public class DateTimeUtil {
         log.info("时间：{}", dateformat);
     }
 
-    public static void printCurrentDate() throws ParseException {
+    public static void printCurrentDate() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateformat = sdf.format(date);

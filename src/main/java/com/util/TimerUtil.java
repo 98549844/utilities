@@ -24,12 +24,12 @@ public class TimerUtil {
 
     public void calc(long start, long end) {
         Long result = end - start;
-        DateTimeUtil.printCurrentDateTime(result);
+        DateTimeUtil.printDateTime(result);
     }
 
     public void calc(long start) {
         Long result = System.currentTimeMillis() - start;
-        DateTimeUtil.printCurrentDateTime(result);
+        DateTimeUtil.printDateTime(result);
     }
 
 }
