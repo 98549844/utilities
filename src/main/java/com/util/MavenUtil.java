@@ -22,7 +22,6 @@ import java.util.List;
 class MavenUtil {
     private static final Logger log = LogManager.getLogger(MavenUtil.class.getName());
 
-    // static final String mavenWindowsHome = "C:\\Users\\Kalam_au\\AppData\\Local\\JetBrains\\Toolbox\\apps\\IDEA-U\\ch-0\\223.8214.52\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd";
     static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
     private static final String space = " ";
     private static final String groupId = "com.ace";
@@ -32,9 +31,6 @@ class MavenUtil {
 
 
     public static void main(String[] args) throws IOException {
-        //  getMavenVersion();
-        //  getMavenRepositoryLocation();
-        // String ExternalJarPath = "C:\\ideaPorject\\framework_upgrade\\AceDemoWeb\\WebContent\\WEB-INF\\lib\\mybatis2-2.3.7.jar";
         String p = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\maven\\";
         String icefaces_ee_ace = p + "icefaces-ee-ace.jar";
         String runtime = p + "com.ibm.ws.runtime.jar";
@@ -43,10 +39,6 @@ class MavenUtil {
         String web2 = "C:\\Users\\Kalam_au\\Downloads\\20230306\\mpfa-web2.jar";
         String tools = "C:\\Users\\Kalam_au\\.jdks\\azul-1.8.0_362\\lib\\tools.jar";
 
-        // installExternalJar(runtime);
-        // installExternalJar(admin_core);
-        // installExternalJar(wlm);
-        //installExternalJar(icefaces_ee_ace);
         installExternalJar(tools);
     }
 
