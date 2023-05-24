@@ -31,6 +31,7 @@ public class FileContentTool {
     }
 
     private void replaceContentSymbol() throws IOException {
+        log.info("替换全角标点到半角标点 ...");
         String content = (String) Objects.requireNonNull(FileUtil.read(sourcePath + sourceFile)).get(FileUtil.ORIGINAL);
         String result1 = content.replaceAll("，", ", ");
         String result2 = result1.replaceAll("。", ". ");
@@ -39,6 +40,7 @@ public class FileContentTool {
         String result0 = result4.replaceAll("；", "; ");
 
         FileUtil.write(sourcePath, sourceFile, result0, false);
+        log.info("标点替换完成 !!!");
     }
 
 }
