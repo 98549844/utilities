@@ -1,4 +1,4 @@
-package com.util.dbUtil;
+package com.tools.dbTool;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class MysqlDBUtil {
-    private static final Logger log = LogManager.getLogger(MysqlDBUtil.class.getName());
+public class MysqlDBTool {
+    private static final Logger log = LogManager.getLogger(MysqlDBTool.class.getName());
 
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

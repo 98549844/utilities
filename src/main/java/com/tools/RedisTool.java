@@ -1,4 +1,4 @@
-package com.util.redisUtil;
+package com.tools;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -6,8 +6,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class RedisUtil {
-    static private final Log log = LogFactory.getLog(RedisUtil.class);
+public class RedisTool {
+    static private final Log log = LogFactory.getLog(RedisTool.class);
 
     public JedisPool getJedisPool() {
         // 获取连接池配置对象
@@ -28,13 +28,13 @@ public class RedisUtil {
     }
 
     public static void main(String[] args) {
-        RedisUtil connRedis = new RedisUtil();
+        RedisTool connRedis = new RedisTool();
         connRedis.test1();
         connRedis.test2();
     }
 
     public void test1() {
-        RedisUtil redisUtil = new RedisUtil();
+        RedisTool redisUtil = new RedisTool();
         Jedis jedis = redisUtil.getJedis();
         // 2. 保存数据
         jedis.set("name", "garlam");
@@ -46,7 +46,7 @@ public class RedisUtil {
     }
 
     public void test2() {
-        RedisUtil redisUtil = new RedisUtil();
+        RedisTool redisUtil = new RedisTool();
         JedisPool jedisPool = redisUtil.getJedisPool();
 
         // 获得核心对象：jedis

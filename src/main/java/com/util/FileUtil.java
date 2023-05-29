@@ -84,7 +84,7 @@ public class FileUtil {
             }
 
             result = file.createNewFile();
-            System.out.println("File created !!!");
+            log.info("File created !!!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -371,10 +371,9 @@ public class FileUtil {
     }
 
 
-    public static String getText(String src) throws IOException {
-        String path = src;//文件路径
-        File file = new File(path); // 要读取以上路径的test.txt文件
-        System.out.println(file.getName());
+    public static String getContent(String src) throws IOException {
+        File file = new File(src); // 要读取以上路径的文本内容
+        log.info("file name: {}", file.getName());
         byte[] bytes = new byte[1024];
         StringBuffer sb = new StringBuffer();
         FileInputStream input = new FileInputStream(file);
@@ -385,8 +384,8 @@ public class FileUtil {
         System.out.println(sb);
         input.close();
         return sb.toString();
-
     }
+
 
     public static Map<String, Object> read(String path) throws IOException {
         if (!isFile(path)) {
@@ -422,7 +421,6 @@ public class FileUtil {
         map.put(FileUtil.ORIGINAL, content1.toString());
         map.put(FileUtil.ONE_LINE, content2.toString());
         map.put(FileUtil.LIST, content3);
-
         return map;
     }
 
@@ -444,7 +442,7 @@ public class FileUtil {
      */
     public static Map getFileNamesMap(String path) throws IOException {
         List<String> ls = getAllFolderList(path);
-        Map<String, List<String>> result = new HashMap();
+        Map<String, List<String>> result = new HashMap<>();
         for (String folder : ls) {
             List<String> files = getFileNames(folder);
             result.put(folder, files);
@@ -616,7 +614,7 @@ public class FileUtil {
             content = new StringBuilder((String) obj);
             type = "String";
         } else if (obj instanceof List) {
-            contentList = (List) obj;
+            contentList = (List<StringBuilder>) obj;
             type = "List";
         } else {
             log.error("un-default type");
@@ -625,7 +623,6 @@ public class FileUtil {
 
         if (fileStatus(filePath, fileName)) {
             FileOutputStream fop = null;
-
             try {
                 log.info("File Path : " + filePath + fileName);
                 File file = new File(filePath + fileName);

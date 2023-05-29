@@ -1,4 +1,4 @@
-package com.util.dbUtil;
+package com.tools.dbTool;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class MariaDBUtil {
-    private static final Logger log = LogManager.getLogger(MariaDBUtil.class.getName());
+public class MariaDBTool {
+    private static final Logger log = LogManager.getLogger(MariaDBTool.class.getName());
 
 
     // The JDBC Connector Class.

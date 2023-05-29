@@ -1,4 +1,4 @@
-package com.util.dbUtil;
+package com.tools.dbTool;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

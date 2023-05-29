@@ -1,4 +1,4 @@
-package com.util.dbUtil;
+package com.tools.dbTool;
 
 import com.util.SystemUtil;
 import org.apache.logging.log4j.LogManager;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class OracleDBUtil {
-    private static final Logger log = LogManager.getLogger(OracleDBUtil.class.getName());
+public class OracleDBTool {
+    private static final Logger log = LogManager.getLogger(OracleDBTool.class.getName());
 
 
     // The JDBC Connector Class.
