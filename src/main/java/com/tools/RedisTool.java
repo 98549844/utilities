@@ -40,36 +40,26 @@ public class RedisTool {
         jedis.set("name", "garlam");
         // 3. 获取数据
         String value = jedis.get("name");
-        System.out.println(value);
+        System.out.println("1. " + value);
         // 4.释放资源
         jedis.close();
     }
 
     public void test2() {
         RedisTool redisUtil = new RedisTool();
-        JedisPool jedisPool = redisUtil.getJedisPool();
 
         // 获得核心对象：jedis
-        Jedis jedis = null;
-        try {
+        try (JedisPool jedisPool = redisUtil.getJedisPool(); Jedis jedis = jedisPool.getResource()) {
             // 通过连接池来获得连接
-            jedis = jedisPool.getResource();
             // 设置数据
             jedis.set("name", "张三");
             // 获取数据
             String value = jedis.get("name");
-            System.out.println(value);
+            System.out.println("2. " + value);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // 释放资源
-            if (jedis != null) {
-                jedis.close();
-            }
-            // 释放连接池
-            if (jedisPool != null) {
-                jedisPool.close();
-            }
         }
+        // 释放资源
+        // 释放连接池
     }
 }
