@@ -37,12 +37,12 @@ public class PoUtil {
     }
 
     public static void iteratePoSetterValue(Object object) {
-        Class c = object.getClass();
+        Class<?> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
-        for (int i = 0; i < m.length; i++) {
-            if (m[i].getName().contains("set")) {
+        for (Method method : m) {
+            if (method.getName().contains("set")) {
                 try {
-                    System.out.println("Method：" + m[i].getName());
+                    System.out.println("Method：" + method.getName());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -54,7 +54,7 @@ public class PoUtil {
 
 
     public List<String> iteratePoByName(Object object, String name) {
-        Class c = object.getClass();
+        Class<?> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
         List<String> methodList = new ArrayList<String>();
         for (int i = 0; i < m.length; i++) {

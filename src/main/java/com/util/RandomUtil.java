@@ -40,13 +40,10 @@ public class RandomUtil {
         if (!validate(start, end)) {
             return 0;
         }
-
         List<Integer> s = switchMinMax(start, end);
         start = s.get(0);
         end = s.get(1);
-
-        int range = end - start;
-        return range;
+        return end - start;
     }
 
     private static boolean validate(Integer start, Integer end) {
