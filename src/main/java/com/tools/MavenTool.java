@@ -1,5 +1,9 @@
-package com.util;
+package com.tools;
 
+import com.util.Console;
+import com.util.FileUtil;
+import com.util.PathUtil;
+import com.util.SystemUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,10 +23,10 @@ import java.util.List;
  */
 
 
-class MavenUtil {
-    private static final Logger log = LogManager.getLogger(MavenUtil.class.getName());
+public class MavenTool {
+    private static final Logger log = LogManager.getLogger(MavenTool.class.getName());
 
-    static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
+    public static final String mavenWindowsHome = "C:\\maven\\apache-maven-3.9.0\\bin\\mvn.cmd";
     private static final String space = " ";
     private static final String groupId = "com.ace";
     private static final String version = "1.0";

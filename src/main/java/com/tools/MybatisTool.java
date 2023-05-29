@@ -1,5 +1,6 @@
-package com.util;
+package com.tools;
 
+import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,8 +15,8 @@ import java.util.List;
  */
 
 
-class MybatisUtil {
-    private static final Logger log = LogManager.getLogger(MybatisUtil.class.getName());
+class MybatisTool {
+    private static final Logger log = LogManager.getLogger(MybatisTool.class.getName());
 
     public static void main(String[] args) throws IOException {
         String countLocation = "C:\\ideaPorject\\eORSO_schedulejob\\src";

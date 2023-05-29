@@ -8,7 +8,7 @@ import org.springframework.core.SpringVersion;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.util.MavenUtil.*;
+import static com.tools.MavenTool.*;
 
 /**
  * @Classname: SpringUtil
