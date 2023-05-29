@@ -11,19 +11,18 @@ import java.text.DecimalFormat;
 public class TypeUtil {
     static private final Log log = LogFactory.getLog(TypeUtil.class);
 
-
-    public static double roundUpByDigit(double d, int digit) {
-        return new BigDecimal(d).setScale(digit, RoundingMode.HALF_UP).doubleValue();
+    public static void main(String[] args) {
+        System.out.println(roundUpByDigit(0.2896959, 3));
     }
 
-//    private static boolean checkNull(Object obj) {
-//        boolean check = false;
-//        if (obj == null) {
-//            Console.println("parameter is null.Please check!");
-//            check = true;
-//        }
-//        return check;
-//    }
+    /**
+     * @param input 输入double数值
+     * @param digit round长度
+     * @return
+     */
+    public static double roundUpByDigit(double input, int digit) {
+        return new BigDecimal(input).setScale(digit, RoundingMode.HALF_UP).doubleValue();
+    }
 
     /**
      * 方法名：formatToDouble
@@ -34,7 +33,7 @@ public class TypeUtil {
         if (NullUtil.isNull(number)) {
             return null;
         }
-        if (digit == null) {
+        if (NullUtil.isNull(digit)) {
             digit = 2;
         }
         BigDecimal bigDecimal = new BigDecimal(number);
@@ -50,7 +49,7 @@ public class TypeUtil {
         if (NullUtil.isNull(number)) {
             return null;
         }
-        if (digit == null) {
+        if (NullUtil.isNull(digit)) {
             digit = 2;
         }
         String place = "";
@@ -65,7 +64,7 @@ public class TypeUtil {
 
     //Integer To BigDecimal
     public static Integer integerToBigDecimal(BigDecimal b) {
-        if (b == null) {
+        if (NullUtil.isNull(b)) {
             return null;
         }
         return b.intValue();
@@ -73,8 +72,7 @@ public class TypeUtil {
 
     //bigDecimal To Integer
     public static BigDecimal bigDecimalToInteger(Integer i) {
-
-        if (i == null) {
+        if (NullUtil.isNull(i)) {
             return null;
         }
         return BigDecimal.valueOf(i);
@@ -84,7 +82,7 @@ public class TypeUtil {
     public static Long stringToLong(String s) {
         Long l = null;
         try {
-            if (s == null || s.isEmpty() || "".equals(s)) {
+            if (NullUtil.isNull(s) || s.isEmpty()) {
                 return null;
             }
             l = Long.valueOf(s);
@@ -99,7 +97,7 @@ public class TypeUtil {
     public static Integer longToInteger(Long l) {
         Integer i = null;
         try {
-            if (l == null) {
+            if (NullUtil.isNull(l)) {
                 return null;
             }
             i = l.intValue();
@@ -115,7 +113,7 @@ public class TypeUtil {
     public static String longToString(Long l) {
         String s = null;
         try {
-            if (l == null) {
+            if (NullUtil.isNull(l)) {
                 return null;
             }
             s = String.valueOf(l);
@@ -129,7 +127,7 @@ public class TypeUtil {
     public static String integerToString(Integer l) {
         String s = null;
         try {
-            if (l == null) {
+            if (NullUtil.isNull(l)) {
                 return null;
             }
             s = String.valueOf(l);
@@ -143,7 +141,7 @@ public class TypeUtil {
     public static Integer stringToInteger(String s) {
         Integer l = null;
         try {
-            if (s == null || s.isEmpty() || "".equals(s)) {
+            if (NullUtil.isNull(s) || s.isEmpty()) {
                 return null;
             }
             l = Integer.valueOf(s);
@@ -157,7 +155,7 @@ public class TypeUtil {
     public static Long integerToLong(Integer i) {
         Long l = null;
         try {
-            if (i == null) {
+            if (NullUtil.isNull(i)) {
                 return null;
             }
             l = i.longValue();

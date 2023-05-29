@@ -76,7 +76,6 @@ public class MapUtil {
     }
 
 
-
     public void printKeyValuesOnMap(Map<String, Object> map) {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             String k = entry.getKey();
@@ -104,7 +103,7 @@ public class MapUtil {
         return new org.apache.commons.beanutils.BeanMap(obj);
     }
 
-    public static <T extends Object> T flushObject(T t, Map<String, Object> params) {
+    public static <T> T flushObject(T t, Map<String, Object> params) {
         if (NullUtil.isNull(params) || NullUtil.isNull(t)) {
             return t;
         }
@@ -113,17 +112,18 @@ public class MapUtil {
         for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
             try {
                 Field[] fields = clazz.getDeclaredFields();
-                for (int i = 0; i < fields.length; i++) {
+                for (Field field : fields) {
                     // 获取属性的名字
-                    String name = fields[i].getName();
+                    String name = field.getName();
                     Object value = params.get(name);
                     if (NullUtil.isNotNull(value) && !"".equals(value)) {
                         // 注意下面这句，不设置true的话，不能修改private类型变量的值
-                        fields[i].setAccessible(true);
-                        fields[i].set(t, value);
+                        field.setAccessible(true);
+                        field.set(t, value);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         }
         return t;
