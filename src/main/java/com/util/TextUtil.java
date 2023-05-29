@@ -31,10 +31,9 @@ public class TextUtil {
      *
      * @param imagePath
      * @return
-     * @throws IOException
      * @throws TesseractException
      */
-    public static String getTextImage(String imagePath, String lang) throws IOException, TesseractException {
+    public static String getTextImage(String imagePath, String lang) throws TesseractException {
 
         log.info("path pattern: src/main/resources/xxx/xxx.png");
         //加载待读取图片
