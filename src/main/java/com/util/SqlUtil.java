@@ -16,9 +16,7 @@ public class SqlUtil {
 
 
     public static String like(String s) {
-        StringBuilder like = new StringBuilder();
-        like.append("%").append(s).append("%");
-        return like.toString();
+        return "%" + s + "%";
     }
 }
 
