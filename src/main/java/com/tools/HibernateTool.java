@@ -1,5 +1,8 @@
-package com.util;
+package com.tools;
 
+import com.util.Console;
+import com.util.NullUtil;
+import com.util.ObjectUtil;
 import com.util.entity.Users;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,13 +17,13 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 
-class HibernateUtil {
-    private static final Logger log = LogManager.getLogger(HibernateUtil.class.getName());
+class HibernateTool {
+    private static final Logger log = LogManager.getLogger(HibernateTool.class.getName());
 
     private Session session;
 
     public static void main(String[] args) throws NoSuchFieldException {
-        HibernateUtil hibernateUtil = new HibernateUtil();
+        HibernateTool hibernateUtil = new HibernateTool();
         Session session = hibernateUtil.getConnection();
         hibernateUtil.isOpen();
         String hql = "select userAccount , username from users";
@@ -37,7 +40,7 @@ class HibernateUtil {
     /**
      * default create session
      */
-    public HibernateUtil() {
+    public HibernateTool() {
         session = null;
         try {
             StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
