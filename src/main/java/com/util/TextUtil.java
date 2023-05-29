@@ -58,7 +58,7 @@ public class TextUtil {
         }
         System.out.println();
         Console.println(result, Console.BOLD);
-        log.info("Complete ! ");
+        log.info("Complete !!!");
         return result;
     }
 
