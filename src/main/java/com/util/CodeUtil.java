@@ -30,7 +30,6 @@ public class CodeUtil {
         List<String> ls = getDecodeList();
 
         for (String decode : ls) {
-
             File file = new File(path);
             InputStream input = new FileInputStream(file);
             StringBuffer buffer = new StringBuffer();
@@ -39,7 +38,6 @@ public class CodeUtil {
                 buffer.append(new String(bytes, 0, n, decode));
             }
             System.out.println(buffer);
-
         }
 
 
