@@ -19,17 +19,14 @@ public class ObjectUtil {
     private static final String SET_METHOD_PREFIX = "set";
 
     public static <T, E> boolean compareFieldValue(T t, E e, String fieldName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        boolean result = false;
         if (NullUtil.isNull(t) || NullUtil.isNull(e)) {
             String val1 = String.valueOf(ObjectUtil.getFieldValue(t, fieldName));
             String val2 = String.valueOf(ObjectUtil.getFieldValue(e, fieldName));
             if (StringUtils.hasText(val1) && StringUtils.hasText(val2) && val1.equals(val2)) {
-                result = true;
-            } else {
-                result = false;
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
 
