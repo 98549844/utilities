@@ -16,7 +16,7 @@ import java.util.List;
 public class GsonUtil implements JsonSerializer<LocalDateTime> {
     private static final Logger log = LogManager.getLogger(GsonUtil.class);
 
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+   // private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public static String ObjectToJson(Object object) {
         GsonBuilder gsonBuilder = new GsonBuilder();
