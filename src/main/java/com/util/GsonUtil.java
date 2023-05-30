@@ -46,12 +46,9 @@ public class GsonUtil implements JsonSerializer<LocalDateTime> {
     }
 
     public static String getPrettyJson(String json) {
-        log.info("Format Json ...");
         //在序列化的时候不忽略null值
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        String result = gson.toJson(JsonParser.parseString(json));
-        log.info("Complete !");
-        return result;
+        return gson.toJson(JsonParser.parseString(json));
     }
 
 
