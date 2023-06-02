@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 @SuppressWarnings(("unchecked"))
 public class SetUtil {
     private static final Logger log = LogManager.getLogger(SetUtil.class.getName());
-    
-    
-    	public static Set arrayIntToHashSet(int[] nums) {
-		Set set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
-		return set;
-	}
+
+
+    public static Set arrayIntToHashSet(int[] nums) {
+        Set<Integer> set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
+        return set;
+    }
 
     public static List setToList(Set set) {
         List ls = new ArrayList();
@@ -33,7 +33,7 @@ public class SetUtil {
         Iterator<T> iterator = tSet.iterator();
         int i = 1;
         while (iterator.hasNext()) {
-            log.info("{}: {}", i , iterator.next());
+            log.info("{}: {}", i, iterator.next());
         }
     }
 
@@ -41,7 +41,7 @@ public class SetUtil {
         Iterator<T> iterator = hashSet.iterator();
         int i = 1;
         while (iterator.hasNext()) {
-            log.info("{}: {}", i , iterator.next());
+            log.info("{}: {}", i, iterator.next());
         }
         return iterator;
     }
@@ -58,5 +58,18 @@ public class SetUtil {
         return Arrays.deepEquals(new Set[]{set1}, new Set[]{set2});
     }
 
+    /** 检查大小写
+     * @param arr
+     * @param target
+     * @return
+     */
+    public static boolean containsString(String[] arr, String target) {
+        for (String str : arr) {
+            if (str.equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

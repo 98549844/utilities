@@ -54,6 +54,12 @@ public class StringUtil {
     }
 
 
+    /** 根据字符串长度由短到长排列
+     * @param arr
+     */
+    public static void sortByLength(String[] arr) {
+        Arrays.sort(arr, Comparator.comparing(String::length));
+    }
 
 
     /**
