@@ -1410,13 +1410,14 @@ public class FileUtil {
     private static boolean deleteFile(String fileName) {
         File file = new File(fileName);
         if (file.isFile() && file.exists()) {
-            file.delete();
             System.out.println("删除文件成功：" + fileName);
-            return true;
+            return file.delete();
         } else {
             System.out.println("删除文件失败：" + fileName);
             return false;
         }
+
+
     }
 
     /**
