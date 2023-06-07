@@ -676,9 +676,9 @@ public class FileUtil {
         File folder = new File(path);
         if (!folder.exists() && !folder.isDirectory()) {
             folder.mkdirs();
-            log.info("Directory created");
+            System.out.print("Directory created; ");
         } else {
-            log.info("Directory is exist");
+            System.out.print("Directory is exist; ");
         }
         //check file exist
         boolean isOK = false;
@@ -687,21 +687,21 @@ public class FileUtil {
             try {
                 file.createNewFile();
                 file.setWritable(true);
-                log.info("File created");
+                System.out.print("File created; ");
             } catch (IOException e) {
                 e.printStackTrace();
             }
             isOK = true;
         } else {
-            log.info("File is exist");
+            System.out.print("File is exist; ");
             if (file.exists() && file.length() == 0) {
-                log.info("File is empty");
+                System.out.print("File is empty; ");
             }
             if (file.canWrite()) {
-                log.info("File can write");
+                System.out.print("File can write; ");
                 isOK = true;
             } else {
-                log.info("File can't write");
+                System.out.print("File can't write; ");
             }
         }
         return isOK;

@@ -22,6 +22,7 @@ class ContentTool {
     static final String sourceFile = "在HTML里显示pdf的解决方案.txt";
 
     public static void main(String[] args) throws Exception {
+
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
         contentTool.replaceContentSymbol();
