@@ -24,8 +24,7 @@ class ContentTool {
     public static void main(String[] args) throws Exception {
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-        String r = FileUtil.ToDBC("全角空格为12288，半角空格为32");
-        System.out.println(r);
+        contentTool.replaceContentSymbol();
     }
 
     private void replaceContentSymbol() throws IOException {

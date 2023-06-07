@@ -19,7 +19,7 @@
         <java.version>17</java.version>
         <springframework>6.0.9</springframework>
         <spring-boot-maven-plugin.version>3.1.0</spring-boot-maven-plugin.version> <!--version depend on springboot 3-->
-        <util.scope>provided</util.scope> <!--compile for run main method / provided-->
+        <util.scope>compile</util.scope> <!--compile for run main method / provided-->
     </properties>
 
     <dependencies>
