@@ -676,9 +676,9 @@ public class FileUtil {
         File folder = new File(path);
         if (!folder.exists() && !folder.isDirectory()) {
             folder.mkdirs();
-            System.out.print("Directory created; ");
+            System.out.print("Directory created. ");
         } else {
-            System.out.print("Directory is exist; ");
+            System.out.print("Directory is exist. ");
         }
         //check file exist
         boolean isOK = false;
@@ -687,7 +687,7 @@ public class FileUtil {
             try {
                 file.createNewFile();
                 file.setWritable(true);
-                System.out.print("File created; ");
+                System.out.print("File created. ");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -695,13 +695,13 @@ public class FileUtil {
         } else {
             System.out.print("File is exist; ");
             if (file.exists() && file.length() == 0) {
-                System.out.print("File is empty; ");
+                System.out.print("File is empty. ");
             }
             if (file.canWrite()) {
-                System.out.print("File can write; ");
+                System.out.print("File can write. ");
                 isOK = true;
             } else {
-                System.out.print("File can't write; ");
+                System.out.print("File can't write. ");
             }
         }
         return isOK;
@@ -717,11 +717,11 @@ public class FileUtil {
         File file = new File(f);
         String ENCODING = "GBK";
         if (!file.exists()) {
-            log.error("get File In code: file not exists!");
+            log.error("get encoding: file not exists !");
             return ENCODING;
         }
         byte[] buf = new byte[4096];
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(file);
             // (1)
