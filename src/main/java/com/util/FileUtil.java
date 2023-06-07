@@ -130,12 +130,12 @@ public class FileUtil {
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
         File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isDirectory()) {
+        for (File value : files) {
+            if (value.isDirectory()) {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
                 //add dir into list
-                list.add(files[i].getPath());
-                list.addAll(getAllFolderList(files[i].getPath()));
+                list.add(value.getPath());
+                list.addAll(getAllFolderList(value.getPath()));
             }
         }
         return list;
@@ -165,7 +165,7 @@ public class FileUtil {
         for (String fileName : fileNames) {
             FileWriter fw = null;
             FileReader fr = null;
-            String newFileName = "";
+            String newFileName;
             if (!fileName.substring(fileName.length() - 4).equals(ext)) {
                 newFileName = fileName.substring(0, fileName.length() - 4) + ext;
             } else {
@@ -264,7 +264,7 @@ public class FileUtil {
         log.info("Start rename ext");
         path = convertToPath(path);
         ArrayList<String> fileList = FileUtil.getFileNames(path);
-        Integer i = 1;
+        int i = 1;
         for (String s : fileList) {
             String[] spiltFileName = s.split("\\.");
             newExt = addDotIfMissing(newExt);
@@ -324,9 +324,9 @@ public class FileUtil {
         ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
         File[] tempLists = file.listFiles();
-        for (int i = 0; i < tempLists.length; i++) {
-            if (tempLists[i].isFile() && !tempLists[i].getName().equals(".DS_Store")) {
-                files.add(tempLists[i].getName());//file name
+        for (File tempList : tempLists) {
+            if (tempList.isFile() && !tempList.getName().equals(".DS_Store")) {
+                files.add(tempList.getName());//file name
             }
         }
         return files;
@@ -359,7 +359,7 @@ public class FileUtil {
         path = convertToPath(path);
         log.info("getFullFileNames: {}", path);
 
-        ArrayList<String> files = new ArrayList<String>();
+        ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
         File[] tempLists = file.listFiles();
         for (File tempList : tempLists) {
@@ -407,7 +407,7 @@ public class FileUtil {
         while (NullUtil.isNotNull(line) || "".equals(line)) {
             // 一次读入一行数据,并显示行数
             // content1.append(i + ". ");
-            content1.append(line + SystemUtil.separator());
+            content1.append(line).append(SystemUtil.separator());
             content2.append(line);
             content3.add(new StringBuilder(line));
             i++;
@@ -485,14 +485,14 @@ public class FileUtil {
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
         File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isDirectory()) {
+        for (File value : files) {
+            if (value.isDirectory()) {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
                 //add dir into list
-                list.add(files[i].getPath());
-                list.addAll(getFullPathDirList(files[i].getPath()));
+                list.add(value.getPath());
+                list.addAll(getFullPathDirList(value.getPath()));
             } else {
-                list.add(files[i].getPath());
+                list.add(value.getPath());
             }
         }
         return list;
@@ -640,10 +640,10 @@ public class FileUtil {
                     outputStreamWriter.append(contentInBytes);
                     outputStreamWriter.flush();
                 } else if (type.equals("List")) {
-                    for (int i = 0; i < contentList.size(); i++) {
+                    for (StringBuilder stringBuilder : contentList) {
                         // contentInBytes = contentList.get(i).toString().getBytes();
                         // fop.write(contentInBytes);
-                        contentInBytes = contentList.get(i).toString();
+                        contentInBytes = stringBuilder.toString();
                         outputStreamWriter.append(contentInBytes);
                         outputStreamWriter.flush();
                     }
@@ -885,7 +885,7 @@ public class FileUtil {
      * @param f 完整路径 xxx/xxx/xxx/xxx.txt
      * @return
      */
-    public static Map getPathAndFileMap(String f) {
+    public static Map<String, String> getPathAndFileMap(String f) {
         int i = f.lastIndexOf(File.separator);
         String p = f.substring(0, i);
         String fNameWithExt = f.substring(i + 1); // +1 为了去除分隔符
@@ -893,7 +893,7 @@ public class FileUtil {
         String name;
         String ext;
         int k = fNameWithExt.lastIndexOf('.');
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<>();
         if (i > 0 && k < f.length() - 1) {
             name = fNameWithExt.substring(0, k);
             ext = fNameWithExt.substring(k);
@@ -968,12 +968,11 @@ public class FileUtil {
     public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
         //   int count = 0;
         FileUtil fileUtil = new FileUtil();
-        List fileList = fileUtil.getFilesLocation(PathUtil.space(path));
+        List<String> fileList = fileUtil.getFilesLocation(PathUtil.space(path));
         log.info("starting count ... {}", path);
         Map<String, Integer> resultMap = new HashMap<>();
         if (NullUtil.isNotNull(ext) && ext.length > 0) {
-            for (Object obj : fileList) {
-                String f = obj.toString();
+            for (String f : fileList) {
                 String type = getExtension(FileUtil.getFileName(f));
                 for (String s : ext) {
                     if (type.equals(s)) {
@@ -997,7 +996,7 @@ public class FileUtil {
      */
     public static void count(String path) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<Object> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilesLocation(path);
         log.info("count result: {}", fileList.size());
     }
 
@@ -1008,14 +1007,13 @@ public class FileUtil {
      */
     public static Map<String, List<String>> findByType(String path, String... ext) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<Object> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilesLocation(path);
         log.info("searching file size: {}", fileList.size());
 
         Map<String, List<String>> resultMap = new HashMap<>();
         if (NullUtil.isNotNull(ext) && ext.length > 0) {
             log.info("starting searching ... {}", path);
-            for (Object obj : fileList) {
-                String f = obj.toString();
+            for (String f : fileList) {
                 String type = getExtension(FileUtil.getFileName(f));
                 for (int i = 0; i < ext.length; i++) {
                     List<String> resulList = resultMap.get(ext[i]) == null ? new ArrayList<>() : resultMap.get(ext[i]);
@@ -1044,11 +1042,10 @@ public class FileUtil {
      */
     public static void findByName(String path, String fileName) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<Object> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilesLocation(path);
         log.info("starting searching ... {}", path);
         log.info("searching file size: {}", fileList.size());
-        for (Object obj : fileList) {
-            String f = obj.toString();
+        for (String f : fileList) {
             String name = getName(FileUtil.getFileName(f));
             if (name.toLowerCase().contains(fileName.toLowerCase())) {
                 Console.println(f, Console.BOLD);
@@ -1060,16 +1057,16 @@ public class FileUtil {
 
     public static void main(String[] args) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List a = fileUtil.getFilesLocation("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
-        List b = getFilePaths("src/main/java/com/models");
-        List c = getFullFileNames("src/main/java/com/models");
+        List<String> a = fileUtil.getFilesLocation("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
+        List<Object> b = getFilePaths("src/main/java/com/models");
+        List<String> c = getFullFileNames("src/main/java/com/models");
 
         int count = 0;
         log.info("start a ...");
-        for (int i = 0; i < a.size(); i++) {
-            String t = getFileName(a.get(i).toString());
+        for (String s : a) {
+            String t = getFileName(s.toString());
             if ("html".equalsIgnoreCase(getExtension(t))) {
-                System.out.println("non-static: " + a.get(i));
+                System.out.println("non-static: " + s);
                 count++;
             }
         }
@@ -1089,7 +1086,7 @@ public class FileUtil {
     }
 
 
-    private ArrayList<Object> scanFiles = new ArrayList<>();
+    private final ArrayList<String> scanFiles = new ArrayList<>();
 
     /**
      * TODO:递归扫描指定文件夹下面的文件全路径
@@ -1097,22 +1094,25 @@ public class FileUtil {
      * @return ArrayList<Object>
      * @time 2017年11月3日
      */
-    public ArrayList<Object> getFilesLocation(String folderPath) {
+    public ArrayList<String> getFilesLocation(String folderPath) {
         //   ArrayList<Object> scanFiles = new ArrayList<Object>();
         ArrayList<String> directories = new ArrayList<>();
         File directory = new File(folderPath);
 
         if (directory.isDirectory()) {
             File[] fileList = directory.listFiles();
-            for (int i = 0; i < fileList.length; i++) {
+            /**如果当前是文件夹，进入递归扫描文件夹**/
+            /**递归扫描下面的文件夹**/
+            /**非文件夹**/
+            for (File file : fileList) {
                 /**如果当前是文件夹，进入递归扫描文件夹**/
-                if (fileList[i].isDirectory()) {
-                    directories.add(fileList[i].getAbsolutePath());
+                if (file.isDirectory()) {
+                    directories.add(file.getAbsolutePath());
                     /**递归扫描下面的文件夹**/
-                    getFilesLocation(fileList[i].getAbsolutePath());
+                    getFilesLocation(file.getAbsolutePath());
                 } else {
                     /**非文件夹**/
-                    scanFiles.add(fileList[i].getAbsolutePath());
+                    scanFiles.add(file.getAbsolutePath());
                 }
             }
         }
@@ -1137,12 +1137,12 @@ public class FileUtil {
             //首先将第一层目录扫描一遍
             File[] files = directory.listFiles();
             //遍历扫出的文件数组，如果是文件夹，将其放入到linkedList中稍后处理
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isDirectory()) {
-                    queueFiles.add(files[i]);
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    queueFiles.add(file);
                 } else {
                     //暂时将文件名放入scanFiles中
-                    scanFiles.add(files[i].getAbsolutePath());
+                    scanFiles.add(file.getAbsolutePath());
                 }
             }
 
@@ -1151,12 +1151,12 @@ public class FileUtil {
                 //移出linkedList中的第一个
                 File headDirectory = queueFiles.removeFirst();
                 File[] currentFiles = headDirectory.listFiles();
-                for (int j = 0; j < currentFiles.length; j++) {
-                    if (currentFiles[j].isDirectory()) {
+                for (File currentFile : currentFiles) {
+                    if (currentFile.isDirectory()) {
                         //如果仍然是文件夹，将其放入linkedList中
-                        queueFiles.add(currentFiles[j]);
+                        queueFiles.add(currentFile);
                     } else {
-                        scanFiles.add(currentFiles[j].getAbsolutePath());
+                        scanFiles.add(currentFile.getAbsolutePath());
                     }
                 }
             }
@@ -1440,15 +1440,15 @@ public class FileUtil {
         boolean flag = true;
         // 删除文件夹下的所有文件和文件夹
         File[] files = directoryFile.listFiles();
-        for (int i = 0; i < files.length; i++) {  // 循环删除所有的子文件及子文件夹
+        for (File file : files) {  // 循环删除所有的子文件及子文件夹
             // 删除子文件
-            if (files[i].isFile()) {
-                flag = deleteFile(files[i].getAbsolutePath());
+            if (file.isFile()) {
+                flag = deleteFile(file.getAbsolutePath());
                 if (!flag) {
                     break;
                 }
             } else {  // 删除子文件夹
-                flag = deleteDirectory(files[i].getAbsolutePath());
+                flag = deleteDirectory(file.getAbsolutePath());
                 if (!flag) {
                     break;
                 }
@@ -1471,10 +1471,7 @@ public class FileUtil {
 
     public static boolean isImage(String fileName) {
         String mimeType = getMimeType(fileName);
-        if (!TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_IMAGE)) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_IMAGE);
     }
 
     /**
@@ -1482,12 +1479,11 @@ public class FileUtil {
      *
      * @param fileName 文件名
      * @return 返回MIME类型
-     * thx https://www.oschina.net/question/571282_223549
+     * https://www.oschina.net/question/571282_223549
      */
     private static String getMimeType(String fileName) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
-        String type = fileNameMap.getContentTypeFor(fileName);
-        return type;
+        return fileNameMap.getContentTypeFor(fileName);
     }
 
     /**
@@ -1498,10 +1494,7 @@ public class FileUtil {
      */
     public static boolean isVideo(String fileName) {
         String mimeType = getMimeType(fileName);
-        if (!TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_VIDEO)) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_VIDEO);
     }
 
 
