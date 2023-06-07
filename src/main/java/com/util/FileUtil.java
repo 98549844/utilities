@@ -312,7 +312,7 @@ public class FileUtil {
     }
 
     /**
-     * get list of xxxx.xx
+     * get list of xxx.xx
      *
      * @param path
      * @return
