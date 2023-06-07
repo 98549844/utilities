@@ -18,8 +18,8 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String sourcePath = "C:\\ideaPorject\\ace\\src\\main\\java\\com\\ace\\";
-    static final String sourceFile = "AceApplication.java";
+    static final String sourcePath = "C:\\ideaPorject\\ace\\doc\\html\\";
+    static final String sourceFile = "在HTML里显示pdf的解决方案.txt";
 
     public static void main(String[] args) throws Exception {
         log.info("文本处理工具");
