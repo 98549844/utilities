@@ -40,7 +40,7 @@ public class RegularExpressionUtil {
     }
 
 
-    public static void main(String[] args) {
+    public static void main33(String[] args) {
         String regularExpressionPattern = "^0x([0-9a-fA-F]{40}|[0-9a-fA-F]{38}@1)$";
         //    String regularExpressionPattern1 = "^0x([0-9a-fA-F]{40}|[0-9a-fA-F]{38}@1)$";
         String a = "0x6e52C694a165066DA8a85f80cbCb9cF54c40aef9@137"; //原文
@@ -65,6 +65,22 @@ public class RegularExpressionUtil {
         while (matcher.find()) {
             String result = matcher.group();
             System.out.println(result);
+        }
+    }
+
+    public static void main(String[] args) {
+        String a = "@${*||名称:NAME||input}";
+        String b = "@${*||备注:REMARK||input}";
+
+        //对整段文本中固定格式间（此处为‘@${’ 与 ‘}’ 之间）的内容进行提取，则可以用如下正则
+        String regex = "(?<=\\@\\$\\{)(.+?)(?=\\})";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(a);
+        int i = 1;
+        while (m.find()) {
+            System.out.println(m.group(i));
+            i++;
         }
     }
 }
