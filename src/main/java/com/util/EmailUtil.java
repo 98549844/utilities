@@ -15,7 +15,7 @@ public class EmailUtil {
             log.info("Email address not exist");
             return false;
         }
-        String checkPattern = "^([a-zA-Z0-9_])+\\@(([a-zA-Z0-9])+\\.)+([a-zA-Z0-9]{2,4})+$";
+        String checkPattern = "^([a-zA-Z0-9_])+@(([a-zA-Z0-9])+\\.)+([a-zA-Z0-9]{2,4})+$";
         Pattern regex = Pattern.compile(checkPattern);
         Matcher matcher = regex.matcher(email);
         String validStatus = matcher.matches() ? "valid" : "invalid";

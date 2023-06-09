@@ -18,8 +18,8 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String sourcePath = "C:\\ideaPorject\\ace\\doc\\html\\";
-    static final String sourceFile = "在HTML里显示pdf的解决方案.txt";
+    static final String sourcePath = "C:\\ideaPorject\\ace\\doc\\regular expression\\";
+    static final String sourceFile = "最全常用正则表达式大全.txt";
 
     public static void main(String[] args) throws Exception {
 
@@ -35,7 +35,10 @@ class ContentTool {
                                 .replaceAll("。", ". ")
                                 .replaceAll("：", ": ")
                                 .replaceAll("！", "! ")
-                                .replaceAll("；", "; ");
+                                .replaceAll("；", "; ")
+                                .replaceAll("、", ", ")
+                                .replaceAll("（", "(")
+                                .replaceAll("）", ")");
 
         FileUtil.write(sourcePath, sourceFile, result, false);
         log.info("标点替换完成 !!!");
