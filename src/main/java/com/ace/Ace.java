@@ -8,24 +8,31 @@ import com.util.SystemUtil;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
 public class Ace {
 
     public static void main(String[] args) throws IOException {
+        String p = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\input\\staff1.txt";
 
-        //  Map m = FileUtil.getPathAndFileMap("C:\\ideaPorject\\utilities\\src\\main\\java\\com\\tools\\ContentTool.java");
-        //  System.out.println(m.get(FileUtil.PATH));
+        Map<String, Object> m = FileUtil.read(p);
+        List<StringBuilder> ls = (List<StringBuilder>) m.get(FileUtil.LIST);
 
-        FileUtil fileUtil = new FileUtil();
-        ArrayList<String> objects = fileUtil.getFilesLocation("C:\\ideaPorject\\utilities");
-
-        for (int i = 0; i < objects.size(); i++) {
-            System.out.println(objects.get(i));
+        List<StringBuilder> result = new ArrayList<>();
+        for (StringBuilder s : ls) {
+            System.out.println(s);
+            String[] ss = s.toString().split("/");
+            StringBuilder a1 = new StringBuilder();
+            a1.append(ss[2]).append("-").append(ss[1]).append("-").append(ss[0]).append("\n");
+            result.add(a1);
         }
 
-
+        FileUtil.write("C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\input\\", "staff1.txt", result, false);
     }
+
+
 }
 

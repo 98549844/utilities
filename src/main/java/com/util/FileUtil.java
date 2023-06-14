@@ -27,7 +27,7 @@ public class FileUtil {
     public static final String FOLDER_NAME = "folderName";
     public static final String FILE_LIST = "fileList";
     public static final String ORIGINAL = "original";
-    public static final String ONE_LINE = "oneLine";
+    public static final String LINE = "line";
     public static final String LIST = "LIST";
 
     public static final String PATH = "path";
@@ -418,9 +418,9 @@ public class FileUtil {
         reader.close();
 
         Map<String, Object> map = new HashMap();
-        map.put(FileUtil.ORIGINAL, content1.toString());
-        map.put(FileUtil.ONE_LINE, content2.toString());
-        map.put(FileUtil.LIST, content3);
+        map.put(FileUtil.ORIGINAL, content1.toString()); // 返回原文
+        map.put(FileUtil.LINE, content2.toString()); // 返回一行
+        map.put(FileUtil.LIST, content3); // 返回一个list
         return map;
     }
 
