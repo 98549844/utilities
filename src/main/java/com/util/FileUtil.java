@@ -698,10 +698,10 @@ public class FileUtil {
                 System.out.print("File is empty. ");
             }
             if (file.canWrite()) {
-                System.out.print("File can write. ");
+                System.out.println("File can write. ");
                 isOK = true;
             } else {
-                System.out.print("File can't write. ");
+                System.out.println("File can't write. ");
             }
         }
         return isOK;
