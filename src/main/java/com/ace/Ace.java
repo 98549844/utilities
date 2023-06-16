@@ -1,36 +1,26 @@
 package com.ace;
 
-import com.ctc.wstx.util.DataUtil;
-import com.util.DateTimeUtil;
-import com.util.FileUtil;
-import com.util.MapUtil;
-import com.util.SystemUtil;
+import com.util.StringUtil;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 
 public class Ace {
 
     public static void main(String[] args) throws IOException {
-        String p = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\input\\staff1.txt";
 
-        Map<String, Object> m = FileUtil.read(p);
-        List<StringBuilder> ls = (List<StringBuilder>) m.get(FileUtil.LIST);
+        Integer[] ints = {21, 1, 23, 5, 3, 29, 6, 24, 8, 0, 20, 9, 30, 25, 7, 26, 4, 27, 2, 28, 22};
+        String[] strings0 = {"7", "2", "22", "30", "3", "26", "5", "28", "8", "24", "9", "1", "0", "21", "23", "6", "25", "4", "27", "29", "20" };
+        String[] strings1 = {"7", "2", "22", "30", "3", "26", "5", "28", "8", "24", "9", "1", "0", "21", "23", "6", "25", "4", "27", "29", "20" };
 
-        List<StringBuilder> result = new ArrayList<>();
-        for (StringBuilder s : ls) {
-            System.out.println(s);
-            String[] ss = s.toString().split("/");
-            StringBuilder a1 = new StringBuilder();
-            a1.append(ss[2]).append("-").append(ss[1]).append("-").append(ss[0]).append("\n");
-            result.add(a1);
-        }
 
-        FileUtil.write("C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\input\\", "staff1.txt", result, false);
+        Arrays.sort(strings0);
+        System.out.println(Arrays.toString(strings0));
+
+        StringUtil.sort(strings1, true, 0, strings1.length - 1);
+        System.out.println(Arrays.toString(strings1));
+
     }
 
 

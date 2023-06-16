@@ -54,7 +54,9 @@ public class StringUtil {
     }
 
 
-    /** 根据字符串长度由短到长排列
+    /**
+     * 根据字符串长度由短到长排列
+     *
      * @param arr
      */
     public static void sortByLength(String[] arr) {
@@ -385,7 +387,49 @@ public class StringUtil {
     }
 
     public static String bytesToString(byte[] bytes) {
-        String result = Base64.encodeBase64String(bytes);
-        return result;
+        return Base64.encodeBase64String(bytes);
+    }
+
+
+    /** sorting 字符串版字组
+     * @param arr
+     * @param order
+     * @param left
+     * @param right
+     */
+    public static void sort(String[] arr, boolean order, int left, int right) {
+        if (left < right) {
+            int pivotIndex = partition(arr, order, left, right);
+            sort(arr, order, left, pivotIndex - 1);
+            sort(arr, order, pivotIndex + 1, right);
+        }
+    }
+
+    private static int partition(String[] arr, boolean order, int left, int right) {
+        double pivot = Double.parseDouble(arr[right]); // 将最后一个元素作为基准值
+        int i = left - 1;
+        for (int j = left; j <= right - 1; j++) {
+            double current = Double.parseDouble(arr[j]);
+            if (order) {
+                if (current <= pivot) {
+                    i++;
+                    swap(arr, i, j);
+                }
+            } else {
+                if (current >= pivot) {
+                    i++;
+                    swap(arr, i, j);
+                }
+            }
+
+        }
+        swap(arr, i + 1, right);
+        return i + 1;
+    }
+
+    private static void swap(String[] arr, int i, int j) {
+        String temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
