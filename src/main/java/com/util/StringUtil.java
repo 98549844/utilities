@@ -391,11 +391,11 @@ public class StringUtil {
     }
 
 
-    /** sorting 字符串版字组
+    /** sorting 字符串版字组排序
      * @param arr
      * @param order
-     * @param left
-     * @param right
+     * @param left 由左边第N位开始排序
+     * @param right 到右边第M位停止排序
      */
     public static void sort(String[] arr, boolean order, int left, int right) {
         if (left < right) {
