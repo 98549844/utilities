@@ -393,15 +393,15 @@ public class StringUtil {
 
     /** sorting 字符串版字组排序
      * @param arr
-     * @param order
+     * @param asc
      * @param left 由左边第N位开始排序
      * @param right 到右边第M位停止排序
      */
-    public static void sort(String[] arr, boolean order, int left, int right) {
+    public static void sort(String[] arr, boolean asc, int left, int right) {
         if (left < right) {
-            int pivotIndex = partition(arr, order, left, right);
-            sort(arr, order, left, pivotIndex - 1);
-            sort(arr, order, pivotIndex + 1, right);
+            int pivotIndex = partition(arr, asc, left, right);
+            sort(arr, asc, left, pivotIndex - 1);
+            sort(arr, asc, pivotIndex + 1, right);
         }
     }
 
