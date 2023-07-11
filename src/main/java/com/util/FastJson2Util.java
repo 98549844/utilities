@@ -2,6 +2,7 @@ package com.util;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,16 +14,21 @@ import org.apache.logging.log4j.Logger;
  */
 
 
-public class FastJsonUtil {
-    private static final Logger log = LogManager.getLogger(FastJsonUtil.class.getName());
+public class FastJson2Util {
+    private static final Logger log = LogManager.getLogger(FastJson2Util.class.getName());
 
     //https://blog.csdn.net/qq_33697094/article/details/128114939
 
+    public static String formatJson(String json) {
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        return JSON.toJSONString(jsonObject, JSONWriter.Feature.PrettyFormat, JSONWriter.Feature.WriteMapNullValue, JSONWriter.Feature.WriteNulls);
+    }
 
 
     public static String ObjectToJson(Object object) {
         return JSON.toJSONString(object);
     }
+
 
     public static JSONObject JsonToObject(String json) {
         return JSONObject.parseObject(json);
