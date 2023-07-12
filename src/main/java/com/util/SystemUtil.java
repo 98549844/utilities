@@ -81,7 +81,6 @@ public class SystemUtil {
     /**
      * 通用换行符
      *
-     * @return
      */
     public static String separator() {
         return System.getProperty("line.separator");
@@ -90,7 +89,6 @@ public class SystemUtil {
     /**
      * 退回到当前行的行首
      *
-     * @return
      */
     public static String backToLineStart() {
         return "\r";
