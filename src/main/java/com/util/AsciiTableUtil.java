@@ -24,6 +24,7 @@ public class AsciiTableUtil {
     private static final Logger log = LogManager.getLogger(AsciiTableUtil.class.getName());
 
     //http://www.vandermeer.de/projects/skb/java/asciitable/
+    //打印console table
 
     public static void println(List<String[]> contents) {
         AsciiTable asciiTable = new AsciiTable();
