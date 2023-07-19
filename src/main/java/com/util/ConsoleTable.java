@@ -28,8 +28,8 @@ public class ConsoleTable {
         new ConsoleTableImpl.ConsoleTableBuilder().addHeaders((List<Cell>) content.get(0)).addRows((List<List<Cell>>) content.get(1)).build().print(); // default
     }
 
-    public static void println(List<List<Cell>> body) {
-        new ConsoleTableImpl.ConsoleTableBuilder().addRows(body).build().print();//no header
+    public static void println(List<String[]> body) {
+        new ConsoleTableImpl.ConsoleTableBuilder().addRows(setBody(body)).build().print();//no header
     }
 
     private static List setContent(List<String> header, List<String[]> body) {
@@ -52,6 +52,19 @@ public class ConsoleTable {
         content.add(contentHeader);
         content.add(contentBody);
         return content;
+    }
+
+    private static List<List<Cell>> setBody(List<String[]> body) {
+        List<List<Cell>> contentBody = new ArrayList<>();
+        for (String[] ss : body) {
+            List<Cell> contentCell = new ArrayList<>();
+            for (int i = 0; i < ss.length; i++) {
+                Cell cell = new Cell(ss[i]);
+                contentCell.add(cell);
+            }
+            contentBody.add(contentCell);
+        }
+        return contentBody;
     }
 
 
