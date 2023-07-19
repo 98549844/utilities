@@ -21,8 +21,11 @@ public class CurlUtil {
 
     public static void main(String[] args) {
         String url = "https://api.github.com/users/octocat";
+        String curl = "https://api.tatum.io/v3/blockchain/fee/ETH";
         String response = sendGetRequest(url);
-        System.out.println(response);
+        String response1 = sendGetRequest(curl);
+      //  System.out.println(response);
+        System.out.println(FastJson2Util.formatJson(response1));
     }
 
     public static String sendGetRequest(String url) {

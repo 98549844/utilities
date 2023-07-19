@@ -80,6 +80,11 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.26</version>
         </dependency>
+        <dependency>
+            <groupId>de.vandermeer</groupId>
+            <artifactId>asciitable</artifactId>
+            <version>0.3.2</version>
+        </dependency>
 
         <!--读取图片文字, refer to textUtil-->
         <dependency>

@@ -110,4 +110,8 @@ public class Console {
         System.out.println(FMT(txt, RED));
     }
 
+    public static void textTable (){
+
+    }
+
 }
