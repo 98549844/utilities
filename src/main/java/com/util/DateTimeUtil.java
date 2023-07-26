@@ -5,13 +5,17 @@ import org.apache.logging.log4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.time.Instant;
+
 
 public class DateTimeUtil {
     private static final Logger log = LogManager.getLogger(DateTimeUtil.class.getName());
@@ -52,8 +56,33 @@ public class DateTimeUtil {
         return formattedDate;
     }
 
+    public static String getDateTime(Timestamp timestamp) {
+        // 使用toLocalDateTime()方法将Timestamp转换为LocalDateTime
+        LocalDateTime dateTime = timestamp.toLocalDateTime();
+        // 将LocalDateTime格式化为字符串
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = formatter.format(dateTime);
+        System.out.println("Timestamp: " + timestamp);
+        System.out.println("DateTime: " + formattedDateTime);
+        return formattedDateTime;
+    }
+
+    public static Date getDate(Timestamp timestamp) {
+        // 使用toInstant()方法将Timestamp转换为Instant
+        Instant instant = timestamp.toInstant();
+
+        // 使用Date.from()方法将Instant转换为Date
+        Date date = Date.from(instant);
+
+        System.out.println("Timestamp: " + timestamp);
+        System.out.println("Date: " + date);
+        return date;
+    }
+
     public static void main(String[] args) {
         printCurrentDateTime();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        getDate(timestamp);
     }
 
     public static void differenceSystemCurrentTimeMillis(Long start, Long end) {
