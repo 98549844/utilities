@@ -82,7 +82,15 @@ public class DateTimeUtil {
     public static void main(String[] args) {
         printCurrentDateTime();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        getDate(timestamp);
+        System.out.println(toTimestamp(toLong(timestamp)));
+    }
+
+    public static Timestamp toTimestamp(long l) {
+        return new Timestamp(l);
+    }
+
+    public static long toLong(Timestamp timestamp) {
+        return timestamp.getTime();
     }
 
     public static void differenceSystemCurrentTimeMillis(Long start, Long end) {
