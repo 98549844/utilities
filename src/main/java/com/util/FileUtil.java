@@ -438,9 +438,8 @@ public class FileUtil {
      *
      * @param path
      * @return
-     * @throws IOException
      */
-    public static Map getFileNamesMap(String path) throws IOException {
+    public static Map getFileNamesMap(String path) {
         List<String> ls = getAllFolderList(path);
         Map<String, List<String>> result = new HashMap<>();
         for (String folder : ls) {

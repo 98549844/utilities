@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,33 +19,41 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String sourcePath = "C:\\ideaPorject\\ace\\src\\main\\java\\com\\ace\\util\\";
-    static final String sourceFile = "HttpUtil.java";
+    static final String source = "C:\\ideaPorject\\ace\\doc\\vue\\";
+    static final String sourceFile = "package.txt";
 
     public static void main(String[] args) throws Exception {
 
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-        contentTool.replaceContentSymbol();
+        contentTool.replaceAllContentSymbol(source);
     }
 
-    private void replaceContentSymbol() throws IOException {
+    private void replaceAllContentSymbol(String path) throws IOException {
+        ContentTool contentTool = new ContentTool();
+        List<String> ls = FileUtil.getFileNames(path);
+        for (String fileName : ls) {
+            contentTool.replaceContentSymbol(path, fileName);
+        }
+    }
+
+    private void replaceContentSymbol(String path, String fileName) throws IOException {
         log.info("替换全角标点到半角标点 ...");
-        String content = (String) Objects.requireNonNull(FileUtil.read(sourcePath + sourceFile)).get(FileUtil.ORIGINAL);
+        String content = (String) Objects.requireNonNull(FileUtil.read(path + fileName)).get(FileUtil.ORIGINAL);
         String result = content.replaceAll("，", ", ")
-                                .replaceAll("。", ". ")
-                                .replaceAll("：", ": ")
-                                .replaceAll("！", "! ")
-                                .replaceAll("；", "; ")
-                                .replaceAll("、", ", ")
-                                .replaceAll("（", "(")
-                                .replaceAll("）", ")");
+                .replaceAll("。", ". ")
+                .replaceAll("：", ": ")
+                .replaceAll("！", "! ")
+                .replaceAll("；", "; ")
+                .replaceAll("、", ", ")
+                .replaceAll("（", "(")
+                .replaceAll("）", ")");
         if (content.equals(result)) {
             log.info("文本内容完全相同 無需要重写!!!");
             return;
         }
 
-        FileUtil.write(sourcePath, sourceFile, result, false);
+        FileUtil.write(path, fileName, result, false);
         log.info("标点替换完成 !!!");
     }
 
