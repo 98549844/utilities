@@ -19,17 +19,21 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String source = "C:\\ideaPorject\\ace\\doc\\vue\\";
-    static final String sourceFile = "package.txt";
+    static final String source = "C:\\ideaPorject\\ace\\doc\\mysql mariadb\\";
+    static final String sourceFile = "mysql 开启局域网访问.txt";
 
     public static void main(String[] args) throws Exception {
 
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-        contentTool.replaceAllContentSymbol(source);
+        contentTool.replaceContentSymbol(source);
     }
 
-    private void replaceAllContentSymbol(String path) throws IOException {
+    /** 指定文件夹
+     * @param path
+     * @throws IOException
+     */
+    private void replaceContentSymbol(String path) throws IOException {
         ContentTool contentTool = new ContentTool();
         List<String> ls = FileUtil.getFileNames(path);
         for (String fileName : ls) {
@@ -37,6 +41,11 @@ class ContentTool {
         }
     }
 
+    /** 指定文件
+     * @param path
+     * @param fileName
+     * @throws IOException
+     */
     private void replaceContentSymbol(String path, String fileName) throws IOException {
         log.info("替换全角标点到半角标点 ...");
         String content = (String) Objects.requireNonNull(FileUtil.read(path + fileName)).get(FileUtil.ORIGINAL);
