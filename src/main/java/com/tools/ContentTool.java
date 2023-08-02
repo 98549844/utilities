@@ -29,7 +29,9 @@ class ContentTool {
         contentTool.replaceContentSymbol(source);
     }
 
-    /** 指定文件夹
+    /**
+     * 指定文件夹
+     *
      * @param path
      * @throws IOException
      */
@@ -41,13 +43,14 @@ class ContentTool {
         }
     }
 
-    /** 指定文件
+    /**
+     * 指定文件
+     *
      * @param path
      * @param fileName
      * @throws IOException
      */
     private void replaceContentSymbol(String path, String fileName) throws IOException {
-        log.info("替换全角标点到半角标点 ...");
         String content = (String) Objects.requireNonNull(FileUtil.read(path + fileName)).get(FileUtil.ORIGINAL);
         String result = content.replaceAll("，", ", ")
                 .replaceAll("。", ". ")
@@ -58,12 +61,12 @@ class ContentTool {
                 .replaceAll("（", "(")
                 .replaceAll("）", ")");
         if (content.equals(result)) {
-            log.info("文本内容完全相同 無需要重写!!!");
+            log.info(fileName + " 文本内容完全相同 無需要重写!");
             return;
         }
 
         FileUtil.write(path, fileName, result, false);
-        log.info("标点替换完成 !!!");
+        log.info(fileName + " 标点替换完成 !");
     }
 
 }
