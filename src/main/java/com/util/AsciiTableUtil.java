@@ -1,15 +1,11 @@
 package com.util;
 
 import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.asciitable.CWC_LongestLine;
-import de.vandermeer.asciitable.CWC_LongestWord;
-import de.vandermeer.asciithemes.a7.A7_Grids;
 import de.vandermeer.asciithemes.u8.U8_Grids;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
