@@ -39,7 +39,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${springframework}</version>
-            <scope>${util.scope}</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
