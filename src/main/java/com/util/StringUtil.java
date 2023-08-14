@@ -94,7 +94,7 @@ public class StringUtil {
                 tmpRemainingResult = tmpRemainingResult.substring(idx + symbol.length());
             }
         }
-        if (tmpRemainingResult.length() > 0) {
+        if (!tmpRemainingResult.isEmpty()) {
             result.add(tmpRemainingResult);
         }
         return result;
