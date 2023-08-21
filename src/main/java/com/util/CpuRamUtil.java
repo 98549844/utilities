@@ -62,7 +62,7 @@ public class CpuRamUtil {
         long availableByte = memory.getAvailable();
 
         log.info("内存大小 = {},内存使用率 ={}", formatByte(totalByte), new DecimalFormat("#.##%").format((totalByte - availableByte) * 1.0 / totalByte));
-        Thread.sleep(1000);
+        Thread.sleep(10000);
 
     }
 
