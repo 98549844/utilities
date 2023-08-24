@@ -203,7 +203,7 @@ public class FileUtil {
                 }
             }
         }
-        log.info("File writing complete !!!");
+        log.info("File writing complete !");
     }
 
 
@@ -653,7 +653,7 @@ public class FileUtil {
                 outputStreamWriter.close();
                 // fop.flush();
                 // fop.close();
-                log.info("writing complete !!!");
+                log.info("writing complete !");
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

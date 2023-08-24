@@ -19,14 +19,15 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String source = "C:\\ideaPorject\\ace\\doc\\mysql mariadb\\";
-    static final String sourceFile = "mysql 开启局域网访问.txt";
+    static final String source = "C:\\ideaPorject\\ace\\doc\\mybatis\\";
+    static final String sourceFile = "like.txt";
 
     public static void main(String[] args) throws Exception {
 
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-        contentTool.replaceContentSymbol(source);
+      //  contentTool.replaceContentSymbol(source);
+        contentTool.replaceContentSymbol(source, sourceFile);
     }
 
     /**
