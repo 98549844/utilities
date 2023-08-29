@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hpsf.Decimal;
 import org.apache.poi.ss.formula.functions.T;
+import oshi.driver.unix.aix.Ls;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -55,9 +56,9 @@ public class ListUtil {
      * @param ls
      * @return
      */
-    public static boolean duplicateElement(List ls) {
+    public static boolean isDuplicate(List ls) {
         HashSet<Integer> hashSet = new HashSet<>(ls);
-        boolean duplicate = false;
+        boolean duplicate;
 
         if (ls.size() != hashSet.size()) {
             duplicate = true;
@@ -144,11 +145,39 @@ public class ListUtil {
         ls2.add("bbb");
         ls2.add("aaa");
 
-        Map map = getDeduplicateElements(ls1, ls2);
+        Map map = getNonDeduplicateElements(ls1, ls2);
         System.out.println("map:   " + map);
+       /* List<String> ls = getResultList(ls2, "x", false);
+
+        for (String s : ls) {
+            System.out.println(s);
+        }*/
 
     }
 
+    public static List getResultList(List<String> ls, String criteria, boolean include) {
+        if (!ls.contains(criteria)) {
+            return new ArrayList();
+        }
+
+        List result = new ArrayList();
+        if (include) {
+            // list 内容含有criteria
+            for (String s : ls) {
+                if (s.contains(criteria)) {
+                    result.add(s);
+                }
+            }
+        } else {
+            // criteria含有list 内容
+            for (String s : ls) {
+                if (criteria.contains(s)) {
+                    result.add(s);
+                }
+            }
+        }
+        return result;
+    }
 
     /**
      * 比较两个list, 把不相同的找出来
@@ -157,7 +186,7 @@ public class ListUtil {
      * @param ls2
      * @return
      */
-    public static Map getDeduplicateElements(List ls1, List ls2) {
+    public static Map getNonDeduplicateElements(List ls1, List ls2) {
         Map map = new HashMap();
         List ls = new ArrayList();
         for (Object obj : ls1) {
@@ -178,11 +207,11 @@ public class ListUtil {
                 ls.add(obj);
             }
         }
-        if (ls.size() > 0) {
+        if (!ls.isEmpty()) {
             map.put(ListUtil.LIST_2, ls);
         }
 
-        if (map.size() > 0) {
+        if (!map.isEmpty()) {
             log.info("Compare result: NOT EQUAL !");
         } else {
             log.info("Compare result: EQUAL !");
