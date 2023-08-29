@@ -156,13 +156,12 @@ public class ListUtil {
     }
 
     public static List getResultList(List<String> ls, String criteria, boolean include) {
-        if (!ls.contains(criteria)) {
-            return new ArrayList();
-        }
-
         List result = new ArrayList();
         if (include) {
             // list 内容含有criteria
+            if (!ls.contains(criteria)) {
+                return result;
+            }
             for (String s : ls) {
                 if (s.contains(criteria)) {
                     result.add(s);
