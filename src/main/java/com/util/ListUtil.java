@@ -211,12 +211,38 @@ public class ListUtil {
         }
 
         if (!map.isEmpty()) {
-            log.info("Compare result: NOT EQUAL !");
+            // log.info("Compare result: NOT EQUAL !");
+            System.out.println("Compare result: NOT EQUAL !");
         } else {
-            log.info("Compare result: EQUAL !");
+            // log.info("Compare result: EQUAL !");
+            System.out.println("Compare result: EQUAL !");
         }
 
         return map;
+    }
+
+
+    /**
+     * 比较两个list, 把不相同的找出来
+     *
+     * @param ls1
+     * @param ls2
+     * @return
+     */
+    public static Map getNonDeduplicateElementsIgnoreSpace(List ls1, List ls2) {
+
+        List list1 = new ArrayList();
+        List list2 = new ArrayList();
+
+        for (int i = 0; i < ls1.size(); i++) {
+            list1.add(ls1.get(i).toString().replace(" ", ""));
+        }
+
+        for (int i = 0; i < ls2.size(); i++) {
+            list2.add(ls2.get(i).toString().replace(" ", ""));
+        }
+
+        return getNonDeduplicateElements(list1, list2);
     }
 
 

@@ -391,10 +391,12 @@ public class StringUtil {
     }
 
 
-    /** sorting 字符串版字组排序
+    /**
+     * sorting 字符串版字组排序
+     *
      * @param arr
      * @param asc
-     * @param left 由左边第N位开始排序
+     * @param left  由左边第N位开始排序
      * @param right 到右边第M位停止排序
      */
     public static void sort(String[] arr, boolean asc, int left, int right) {
@@ -432,4 +434,11 @@ public class StringUtil {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+
+    public static boolean equalsIgnoreSpace(String a, String b) {
+        String x = a.replace(" ", "");
+        String y = b.replace(" ", "");
+        return x.equals(y);
+    }
+
 }
