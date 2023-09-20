@@ -1094,7 +1094,7 @@ public class FileUtil {
      * @time 2017年11月3日
      */
     public ArrayList<String> getFilesLocation(String folderPath) {
-        //   ArrayList<Object> scanFiles = new ArrayList<Object>();
+        //getFilesLocation不能多次被调用, 因为已经final, 防止数据污染
         ArrayList<String> directories = new ArrayList<>();
         File directory = new File(folderPath);
 
