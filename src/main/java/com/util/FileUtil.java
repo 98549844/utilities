@@ -967,7 +967,7 @@ public class FileUtil {
     public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
         //   int count = 0;
         FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilesLocation(PathUtil.space(path));
+        List<String> fileList = fileUtil.getFilePaths(PathUtil.space(path));
         log.info("starting count ... {}", path);
         Map<String, Integer> resultMap = new HashMap<>();
         if (NullUtil.isNotNull(ext) && ext.length > 0) {
@@ -995,7 +995,7 @@ public class FileUtil {
      */
     public static void count(String path) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilePaths(path);
         log.info("count result: {}", fileList.size());
     }
 
@@ -1006,7 +1006,7 @@ public class FileUtil {
      */
     public static Map<String, List<String>> findByType(String path, String... ext) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilePaths(path);
         log.info("searching file size: {}", fileList.size());
 
         Map<String, List<String>> resultMap = new HashMap<>();
@@ -1015,11 +1015,11 @@ public class FileUtil {
             for (String f : fileList) {
                 String type = getExtension(FileUtil.getFileName(f));
                 for (int i = 0; i < ext.length; i++) {
-                    List<String> resulList = resultMap.get(ext[i]) == null ? new ArrayList<>() : resultMap.get(ext[i]);
+                    List<String> resultList = resultMap.get(ext[i]) == null ? new ArrayList<>() : resultMap.get(ext[i]);
                     if (type.equals(ext[i])) {
                         Console.println(f, Console.BOLD); //print as console
-                        resulList.add(f);
-                        resultMap.put(ext[i], resulList);
+                        resultList.add(f);
+                        resultMap.put(ext[i], resultList);
                     }
                 }
             }
@@ -1041,7 +1041,7 @@ public class FileUtil {
      */
     public static void findByName(String path, String fileName) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilesLocation(path);
+        List<String> fileList = fileUtil.getFilePaths(path);
         log.info("starting searching ... {}", path);
         log.info("searching file size: {}", fileList.size());
         for (String f : fileList) {
@@ -1056,8 +1056,8 @@ public class FileUtil {
 
     public static void main(String[] args) throws IOException {
         FileUtil fileUtil = new FileUtil();
-        List<String> a = fileUtil.getFilesLocation("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
-        List<Object> b = getFilePaths("src/main/java/com/models");
+        List<String> a = fileUtil.getFilePaths("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
+        List<String> b = fileUtil.getFilePaths("src/main/java/com/models");
         List<String> c = getFullFileNames("src/main/java/com/models");
 
         int count = 0;
@@ -1093,7 +1093,7 @@ public class FileUtil {
      * @return ArrayList<Object>
      * @time 2017年11月3日
      */
-    public ArrayList<String> getFilesLocation(String folderPath) {
+    public ArrayList<String> getAccumulatedFilesLocation(String folderPath) {
         //在一个instant当中
         //getFilesLocation多次被调用
         //scanFiles会累加之前的结果
@@ -1110,7 +1110,7 @@ public class FileUtil {
                 if (file.isDirectory()) {
                     directories.add(file.getAbsolutePath());
                     /**递归扫描下面的文件夹**/
-                    getFilesLocation(file.getAbsolutePath());
+                    getAccumulatedFilesLocation(file.getAbsolutePath());
                 } else {
                     /**非文件夹**/
                     scanFiles.add(file.getAbsolutePath());
@@ -1127,8 +1127,8 @@ public class FileUtil {
      * @return ArrayList<Object>
      * @time 2017年11月3日
      */
-    public static ArrayList<Object> getFilePaths(String folderPath) {
-        ArrayList<Object> scanFiles = new ArrayList<>();
+    public ArrayList<String> getFilePaths(String folderPath) {
+        ArrayList<String> scanFiles = new ArrayList<>();
         LinkedList<File> queueFiles = new LinkedList<>();
         File directory = new File(folderPath);
         if (!directory.isDirectory()) {

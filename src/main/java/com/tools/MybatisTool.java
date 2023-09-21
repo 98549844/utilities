@@ -30,7 +30,7 @@ class MybatisTool {
         int delete = 0;
 
         FileUtil fileUtil = new FileUtil();
-        List xmlList = fileUtil.getFilesLocation(MybatisXmlLocation);
+        List xmlList = fileUtil.getFilePaths(MybatisXmlLocation);
         for (Object s : xmlList) {
             String xml = s.toString();
             if ("xml".equalsIgnoreCase(fileUtil.getExtension(FileUtil.getFileName(xml)))) {
