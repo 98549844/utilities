@@ -23,9 +23,11 @@ public class MysqlDBTool {
         p.put("password", dbConfig.getPassword());
         // Now try to connect
         Connection c = DriverManager.getConnection(dbConfig.getConnection(), p);
+        System.out.println("connection closed status: " + c.isClosed());
         System.out.println(c.getSchema());
         System.out.println("It works !");
         c.close();
+        System.out.println("connection closed status: " + c.isClosed());
     }
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
