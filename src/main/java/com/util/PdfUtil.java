@@ -31,15 +31,22 @@ public class PdfUtil {
     private static final Logger log = LogManager.getLogger(PdfUtil.class.getName());
 
     public static void main(String[] args) throws IOException {
-        //  String input = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/";
-        // String output = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/wood.pdf";
-        //jpgMergeToPdf(input, output);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(RandomUtil.getInt(100));
-        }
+      //  String input = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/";
+       // String output = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/wood.pdf";
+        String input = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\";
+        String output = "C:\\ideaPorject\\utilities\\src\\main\\resources\\file\\output\\wood.pdf";
+        jpgsMergeToPdf(input, output);
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(RandomUtil.getInt(100));
+//        }
     }
 
 
+    /** 支持一张或多张图片转换成pdf
+     * @param input
+     * @param output
+     * @throws IOException
+     */
     public static void toPdf(String input, String output) throws IOException {
         if (NullUtil.isNull(input) || NullUtil.isNull(output)) {
             log.error("Input param is null");
@@ -86,11 +93,15 @@ public class PdfUtil {
     }
 
 
+    /** 文件夹下多张图片转成一个pdf(多页文件)
+     * @param imageFolderPath
+     * @param pdfPath
+     */
     private static void jpgsMergeToPdf(String imageFolderPath, String pdfPath) {
         try {
             // 图片文件夹地址
             // 图片地址
-            String imagePath = null;
+            String imagePath;
             // PDF文件保存地址
             // 输入流
             FileOutputStream fos = new FileOutputStream(pdfPath);
@@ -100,9 +111,9 @@ public class PdfUtil {
             // 写入PDF文档
             PdfWriter.getInstance(doc, fos);
             // 读取图片流
-            BufferedImage img = null;
+            BufferedImage img;
             // 实例化图片
-            Image image = null;
+            Image image;
             // 获取图片文件夹对象
             File file = new File(imageFolderPath);
             File[] files = file.listFiles();
