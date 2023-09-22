@@ -7,7 +7,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.util.Arrays;
 
 /**
  * @Classname: PathUtil
@@ -21,7 +24,9 @@ public class PathUtil {
     private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
 
-    /** 处理路径内有空格问题
+    /**
+     * 处理路径内有空格问题
+     *
      * @param path
      * @return
      */
@@ -89,10 +94,11 @@ public class PathUtil {
 
 
     public static void main(String[] args) throws IOException {
-        System.out.println(getSystemPath());
+        System.out.println("getSystemPath: "+getSystemPath());
         getClassLoaderAbsolutePath();
+        System.out.println(getBaseUrl());
         PathUtil p = new PathUtil();
-        System.out.println(p.getResourceContent("ace/src/main/resources/file/maven/installedDependency.txt"));
+     //   System.out.println(p.getResourceContent("com/util/UUID.java"));
     }
 
     /**
@@ -103,5 +109,16 @@ public class PathUtil {
         return String.valueOf(ClassLoader.getSystemResource(""));
     }
 
+    public static String getBaseUrl(String... locations) throws MalformedURLException {
+        String baseUrl = FileSystems
+                .getDefault()
+              //  .getPath("src", "main", "resources", "templates", "ace", "modules", "report", "pdf")
+                .getPath(Arrays.toString(locations))
+                .toUri()
+                .toURL()
+                .toString();
+        System.out.println("baseUrl: " + baseUrl);
+        return baseUrl;
+    }
 
 }
