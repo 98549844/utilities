@@ -36,6 +36,7 @@ public class OsUtil {
 
     public static void showAll() {
         Properties pros = System.getProperties();
+        System.out.println("System.getProperties(): ***");
         Set<Object> keys = pros.keySet();
         for (Object key : keys) {
             System.out.print(key + ": ");
@@ -45,8 +46,8 @@ public class OsUtil {
     }
 
     public static void main(String[] args) {
-      //  getOsInfo();
-      //  showAll();
-        System.out.println(getOsName());
+        getOsInfo();
+        showAll();
+        System.out.println("OS NAME: " + getOsName());
     }
 }
