@@ -55,7 +55,7 @@ public class AsciiTableUtil {
         Console.println(result, Console.FLUORESCENT_GREEN, Console.BOLD);
     }
 
-    public static List<String[]> aaa() {
+    public static List<String[]> content() {
         //  String[] header = new String[]{"aaaa","bbbb"};
 
         List<String[]> contents = new ArrayList<>();
@@ -66,7 +66,8 @@ public class AsciiTableUtil {
     }
 
     public static void main(String[] args) {
-        println(aaa(), new String[]{"aaaa", "bbbb"});
+        String[] colName = new String[]{"col 1", "col 2"};
+        println(content(), colName);
     }
 
 

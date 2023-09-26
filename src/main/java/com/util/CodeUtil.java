@@ -22,22 +22,23 @@ import java.util.List;
 public class CodeUtil {
     private static final Logger log = LogManager.getLogger(CodeUtil.class.getName());
 
-    static String path = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/a.txt";
+    static String path = "C:\\ideaPorject\\ace\\doc\\keyboards\\keychron\\config.txt";
     static String cont = "镓簩缁寸爜浠樻，缁欘?茶姳寮？娣℃颚";
 
     public static void main(String[] args) throws IOException {
-
         List<String> ls = getDecodeList();
-
-        for (String decode : ls) {
-            File file = new File(path);
-            InputStream input = new FileInputStream(file);
-            StringBuffer buffer = new StringBuffer();
-            byte[] bytes = new byte[1024];
-            for (int n; (n = input.read(bytes)) != -1; ) {
-                buffer.append(new String(bytes, 0, n, decode));
+        File file = new File(path);
+        try (InputStream input = new FileInputStream(file)) {
+            for (String decode : ls) {
+                StringBuffer buffer = new StringBuffer();
+                byte[] bytes = new byte[1024];
+                for (int n; (n = input.read(bytes)) != -1; ) {
+                    buffer.append(new String(bytes, 0, n, decode));
+                }
+                System.out.println(buffer);
             }
-            System.out.println(buffer);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
 
