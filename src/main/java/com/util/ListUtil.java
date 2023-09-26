@@ -1,8 +1,8 @@
 package com.util;
 
+import com.generator.DataGenerator;
 import com.google.common.base.Function;
 import com.google.common.collect.Ordering;
-import com.generator.DataGenerator;
 import com.util.entity.Users;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -10,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hpsf.Decimal;
 import org.apache.poi.ss.formula.functions.T;
-import oshi.driver.unix.aix.Ls;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -368,7 +367,7 @@ public class ListUtil {
      * just a sample
      * need override
      */
-    public static void sortListByGuava(List<Users> ls) {
+    public static void sortList(List<Users> ls) {
         if (ls == null) {
             ls = DataGenerator.generateUsers();
         }
