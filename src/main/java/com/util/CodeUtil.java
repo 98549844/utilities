@@ -25,6 +25,18 @@ public class CodeUtil {
     static String path = "C:\\ideaPorject\\ace\\doc\\keyboards\\keychron\\config.txt";
     static String cont = "镓簩缁寸爜浠樻，缁欘?茶姳寮？娣℃颚";
 
+    /*
+        try (ResourceType resource1 = ...;
+            ResourceType resource2 = ...;)
+            // 更多资源声明
+            {
+                // 使用 resource1, resource2, ...
+            } catch (ExceptionType exception1) {
+                // 处理异常
+            } finally {
+                // 可选的 finally 块
+            }
+    */
     public static void main(String[] args) throws IOException {
         List<String> ls = getDecodeList();
         File file = new File(path);
