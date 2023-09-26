@@ -11,9 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.time.Instant;
 
 
@@ -345,5 +343,17 @@ public class DateTimeUtil {
         return duration;
     }
 
+    /**
+     * 以今年为标识，获取上N年的年份List列表
+     */
+    public static List<String> getPreviousYearListByCurrentYear(int n) {
+        List<String> years = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        for (int i = year - n; i <= year; i++) {
+            years.add(String.valueOf(i));
+        }
+        return years;
+    }
 
 }
