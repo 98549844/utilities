@@ -43,8 +43,8 @@ public class ConsoleTable {
         List<List<Cell>> contentBody = new ArrayList<>();
         for (String[] ss : body) {
             List<Cell> contentCell = new ArrayList<>();
-            for (int i = 0; i < ss.length; i++) {
-                Cell cell = new Cell(ss[i]);
+            for (String s : ss) {
+                Cell cell = new Cell(s);
                 contentCell.add(cell);
             }
             contentBody.add(contentCell);
