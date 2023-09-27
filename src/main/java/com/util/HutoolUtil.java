@@ -41,7 +41,31 @@ public class HutoolUtil {
         ConsoleTable.println(header, body);
     }
 
+    public static void check(String keyword) {
+        String keywordToLowerCase = keyword.toLowerCase();
+        List<String> header = new ArrayList<>();
+        header.add("Utils Name");
+        header.add("Name Space");
+        List<String[]> body = new ArrayList<>();
+
+        Set<Class<?>> allUtils = getAllUtils();
+        for (Class<?> clazz : allUtils) {
+            String simpleName = clazz.getSimpleName();
+            String packageName = clazz.getPackage().getName();
+            if ((simpleName.toLowerCase().contains(keywordToLowerCase) || packageName.toLowerCase().contains(keywordToLowerCase))) {
+                body.add(new String[]{simpleName, packageName});
+            }
+        }
+
+        if (body.isEmpty()) {
+            body.add(new String[]{"No utils found", "***"});
+        }
+
+        ConsoleTable.println(header, body);
+    }
+
     public static void main(String[] args) {
+        check("util");
         printAllUtils();
     }
 
