@@ -3,7 +3,9 @@ package com.util;
 //import cn.hutool.core.lang.ConsoleTable;
 
 import cn.hutool.core.util.ClassUtil;
+import cn.hutool.core.util.ReferenceUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.XmlUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +24,7 @@ import java.util.Set;
 public class HutoolUtil {
     private static final Logger log = LogManager.getLogger(HutoolUtil.class.getName());
 
-    public static Set<Class<?>> getAllUtils() {
+    private static Set<Class<?>> getAllUtils() {
         return ClassUtil.scanPackage("cn.hutool", (clazz)
                 -> !clazz.isInterface() && StrUtil.endWith(clazz.getSimpleName(), "Util"));
     }
