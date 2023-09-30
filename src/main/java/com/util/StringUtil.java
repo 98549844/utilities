@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -137,8 +139,8 @@ public class StringUtil {
 
 
     public static List<String> convertCollectionToStringList(Collection<?> collection, int maxLength) {
-        List<String> result = new ArrayList<String>();
-        if (NullUtil.isNotNull(collection) && collection.size() > 0) {
+        List<String> result = new ArrayList<>();
+        if (NullUtil.isNotNull(collection) && !collection.isEmpty()) {
             Iterator<?> it = collection.iterator();
             StringBuilder sb = new StringBuilder(it.next().toString());
             if (sb.length() > maxLength) {
@@ -253,6 +255,10 @@ public class StringUtil {
     }
 
 
+    /**  检查中英文
+     * @param n
+     * @return
+     */
     public static String isCnOrEn(String n) {
         String type = null;
         char[] chars = n.toCharArray();
@@ -435,7 +441,40 @@ public class StringUtil {
         arr[j] = temp;
     }
 
-    public static boolean equalsIgnoreSpace(String a, String b) {
+    /** 根据"/'/` 截取wording并以list返回
+     * @param sentence
+     * @param symbol
+     * @return
+     */
+    public static List<String> extractStringByQuotes(String sentence, String symbol) {
+        String expression = switch (symbol) {
+            case "`" -> "`([^`]*)`"; //截取 `
+            case "'" -> "'([^']*)'"; //截取 '
+            case "\"" -> "\"([^\"]*)\""; //截取 "
+            default -> "illegal symbol !";
+        };
+        List<String> quotes = new ArrayList<>();
+        if (expression.equals("illegal symbol !")) {
+            log.error(expression);
+            return quotes;
+        }
+        // Pattern pattern = Pattern.compile("['\"`]+([^'\"]*)['\"`]+"); //同时将 " ' ` 都截取出来
+        Pattern pattern = Pattern.compile(expression);
+        Matcher matcher = pattern.matcher(sentence);
+        while (matcher.find()) {
+            String quote = matcher.group(1);
+            quotes.add(quote);
+        }
+        return quotes;
+    }
+
+
+    /** 去除space并比较两句子
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean equalsWithIgnoreSpace(String a, String b) {
         String x = a.replace(" ", "");
         String y = b.replace(" ", "");
         return x.equals(y);

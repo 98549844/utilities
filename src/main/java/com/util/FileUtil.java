@@ -403,13 +403,13 @@ public class FileUtil {
 
         StringBuilder content1 = new StringBuilder();
         StringBuilder content2 = new StringBuilder();
-        List<StringBuilder> content3 = new LinkedList<>();
+        List<String> content3 = new LinkedList<>();
         while (NullUtil.isNotNull(line) || "".equals(line)) {
             // 一次读入一行数据,并显示行数
             // content1.append(i + ". ");
             content1.append(line).append(SystemUtil.separator());
             content2.append(line);
-            content3.add(new StringBuilder(line));
+            content3.add(new String(line));
             i++;
             // 把所有内容在一行显示
             line = br.readLine();

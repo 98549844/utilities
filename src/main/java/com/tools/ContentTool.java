@@ -19,8 +19,8 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String source = "C:\\ideaPorject\\ace\\doc\\mybatis\\";
-    static final String sourceFile = "like.txt";
+    static final String source = "/Users/garlam/IdeaProjects/springboot-admin-page/src/main/resources/sql/";
+    static final String sourceFile = "springboot-admin-page.sql";
 
     public static void main(String[] args) throws Exception {
 
