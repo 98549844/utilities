@@ -862,18 +862,18 @@ public class FileUtil {
     /**
      * Used to extract the filename with its extension.
      *
-     * @param f Incoming file to get the filename
+     * @param fullPath Incoming file to get the filename
      * @return <code>String</code> representing the filename without its
      * extension.
      */
-    public static Map getNameAndExt(String f) {
+    public static Map getNameAndExt(String fullPath) {
         String fName;
         String ext;
-        int i = f.lastIndexOf('.');
+        int i = fullPath.lastIndexOf('.');
         Map map = new HashMap();
-        if (i > 0 && i < f.length() - 1) {
-            fName = f.substring(0, i);
-            ext = f.substring(i);
+        if (i > 0 && i < fullPath.length() - 1) {
+            fName = fullPath.substring(0, i);
+            ext = fullPath.substring(i);
             map.put(FileUtil.FILENAME, fName);
             map.put(FileUtil.EXT, ext);
         }
@@ -960,32 +960,42 @@ public class FileUtil {
     }
 
     /**
-     * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
+     * @param path 路经 xxx/xxx/xxx/xxx/
      * @param ext
      * @throws IOException
      */
     public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
-        //   int count = 0;
-        FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilePaths(PathUtil.space(path));
-        log.info("starting count ... {}", path);
+        File folder = new File(path);
         Map<String, Integer> resultMap = new HashMap<>();
-        if (NullUtil.isNotNull(ext) && ext.length > 0) {
-            for (String f : fileList) {
-                String type = getExtension(FileUtil.getFileName(f));
-                for (String s : ext) {
-                    if (type.equals(s)) {
-                        int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
-                        resultMap.put(s, ++count);
-
+        if (folder.isDirectory() && !FileUtil.getFileNames(path).isEmpty()) {
+            File[] files = folder.listFiles();
+            if (NullUtil.isNotNull(ext) && ext.length > 0) {
+                for (File f : files) {
+                    String type = getExtension(FileUtil.getFileName(f.getAbsolutePath()));
+                    for (String s : ext) {
+                        if (type.equals(s)) {
+                            int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
+                            resultMap.put(s, ++count);
+                        }
                     }
                 }
-
-            }
-            for (String s : ext) {
-                log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
+                for (String s : ext) {
+                    log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
+                }
+            } else {
+                for (File f : files) {
+                    String type = getExtension(FileUtil.getFileName(f.getAbsolutePath()));
+                    int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
+                    resultMap.put(type, ++count);
+                }
+                List ls = MapUtil.getKeySet(resultMap);
+                for (Object key : ls) {
+                    log.info("{} count: {}", key.toString(), resultMap.get(key) == null ? 0 : resultMap.get(key));
+                }
             }
         }
+
+
         return resultMap;
     }
 
