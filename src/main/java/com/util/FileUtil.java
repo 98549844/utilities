@@ -339,10 +339,10 @@ public class FileUtil {
      * @return xxx.xx
      * @throws IOException
      */
-    public static String getFileName(String path) throws IOException {
+    public static String getFileNameWithExt(String path) throws IOException {
         File file = new File(path);
         if (file.isDirectory() || !file.exists()) {
-            log.error("File occur error !!!");
+            log.error("Is directory or file not exist !");
             throw new IOException();
         }
         return path.substring(path.lastIndexOf(File.separator) + 1);
@@ -967,24 +967,22 @@ public class FileUtil {
     public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
         File folder = new File(path);
         Map<String, Integer> resultMap = new HashMap<>();
-        if (folder.isDirectory() && !FileUtil.getFileNames(path).isEmpty()) {
-            File[] files = folder.listFiles();
+        File[] files = folder.listFiles();
+        if (folder.isDirectory() && files.length > 0) { //是文件夹和内含文件
             if (NullUtil.isNotNull(ext) && ext.length > 0) {
-                for (File f : files) {
-                    String type = getExtension(FileUtil.getFileName(f.getAbsolutePath()));
-                    for (String s : ext) {
+                for (String s : ext) {
+                    for (File f : files) {
+                        String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
                         if (type.equals(s)) {
                             int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
                             resultMap.put(s, ++count);
                         }
                     }
-                }
-                for (String s : ext) {
                     log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
                 }
             } else {
                 for (File f : files) {
-                    String type = getExtension(FileUtil.getFileName(f.getAbsolutePath()));
+                    String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
                     int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
                     resultMap.put(type, ++count);
                 }
@@ -994,8 +992,6 @@ public class FileUtil {
                 }
             }
         }
-
-
         return resultMap;
     }
 
@@ -1004,9 +1000,12 @@ public class FileUtil {
      * @throws IOException
      */
     public static void count(String path) throws IOException {
-        FileUtil fileUtil = new FileUtil();
-        List<String> fileList = fileUtil.getFilePaths(path);
-        log.info("count result: {}", fileList.size());
+        File folder = new File(path);
+        if (folder.isDirectory()) {
+            log.info("count result: {}", Objects.requireNonNull(folder.listFiles()).length);
+        }else{
+            log.error("Folder not exist or it is file");
+        }
     }
 
     /**
@@ -1021,9 +1020,9 @@ public class FileUtil {
 
         Map<String, List<String>> resultMap = new HashMap<>();
         if (NullUtil.isNotNull(ext) && ext.length > 0) {
-            log.info("starting searching ... {}", path);
+            log.info("starting searching: {}", path);
             for (String f : fileList) {
-                String type = getExtension(FileUtil.getFileName(f));
+                String type = getExtension(FileUtil.getFileNameWithExt(f));
                 for (int i = 0; i < ext.length; i++) {
                     List<String> resultList = resultMap.get(ext[i]) == null ? new ArrayList<>() : resultMap.get(ext[i]);
                     if (type.equals(ext[i])) {
@@ -1055,7 +1054,7 @@ public class FileUtil {
         log.info("starting searching ... {}", path);
         log.info("searching file size: {}", fileList.size());
         for (String f : fileList) {
-            String name = getName(FileUtil.getFileName(f));
+            String name = getName(FileUtil.getFileNameWithExt(f));
             if (name.toLowerCase().contains(fileName.toLowerCase())) {
                 Console.println(f, Console.BOLD);
             }
@@ -1073,7 +1072,7 @@ public class FileUtil {
         int count = 0;
         log.info("start a ...");
         for (String s : a) {
-            String t = getFileName(s.toString());
+            String t = getFileNameWithExt(s.toString());
             if ("html".equalsIgnoreCase(getExtension(t))) {
                 System.out.println("non-static: " + s);
                 count++;
