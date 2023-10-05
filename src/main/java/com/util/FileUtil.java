@@ -28,7 +28,7 @@ public class FileUtil {
     public static final String FILE_LIST = "fileList";
     public static final String ORIGINAL = "original";
     public static final String LINE = "line";
-    public static final String LIST = "LIST";
+    public static final String LIST = "list";
 
     public static final String PATH = "path";
     public static final String FILENAME = "fileName";
@@ -124,7 +124,7 @@ public class FileUtil {
     }
 
     /**
-     * current folder and subfolder
+     * get current folder and subfolder
      *
      * @param path
      * @return
@@ -151,7 +151,7 @@ public class FileUtil {
         File src = new File(source);
         File desc = new File(dest);
         if (NullUtil.isNull(source) || !src.isFile()) {
-            log.error("source incorrect !!!");
+            log.error("source incorrect !");
             log.error("source: {}", source);
         }
         FileUtils.copyFile(src, desc);
