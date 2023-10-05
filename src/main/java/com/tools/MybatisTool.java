@@ -33,7 +33,7 @@ class MybatisTool {
         List xmlList = fileUtil.getFilePaths(MybatisXmlLocation);
         for (Object s : xmlList) {
             String xml = s.toString();
-            if ("xml".equalsIgnoreCase(fileUtil.getExtension(FileUtil.getFileName(xml)))) {
+            if ("xml".equalsIgnoreCase(fileUtil.getExtension(FileUtil.getFileNameWithExt(xml)))) {
                 List<StringBuilder> result = (List<StringBuilder>) FileUtil.read(xml).get(FileUtil.LIST);
                 log.info("Counting ... {}", xml);
                 for (StringBuilder stringBuilder : result) {

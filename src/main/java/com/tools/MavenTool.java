@@ -52,7 +52,7 @@ public class MavenTool {
             return;
         }
 
-        String jarName = FileUtil.getFileName(PathUtil.space(ExternalJarPath));
+        String jarName = FileUtil.getFileNameWithExt(PathUtil.space(ExternalJarPath));
         String jar = FileUtil.getName(jarName);
 
         log.info("Maven install starting ...");
