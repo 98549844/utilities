@@ -389,7 +389,7 @@ public class FileUtil {
 
     public static Map<String, Object> read(String path) throws IOException {
         if (!isFile(path)) {
-            log.warn("CANT read this file, please check !");
+            log.warn("can't read this file, please check !");
             return null;
         }
         File f = new File(path);
