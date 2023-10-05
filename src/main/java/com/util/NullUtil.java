@@ -11,12 +11,12 @@ public class NullUtil {
     private static final Logger log = LogManager.getLogger(NullUtil.class);
 
     public static boolean isEmpty(Collection<?> collection) {
-        return isNull(collection) || collection.size() < 1;
+        return isNull(collection) || collection.isEmpty();
     }
 
 
     public static boolean isEmpty(Map<?, ?> map) {
-        return isNull(map) || map.size() < 1;
+        return isNull(map) || map.isEmpty();
     }
 
     public static boolean isEmpty(Object object) {
@@ -33,7 +33,7 @@ public class NullUtil {
     }
 
     public static boolean isEmpty(String text) {
-        return isNull(text) || text.trim().length() == 0;
+        return isNull(text) || text.trim().isEmpty();
     }
 
     public static boolean isNotEmpty(Collection<?> collection) {
@@ -66,10 +66,10 @@ public class NullUtil {
             }
         } else if (object instanceof List) {
             List ls = (List) object;
-            return ls.size() == 0;
+            return ls.isEmpty();
         } else if (object instanceof Map) {
             Map m = (Map) object;
-            return m.keySet().size() == 0;
+            return m.keySet().isEmpty();
         }
 
         return false;
@@ -156,6 +156,4 @@ public class NullUtil {
         }
         return true;
     }
-
-
 }
