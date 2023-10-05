@@ -19,15 +19,15 @@ import java.util.Objects;
 class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String source = "/Users/garlam/IdeaProjects/springboot-admin-page/src/main/resources/sql/";
+    static final String source = "C:\\ideaPorject\\ace\\doc\\javascript\\";
     static final String sourceFile = "springboot-admin-page.sql";
 
     public static void main(String[] args) throws Exception {
 
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-      //  contentTool.replaceContentSymbol(source);
-        contentTool.replaceContentSymbol(source, sourceFile);
+        contentTool.replaceContentSymbol(source);
+      //  contentTool.replaceContentSymbol(source, sourceFile);
     }
 
     /**

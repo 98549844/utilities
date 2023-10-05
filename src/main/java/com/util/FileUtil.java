@@ -50,7 +50,7 @@ public class FileUtil {
      * 全角空格为12288，半角空格为32
      * 其他字符半角(33-126)与全角(65281-65374)的对应关系是：均相差65248
      *
-     * @param input 任意字符串
+     * @param input 任意字符串由全角转半角
      * @return 半角字符串
      */
     public static String ToDBC(String input) {
@@ -74,6 +74,12 @@ public class FileUtil {
     }
 
 
+    /**
+     * 创建文件
+     *
+     * @param path
+     * @return
+     */
     public static boolean create(String path) {
         File file = new File(path);
         boolean result = false;
@@ -82,7 +88,6 @@ public class FileUtil {
                 String p = FileUtil.convertToPath(path);
                 FileUtil.mkDirs(p);
             }
-
             result = file.createNewFile();
             log.info("File created !!!");
         } catch (IOException e) {
@@ -92,11 +97,13 @@ public class FileUtil {
     }
 
     public static Map getCurrentFolderList(String path) {
-        log.info("get current file and folder list !!!");
+        log.info("get current: {}" + path);
 
         File file = new File(path);
-        if (NullUtil.isNull(path) || !file.isDirectory()) {
-            log.warn("Path incorrect, please check !");
+        Map map = new HashMap();
+        if (!file.exists() || !file.isDirectory()) {
+            log.warn("not directory or not exist !");
+            return map;
         }
         File[] files = file.listFiles();
         List fullFolderList = new ArrayList();
@@ -110,7 +117,6 @@ public class FileUtil {
                 fileList.add(f.getAbsolutePath());
             }
         }
-        Map map = new HashMap();
         map.put(FOLDER_LIST, fullFolderList);
         map.put(FOLDER_NAME, folderList);
         map.put(FILE_LIST, fileList);
@@ -1003,7 +1009,7 @@ public class FileUtil {
         File folder = new File(path);
         if (folder.isDirectory()) {
             log.info("count result: {}", Objects.requireNonNull(folder.listFiles()).length);
-        }else{
+        } else {
             log.error("Folder not exist or it is file");
         }
     }
