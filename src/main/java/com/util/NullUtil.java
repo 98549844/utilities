@@ -85,12 +85,12 @@ public class NullUtil {
             }
         } else if (object instanceof List) {
             List ls = (List) object;
-            if (ls.size() == 0) {
+            if (ls.isEmpty()) {
                 return false;
             }
         } else if (object instanceof Map) {
             Map m = (Map) object;
-            if (m.keySet().size() == 0) {
+            if (m.keySet().isEmpty()) {
                 return false;
             }
         }
