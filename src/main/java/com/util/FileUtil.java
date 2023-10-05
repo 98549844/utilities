@@ -1130,7 +1130,7 @@ public class FileUtil {
     }
 
     /**
-     * TODO:非递归方式扫描指定文件夹下面的所有文件
+     * 非递归方式扫描指定文件夹下面的所有文件
      *
      * @param folderPath 需要进行文件扫描的文件夹路径
      * @return ArrayList<Object>
