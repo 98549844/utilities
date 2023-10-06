@@ -15,8 +15,14 @@ import java.math.BigInteger;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -1514,5 +1520,33 @@ public class FileUtil {
         return !TextUtils.isEmpty(fileName) && mimeType.contains(PREFIX_VIDEO);
     }
 
+    public static List getFileInfo(String p) throws IOException {
+        File file = new File(p);
+        String type = file.isFile() ? "File" : "Folder";
+        Path path = Paths.get(file.getAbsolutePath());
+        BasicFileAttributes attrs = Files.readAttributes(path, BasicFileAttributes.class);
+        // 从基本属性类中获取文件创建时间
+        FileTime creationTime = attrs.creationTime();
+        FileTime lastAccessTime = attrs.lastAccessTime();
+        FileTime lastModifiedTime = attrs.lastModifiedTime();
+        // 将文件创建时间转成毫秒
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date creationDateTime = new Date();
+        Date lastAccessDateTime = new Date();
+        Date lastModifiedDateTime = new Date();
+        creationDateTime.setTime(creationTime.toMillis());
+        lastAccessDateTime.setTime(lastAccessTime.toMillis());
+        lastModifiedDateTime.setTime(lastModifiedTime.toMillis());
+        // 毫秒转成时间字符串
+        List<String> infoList = new ArrayList<>();
+        infoList.add(type + " creation date: " + dateFormat.format(creationDateTime));
+        infoList.add(type + " last access date: " + dateFormat.format(lastAccessDateTime));
+        infoList.add(type + " last modified date: " + dateFormat.format(lastModifiedDateTime));
+        int size = infoList.size();
+        for (int i = 0; i < size; i++) {
+            Console.println(infoList.get(i), Console.BOLD);
+        }
+        return infoList;
+    }
 
 }
