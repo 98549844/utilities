@@ -30,13 +30,12 @@ public class ArrayUtil {
     }
 
     public static Boolean isArray(Object obj) {
-        if (NullUtil.isNull(obj)) {
-            return null;
-        }
-        return obj.getClass().isArray();
+        return NullUtil.isNull(obj) ? null : obj.getClass().isArray();
     }
 
-    /** 去除重复, 不排序
+    /**
+     * 去除重复, 不排序
+     *
      * @param nums
      * @return
      */
@@ -44,7 +43,9 @@ public class ArrayUtil {
         return Arrays.stream(nums).boxed().collect(Collectors.toSet());
     }
 
-    /** 去除重复, 升序
+    /**
+     * 去除重复, 升序
+     *
      * @param nums
      * @return
      */
@@ -53,7 +54,9 @@ public class ArrayUtil {
         return Arrays.stream(arrayInts).boxed().collect(Collectors.toSet());
     }
 
-    /** 去除重复, 降序
+    /**
+     * 去除重复, 降序
+     *
      * @param nums
      * @return
      */
