@@ -358,7 +358,13 @@ public class StringUtil {
         return s.toCharArray();
     }
 
-    public static String[] split(String s, String spliter) {
+    /** 转义字符splitter
+     * @param s
+     * @param splitter
+     * @return
+     */
+    public static String[] split(String s, String splitter) {
+
         String[] results;
         if (s.contains(".")) {
             results = s.split("\\.");
@@ -387,7 +393,7 @@ public class StringUtil {
             results = s.split("\\.");
 
         }*/ else {
-            results = s.split(spliter);
+            results = s.split(splitter);
         }
         return results;
     }

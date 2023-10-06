@@ -38,7 +38,7 @@ class ContentTool {
      */
     private void replaceContentSymbol(String path) throws IOException {
         ContentTool contentTool = new ContentTool();
-        List<String> ls = FileUtil.getFileNames(path);
+        List<String> ls = FileUtil.getFileNamesWithExt(path);
         for (String fileName : ls) {
             contentTool.replaceContentSymbol(path, fileName);
         }

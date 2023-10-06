@@ -100,9 +100,9 @@ public class CompressUtil {
 
 
     public static void unCompressGZFiles(String path) throws Exception {
-        path = FileUtil.convertToPath(path);
+        path = FileUtil.getParent(path);
         System.out.println(path);
-        ArrayList<String> files = FileUtil.getFileNames(path);
+        ArrayList<String> files = FileUtil.getFileNamesWithExt(path);
         for (String f : files) {
             f = path + f;
             unCompressGZFile(f);
@@ -110,9 +110,9 @@ public class CompressUtil {
     }
 
     public static void unCompressGZFilesAndDeleteGZFile(String path) throws Exception {
-        path = FileUtil.convertToPath(path);
+        path = FileUtil.getParent(path);
         System.out.println(path);
-        ArrayList<String> files = FileUtil.getFileNames(path);
+        ArrayList<String> files = FileUtil.getFileNamesWithExt(path);
         for (String f : files) {
             f = path + f;
             unCompressGZFile(f);

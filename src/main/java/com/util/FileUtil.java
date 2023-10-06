@@ -46,10 +46,6 @@ public class FileUtil {
     private static final String PREFIX_IMAGE = "image/";
     private static final String PREFIX_APPLICATION = "application/";
 
-    private static final String WINDOWS = "WINDOWS";
-    private static final String MAC = "MAC OS";
-    private static final String LINUX = "LINUX";
-    private final static String UNKNOWN = "UNKNOWN";
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -90,12 +86,14 @@ public class FileUtil {
         File file = new File(path);
         boolean result = false;
         try {
-            if (!FileUtil.exist(path)) {
-                String p = FileUtil.convertToPath(path);
+            if (!file.exists()) {
+                String p = FileUtil.getParent(path);
                 FileUtil.mkDirs(p);
+                result = file.createNewFile();
+                log.info("File created !");
+            } else {
+                log.info("File exist !");
             }
-            result = file.createNewFile();
-            log.info("File created !!!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,7 +101,7 @@ public class FileUtil {
     }
 
     public static Map getCurrentFolderList(String path) {
-        log.info("get current: {}" + path);
+        log.info("get current: {}", path);
 
         File file = new File(path);
         Map map = new HashMap();
@@ -117,7 +115,7 @@ public class FileUtil {
         List fileList = new ArrayList();
         for (File f : files) {
             if (f.isDirectory()) {
-                fullFolderList.add(f.getAbsolutePath() + FileUtil.separator);
+                fullFolderList.add(f.getAbsolutePath() + File.separator);
                 folderList.add(f.getName());
             } else if (f.isFile()) {
                 fileList.add(f.getAbsolutePath());
@@ -137,7 +135,7 @@ public class FileUtil {
      */
     public static LinkedList getAllFolderList(String path) {
         LinkedList<String> list = new LinkedList<>();
-        path = convertToPath(path);
+        path = getParent(path);
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
@@ -172,7 +170,7 @@ public class FileUtil {
             return;
         }
 
-        path = convertToPath(path);
+        path = getParent(path);
         log.info("Start copying file ...");
         for (String fileName : fileNames) {
             FileWriter fw = null;
@@ -221,8 +219,8 @@ public class FileUtil {
 
     public static void renameFilesName(String path, List<String> newNameList) throws Exception {
         log.info("Start rename file");
-        path = convertToPath(path);
-        ArrayList<String> fileList = FileUtil.getFileNames(path);
+        path = getParent(path);
+        ArrayList<String> fileList = FileUtil.getFileNamesWithExt(path);
         if (fileList.size() != newNameList.size()) {
             log.error("List size not equal");
             return;
@@ -259,42 +257,40 @@ public class FileUtil {
     }
 
 
-    private static String addDotIfMissing(String ext) throws Exception {
-        boolean isExist = NullUtil.isNotNull(ext);
-        if (isExist) {
+    private static String extension(String ext) throws Exception {
+        if (NullUtil.isNull(ext)) {
+            throw new Exception();
+        } else {
             if (ext.startsWith(".")) {
                 return ext;
             } else {
                 return "." + ext;
             }
-        } else {
-            throw new Exception();
         }
     }
 
     public static void renameFilesExt(String path, String newExt) throws Exception {
         log.info("Start rename ext");
-        path = convertToPath(path);
-        ArrayList<String> fileList = FileUtil.getFileNames(path);
+        path = getParent(path);
+        ArrayList<String> fileList = FileUtil.getFileNamesWithExt(path);
         int i = 1;
         for (String s : fileList) {
-            String[] spiltFileName = s.split("\\.");
-            newExt = addDotIfMissing(newExt);
-
+            String[] spiltFileName = StringUtil.split(s, ".");
+            newExt = extension(newExt);
             String filePath = path + s;
             File oldFile = new File(filePath);
-
             File newFile = new File(path + spiltFileName[0] + newExt);
-
             if (newFile.exists()) {
                 ++i;
                 String t = "_" + i;
                 newFile = new File(path + spiltFileName[0] + t + newExt);
             }
-            oldFile.renameTo(newFile);
+            boolean isSuccess = oldFile.renameTo(newFile);
+            if (!isSuccess) {
+                log.info("rename fail: " + oldFile);
+            }
         }
         log.info("Rename success, total renamed files:" + fileList.size());
-        log.info("Finish rename ext");
     }
 
 
@@ -304,23 +300,11 @@ public class FileUtil {
      * @param file
      * @return
      */
-    public static String convertToPath(String file) {
+    public static String getParent(String file) {
         if (isDir(file)) {
             return file;
         }
-        String path = "";
-        String osType = getOsType(file);
-        if (new File(file).isAbsolute()) {
-            if (WINDOWS.equals(osType)) {
-                String[] fileSet = file.split("\\\\");
-                path = file.replace(fileSet[fileSet.length - 1], "");
-                log.info("File path: " + path);
-            } else if (MAC.equals(osType)) {
-                String[] fileSet = file.split("/");
-                path = file.replace(fileSet[fileSet.length - 1], "");
-            }
-        }
-        return path;
+        return new File(file).getParent();
     }
 
     /**
@@ -329,9 +313,9 @@ public class FileUtil {
      * @param path
      * @return
      */
-    public static ArrayList<String> getFileNames(String path) {
-        path = convertToPath(path);
-        log.info("getFileNames: {}", path);
+    public static ArrayList<String> getFileNamesWithExt(String path) {
+        path = getParent(path);
+        log.info("Folder: {}", path);
 
         ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
@@ -367,16 +351,16 @@ public class FileUtil {
      * @param path
      * @return
      */
-    public static ArrayList<String> getFullFileNames(String path) {
-        path = convertToPath(path);
-        log.info("getFullFileNames: {}", path);
+    public static ArrayList<String> getAbsolutePaths(String path) {
+        path = getParent(path);
+        log.info("Folder: {}", path);
 
-        ArrayList<String> files = new ArrayList<>();
         File file = new File(path);
         File[] tempLists = file.listFiles();
+        ArrayList<String> files = new ArrayList<>();
         for (File tempList : tempLists) {
             if (tempList.isFile() && !tempList.getName().equals(".DS_Store")) {
-                files.add(tempList.toString());//full path
+                files.add(tempList.getAbsolutePath());//full path
             }
         }
         return files;
@@ -455,7 +439,7 @@ public class FileUtil {
         List<String> ls = getAllFolderList(path);
         Map<String, List<String>> result = new HashMap<>();
         for (String folder : ls) {
-            List<String> files = getFileNames(folder);
+            List<String> files = getFileNamesWithExt(folder);
             result.put(folder, files);
         }
         return result;
@@ -465,7 +449,7 @@ public class FileUtil {
     public static LinkedHashMap getFullPathDirTree(String path) throws IOException {
         //   LinkedList<String> list = new LinkedList<>();
         LinkedHashMap m = new LinkedHashMap();
-        path = convertToPath(path);
+        path = getParent(path);
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
         File[] files = file.listFiles();
@@ -491,7 +475,7 @@ public class FileUtil {
      */
     public static LinkedList<String> getFullPathDirList(String path) {
         LinkedList<String> list = new LinkedList<>();
-        path = convertToPath(path);
+        path = getParent(path);
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
         File file = new FileSystemResource(path).getFile();
         // 获取路径下的所有文件及文件夹
@@ -564,43 +548,34 @@ public class FileUtil {
     /**
      * folder not exist, create folders
      *
-     * @param fullPath
+     * @param path
      */
-    public static boolean mkDirs(String fullPath) {
-        File f = new File(fullPath);
+    public static boolean mkDirs(String path) {
+        File folder = new File(path);
         boolean result = false;
-        if (!f.exists()) {
-            result = f.mkdirs();
+        if (!folder.exists()) {
+            if (path.lastIndexOf(".") == -1) { //检查路径是否包含文件名
+                return folder.mkdirs();
+            } else {
+                return new File(folder.getParent()).mkdirs();
+            }
         }
         return result;
     }
 
+
     /**
-     * according path to defined os type
+     * 清空原文并写入新内容
      *
-     * @param s
+     * @param filePath
+     * @param Content
      * @return
      */
-    private static String getOsType(String s) {
-        String osType;
-        if (OsUtil.getOsName().contains(MAC)) {
-            osType = MAC;
-        } else if (OsUtil.getOsName().contains(WINDOWS)) {
-            osType = WINDOWS;
-        } else if (OsUtil.getOsName().contains(LINUX)) {
-            osType = WINDOWS;
-        } else {
-            osType = UNKNOWN;
-        }
-        return osType;
-    }
-
-
-    public static boolean rewrite(String filepath, String Content) {
+    public static boolean rewrite(String filePath, String Content) {
         boolean flag = false;
         try {
             //写入的txt文档的路径
-            PrintWriter pw = new PrintWriter(filepath);
+            PrintWriter pw = new PrintWriter(filePath);
             //写入的内容
             pw.write(Content);
             pw.flush();
@@ -612,6 +587,12 @@ public class FileUtil {
         return flag;
     }
 
+    /**
+     * @param filePath
+     * @param fileName
+     * @param obj
+     * @param append
+     */
     public static void write(String filePath, String fileName, Object obj, boolean append) {
         if (NullUtil.isNull(obj)) {
             log.error("Object is null !!!");
@@ -682,7 +663,7 @@ public class FileUtil {
 
     //check file and dir status
     public static boolean fileStatus(String path, String fileName) {
-        path = convertToPath(path);
+        path = getParent(path);
         //check dir exist
         File folder = new File(path);
         if (!folder.exists() && !folder.isDirectory()) {
@@ -936,25 +917,21 @@ public class FileUtil {
         return result;
     }
 
-    public static boolean delete(String file) {
+    public static boolean delete(String path) {
         boolean isSuccess = false;
-        File f = new File(file);
-        if (!f.isFile()) {
-            log.error("{} NOT a file or file not found", file);
-            return false;
-        }
+        File f = new File(path);
         if (f.exists()) {
             isSuccess = f.delete();
-            log.info("{} File deleted", f.getAbsolutePath());
+            log.info("Deleted: {}", f.getAbsolutePath());
         } else {
-            log.info("{} File not exist", f.getAbsolutePath());
+            log.info("Not exist: {}", f.getAbsolutePath());
         }
         return isSuccess;
     }
 
     public static boolean deletes(String folder) throws IOException {
         boolean isSuccess = false;
-        List<String> files = getFullFileNames(folder);
+        List<String> files = getAbsolutePaths(folder);
         try {
             for (String file : files) {
                 File f = new File(file);
@@ -1079,7 +1056,7 @@ public class FileUtil {
         FileUtil fileUtil = new FileUtil();
         List<String> a = fileUtil.getFilePaths("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
         List<String> b = fileUtil.getFilePaths("src/main/java/com/models");
-        List<String> c = getFullFileNames("src/main/java/com/models");
+        List<String> c = getAbsolutePaths("src/main/java/com/models");
 
         int count = 0;
         log.info("start a ...");
@@ -1438,8 +1415,6 @@ public class FileUtil {
             System.out.println("删除文件失败：" + fileName);
             return false;
         }
-
-
     }
 
     /**
@@ -1477,7 +1452,6 @@ public class FileUtil {
                 }
             }
         }
-
         if (!flag) {
             System.out.println("删除失败");
             return false;
