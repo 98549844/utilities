@@ -963,26 +963,38 @@ public class FileUtil {
             if (NullUtil.isNotNull(ext) && ext.length > 0) {
                 for (String s : ext) {
                     for (File f : files) {
-                        String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
-                        if (type.equals(s)) {
-                            int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
-                            resultMap.put(s, ++count);
+                        if (f.isFile()) {
+                            String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
+                            if (type.equals(s)) {
+                                int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
+                                resultMap.put(s, ++count);
+                            }
+                        } else {
+                            countByType(f.getAbsolutePath(), ext);
                         }
                     }
+                    System.out.println(folder.getAbsolutePath());
                     log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
                 }
             } else {
                 for (File f : files) {
                     if (f.isFile()) {
                         String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
+                        if (type.isEmpty()) {
+                            type = "-";
+                        }
                         int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
                         resultMap.put(type, ++count);
+                    } else {
+                        countByType(f.getAbsolutePath());
                     }
                 }
                 List ls = MapUtil.getKeySet(resultMap);
+                System.out.println(folder.getAbsolutePath());
                 for (Object key : ls) {
                     log.info("{} count: {}", key.toString(), resultMap.get(key) == null ? 0 : resultMap.get(key));
                 }
+                System.out.println();
             }
         }
         return resultMap;
