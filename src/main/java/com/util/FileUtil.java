@@ -972,7 +972,6 @@ public class FileUtil {
 
     /**
      * count当前文件夹的文件类型
-     * count当前文件夹的文件类型
      *
      * @param path 路经 xxx/xxx/xxx/xxx/
      * @throws IOException
