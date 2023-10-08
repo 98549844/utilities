@@ -955,7 +955,7 @@ public class FileUtil {
      * @param ext
      * @throws IOException
      */
-    public static Map<String, Integer> countByType(String path, String... ext) throws IOException {
+    public static void countByType(String path, String... ext) throws IOException {
         File folder = new File(path);
         Map<String, Integer> resultMap = new HashMap<>();
         File[] files = folder.listFiles();
@@ -997,26 +997,11 @@ public class FileUtil {
                 System.out.println();
             }
         }
-        return resultMap;
     }
 
     /**
-     * count所有文件夹类型
+     * count 当前文件夹和文件
      *
-     * @param path
-     * @throws IOException
-     */
-    public static Map<String, Integer> countByTypeWithSubFolders(String path) throws IOException {
-        List list = FileUtil.getFolderAndSubFolderList(path);
-        Map<String, Integer> resultMap = new HashMap<>();
-        for (Object location : list) {
-            System.out.println(location.toString());
-            resultMap = countByType(location.toString());
-        }
-        return resultMap;
-    }
-
-    /** count 当前文件夹和文件
      * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
      * @throws IOException
      */
@@ -1035,7 +1020,9 @@ public class FileUtil {
         return count;
     }
 
-    /** 递归count文件夹和文件
+    /**
+     * 递归count文件夹和文件
+     *
      * @param path
      * @return
      * @throws IOException
