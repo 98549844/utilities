@@ -4,6 +4,7 @@ import com.util.FileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -16,18 +17,27 @@ import java.util.Objects;
  */
 
 
-class ContentTool {
+public class ContentTool {
     private static final Logger log = LogManager.getLogger(ContentTool.class.getName());
 
-    static final String source = "C:\\ideaPorject\\ace\\doc\\javascript\\";
+    static final String source = "/Users/garlam/IdeaProjects/ace/src/main/java/com/ace/exception/AceGlobalExceptionHandler.java";
     static final String sourceFile = "springboot-admin-page.sql";
 
     public static void main(String[] args) throws Exception {
+        replace(source);
+    }
 
+    public static void replace(String path) throws Exception {
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-        contentTool.replaceContentSymbol(source);
-      //  contentTool.replaceContentSymbol(source, sourceFile);
+
+        File file = new File(path);
+        if (file.isDirectory()) {
+            contentTool.replaceContentSymbol(source);
+        } else {
+            String p = file.getParent();
+            contentTool.replaceContentSymbol(p);
+        }
     }
 
     /**
@@ -40,7 +50,7 @@ class ContentTool {
         ContentTool contentTool = new ContentTool();
         List<String> ls = FileUtil.getFileNamesWithExt(path);
         for (String fileName : ls) {
-            contentTool.replaceContentSymbol(path, fileName);
+            contentTool.replaceContentSymbol(path + File.separator, fileName);
         }
     }
 
@@ -54,13 +64,13 @@ class ContentTool {
     private void replaceContentSymbol(String path, String fileName) throws IOException {
         String content = (String) Objects.requireNonNull(FileUtil.read(path + fileName)).get(FileUtil.ORIGINAL);
         String result = content.replaceAll("，", ", ")
-                .replaceAll("。", ". ")
-                .replaceAll("：", ": ")
-                .replaceAll("！", "! ")
-                .replaceAll("；", "; ")
-                .replaceAll("、", ", ")
-                .replaceAll("（", "(")
-                .replaceAll("）", ")");
+                                .replaceAll("。", ". ")
+                                .replaceAll("：", ": ")
+                                .replaceAll("！", "! ")
+                                .replaceAll("；", "; ")
+                                .replaceAll("、", ", ")
+                                .replaceAll("（", "(")
+                                .replaceAll("）", ")");
         if (content.equals(result)) {
             log.info(fileName + " 文本内容完全相同 無需要重写!");
             return;
