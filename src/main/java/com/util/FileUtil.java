@@ -998,8 +998,6 @@ public class FileUtil {
         }
         System.out.println();
     }
-    //   }
-    //}
 
     /**
      * count 当前文件夹和文件
