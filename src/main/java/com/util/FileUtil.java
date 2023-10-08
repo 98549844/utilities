@@ -46,6 +46,9 @@ public class FileUtil {
     private static final String PREFIX_IMAGE = "image/";
     private static final String PREFIX_APPLICATION = "application/";
 
+    public FileUtil() {
+    }
+
 
     /**
      * 转半角的函数(DBC case)<br/><br/>
@@ -948,56 +951,55 @@ public class FileUtil {
         return isSuccess;
     }
 
+    static Map<String, Integer> accumulateCount = new HashMap<>();
+
+    public Map<String, Integer> countByType(String path, String... ext) throws IOException {
+        accumulateCount = new HashMap<>();
+        countByType(path);
+        List keys = MapUtil.getKeySet(accumulateCount);
+        for (String key : ext) {
+            accumulateCount.putIfAbsent(key, 0);
+        }
+        MapUtil.iterateMapKeySet(accumulateCount);
+        return accumulateCount;
+    }
+
+
     /**
      * count当前文件夹的文件类型
      *
      * @param path 路经 xxx/xxx/xxx/xxx/
-     * @param ext
      * @throws IOException
      */
-    public static void countByType(String path, String... ext) throws IOException {
+    private static void countByType(String path) throws IOException {
         File folder = new File(path);
         Map<String, Integer> resultMap = new HashMap<>();
         File[] files = folder.listFiles();
-        if (folder.isDirectory() && files.length > 0) { //是文件夹和内含文件
-            if (NullUtil.isNotNull(ext) && ext.length > 0) {
-                for (String s : ext) {
-                    for (File f : files) {
-                        if (f.isFile()) {
-                            String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
-                            if (type.equals(s)) {
-                                int count = resultMap.get(s) == null ? 0 : resultMap.get(s);
-                                resultMap.put(s, ++count);
-                            }
-                        } else {
-                            countByType(f.getAbsolutePath(), ext);
-                        }
-                    }
-                    System.out.println(folder.getAbsolutePath());
-                    log.info("{} count: {}", s, resultMap.get(s) == null ? 0 : resultMap.get(s));
+        for (File f : files) {
+            if (f.isFile()) {
+                String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
+                if (type.isEmpty()) {
+                    type = "-";
                 }
+                int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
+                resultMap.put(type, ++count);
             } else {
-                for (File f : files) {
-                    if (f.isFile()) {
-                        String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
-                        if (type.isEmpty()) {
-                            type = "-";
-                        }
-                        int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
-                        resultMap.put(type, ++count);
-                    } else {
-                        countByType(f.getAbsolutePath());
-                    }
-                }
-                List ls = MapUtil.getKeySet(resultMap);
-                System.out.println(folder.getAbsolutePath());
-                for (Object key : ls) {
-                    log.info("{} count: {}", key.toString(), resultMap.get(key) == null ? 0 : resultMap.get(key));
-                }
-                System.out.println();
+                countByType(f.getAbsolutePath());
             }
         }
+        List ls = MapUtil.getKeySet(resultMap);
+        System.out.println(folder.getAbsolutePath());
+        for (Object object : ls) {
+            String key = object.toString();
+            int value = resultMap.get(key) == null ? 0 : resultMap.get(object);
+            log.info("{} count: {}", key, resultMap.get(key) == null ? 0 : resultMap.get(key));
+            Integer newValue = (accumulateCount.get(key) == null ? 0 : accumulateCount.get(key)) + value;
+            accumulateCount.put(key, newValue);
+        }
+        System.out.println();
     }
+    //   }
+    //}
 
     /**
      * count 当前文件夹和文件
