@@ -1016,18 +1016,50 @@ public class FileUtil {
         return resultMap;
     }
 
-    /**
+    /** count 当前文件夹和文件
      * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
      * @throws IOException
      */
-    public static void count(String path) throws IOException {
+    public static int countCurrent(String path) throws IOException {
         File folder = new File(path);
-        if (folder.isDirectory()) {
-            log.info("count result: {}", Objects.requireNonNull(folder.listFiles()).length);
-        } else {
-            log.error("Folder not exist or it is file");
+        int count = 0;
+        try {
+            if (folder.isFile()) {
+                folder = new File(folder.getParent());
+            }
+            count = Objects.requireNonNull(folder.listFiles()).length;
+            log.info("count result: {}", count);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return count;
     }
+
+    /** 递归count文件夹和文件
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static int count(String path) throws IOException {
+        File folder = new File(path);
+        if (folder.isFile()) {
+            folder = new File(folder.getParent());
+        }
+        FileUtil fileUtil = new FileUtil();
+        List ls = fileUtil.getFilePaths(folder.getPath());
+        int count = 0;
+        for (Object object : ls) {
+            File temp = new File(object.toString());
+            if (temp.isFile()) {
+                ++count;
+            } else {
+                count(temp.getPath());
+            }
+        }
+        log.info("count result: {}", count);
+        return count;
+    }
+
 
     /**
      * @param path 绝对路经 xxx/xxx/xxx/xxx.xx
