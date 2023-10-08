@@ -994,7 +994,7 @@ public class FileUtil {
      * @param path
      * @throws IOException
      */
-    public Map<String, Integer> countByTypeWithSubFolders(String path) throws IOException {
+    public static Map<String, Integer> countByTypeWithSubFolders(String path) throws IOException {
         List list = FileUtil.getFolderAndSubFolderList(path);
         Map<String, Integer> resultMap = new HashMap<>();
         for (Object location : list) {
