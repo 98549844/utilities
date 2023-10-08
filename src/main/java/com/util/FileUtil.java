@@ -956,12 +956,17 @@ public class FileUtil {
     public Map<String, Integer> countByType(String path, String... ext) throws IOException {
         accumulateCount = new HashMap<>();
         countByType(path);
-        List keys = MapUtil.getKeySet(accumulateCount);
-        for (String key : ext) {
-            accumulateCount.putIfAbsent(key, 0);
+        Map<String, Integer> result = new HashMap<>();
+        if (ext.length == 0) {
+            MapUtil.iterateMapKeySet(accumulateCount);
+            return accumulateCount;
+        } else {
+            for (String key : ext) {
+                result.putIfAbsent(key, accumulateCount.get(key) == null ? 0 : accumulateCount.get(key));
+            }
+            MapUtil.iterateMapKeySet(result);
+            return result;
         }
-        MapUtil.iterateMapKeySet(accumulateCount);
-        return accumulateCount;
     }
 
 
