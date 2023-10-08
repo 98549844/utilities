@@ -988,16 +988,20 @@ public class FileUtil {
         return resultMap;
     }
 
-    /** count所有文件夹类型
+    /**
+     * count所有文件夹类型
+     *
      * @param path
      * @throws IOException
      */
-    public void countByTypeWithSubFolders (String path) throws IOException {
+    public Map<String, Integer> countByTypeWithSubFolders(String path) throws IOException {
         List list = FileUtil.getFolderAndSubFolderList(path);
+        Map<String, Integer> resultMap = new HashMap<>();
         for (Object location : list) {
-            log.info(location.toString());
-            countByType(location.toString());
+            System.out.println(location.toString());
+            resultMap = countByType(location.toString());
         }
+        return resultMap;
     }
 
     /**
