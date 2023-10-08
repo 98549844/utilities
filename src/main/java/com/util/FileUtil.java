@@ -133,7 +133,7 @@ public class FileUtil {
      * @param path
      * @return
      */
-    public static LinkedList getAllFolderList(String path) {
+    public static LinkedList getFolderAndSubFolderList(String path) {
         LinkedList<String> list = new LinkedList<>();
         path = getParent(path);
         //考虑到会打成jar包发布 new File()不能使用改用FileSystemResource
@@ -145,7 +145,7 @@ public class FileUtil {
                 // 如果还是文件夹 递归获取里面的文件 文件夹
                 //add dir into list
                 list.add(value.getPath());
-                list.addAll(getAllFolderList(value.getPath()));
+                list.addAll(getFolderAndSubFolderList(value.getPath()));
             }
         }
         return list;
@@ -351,7 +351,7 @@ public class FileUtil {
      * @param path
      * @return
      */
-    public static ArrayList<String> getAbsolutePaths(String path) {
+    public static ArrayList<String> getCurrentFolderAbsoluteFilesPath(String path) {
         path = getParent(path);
         log.info("Folder: {}", path);
 
@@ -436,7 +436,7 @@ public class FileUtil {
      * @return
      */
     public static Map getFileNamesMap(String path) {
-        List<String> ls = getAllFolderList(path);
+        List<String> ls = getFolderAndSubFolderList(path);
         Map<String, List<String>> result = new HashMap<>();
         for (String folder : ls) {
             List<String> files = getFileNamesWithExt(folder);
@@ -931,7 +931,7 @@ public class FileUtil {
 
     public static boolean deletes(String folder) throws IOException {
         boolean isSuccess = false;
-        List<String> files = getAbsolutePaths(folder);
+        List<String> files = getCurrentFolderAbsoluteFilesPath(folder);
         try {
             for (String file : files) {
                 File f = new File(file);
@@ -949,6 +949,8 @@ public class FileUtil {
     }
 
     /**
+     * count当前文件夹的文件类型
+     *
      * @param path 路经 xxx/xxx/xxx/xxx/
      * @param ext
      * @throws IOException
@@ -971,9 +973,11 @@ public class FileUtil {
                 }
             } else {
                 for (File f : files) {
-                    String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
-                    int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
-                    resultMap.put(type, ++count);
+                    if (f.isFile()) {
+                        String type = getExtension(FileUtil.getFileNameWithExt(f.getAbsolutePath()));
+                        int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
+                        resultMap.put(type, ++count);
+                    }
                 }
                 List ls = MapUtil.getKeySet(resultMap);
                 for (Object key : ls) {
@@ -982,6 +986,18 @@ public class FileUtil {
             }
         }
         return resultMap;
+    }
+
+    /** count所有文件夹类型
+     * @param path
+     * @throws IOException
+     */
+    public void countByTypeWithSubFolders (String path) throws IOException {
+        List list = FileUtil.getFolderAndSubFolderList(path);
+        for (Object location : list) {
+            log.info(location.toString());
+            countByType(location.toString());
+        }
     }
 
     /**
@@ -1056,7 +1072,7 @@ public class FileUtil {
         FileUtil fileUtil = new FileUtil();
         List<String> a = fileUtil.getFilePaths("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
         List<String> b = fileUtil.getFilePaths("src/main/java/com/models");
-        List<String> c = getAbsolutePaths("src/main/java/com/models");
+        List<String> c = getCurrentFolderAbsoluteFilesPath("src/main/java/com/models");
 
         int count = 0;
         log.info("start a ...");
@@ -1357,7 +1373,7 @@ public class FileUtil {
     }
 
 
-    public static List getDirs(String path) {
+    public static List getDirsName(String path) {
         File f = new File(path);
         List folderList = new ArrayList();
         for (File file : f.listFiles()) {
@@ -1368,12 +1384,12 @@ public class FileUtil {
         return folderList;
     }
 
-    public static List getFullDirs(String path) {
+    public static List getCurrentDirs(String path) {
         File f = new File(path);
         List folderList = new ArrayList();
         for (File file : f.listFiles()) {
             if (file.isDirectory()) {
-                folderList.add(file.getParentFile());
+                folderList.add(file.getAbsolutePath());
             }
         }
         return folderList;
