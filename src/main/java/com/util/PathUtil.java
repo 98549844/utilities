@@ -69,6 +69,10 @@ public class PathUtil {
         return System.getProperty("user.dir");
     }
 
+    public static String getNewLine() {
+        return System.getProperty("line.separator");
+    }
+
     public static String getSystemPath(String empty) throws IOException {
         if (NullUtil.isNotEmpty(empty)) {
             empty = "";
@@ -94,11 +98,11 @@ public class PathUtil {
 
 
     public static void main(String[] args) throws IOException {
-        System.out.println("getSystemPath: "+getSystemPath());
+        System.out.println("getSystemPath: " + getSystemPath());
         getClassLoaderAbsolutePath();
         System.out.println(getBaseUrl());
         PathUtil p = new PathUtil();
-     //   System.out.println(p.getResourceContent("com/util/UUID.java"));
+        //   System.out.println(p.getResourceContent("com/util/UUID.java"));
     }
 
     /**
@@ -112,7 +116,7 @@ public class PathUtil {
     public static String getBaseUrl(String... locations) throws MalformedURLException {
         String baseUrl = FileSystems
                 .getDefault()
-              //  .getPath("src", "main", "resources", "templates", "ace", "modules", "report", "pdf")
+                //  .getPath("src", "main", "resources", "templates", "ace", "modules", "report", "pdf")
                 .getPath(Arrays.toString(locations))
                 .toUri()
                 .toURL()

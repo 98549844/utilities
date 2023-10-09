@@ -46,8 +46,7 @@ public class FileUtil {
     private static final String PREFIX_IMAGE = "image/";
     private static final String PREFIX_APPLICATION = "application/";
 
-    public FileUtil() {
-    }
+
 
 
     /**
