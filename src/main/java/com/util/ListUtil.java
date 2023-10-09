@@ -26,28 +26,34 @@ public class ListUtil {
     public final static String LIST_2 = "LIST_2";
 
 
+    public static int getMax(List<Integer> integerList) {
+        return NullUtil.isNull(integerList) ? 0 : Collections.max(integerList);
+    }
+
+    public static int getMin(List<Integer> integerList) {
+        return NullUtil.isNull(integerList) ? 0 : Collections.min(integerList);
+    }
+
+    /**
+     * int set convert to list
+     *
+     * @param nums
+     * @return
+     */
     public static List arrayIntToList(int[] nums) {
         return Arrays.asList(ArrayUtils.toObject(nums));
     }
 
-    public static int getMax(List<Integer> integerList) {
-        if (NullUtil.isNull(integerList)) {
-            return 0;
-        }
-        return Collections.max(integerList);
-    }
-
-    public static int getMin(List<Integer> integerList) {
-        if (NullUtil.isNull(integerList)) {
-            return 0;
-        }
-        return Collections.min(integerList);
-    }
-
-
+    /**
+     * int set convert to list
+     *
+     * @param i
+     * @return
+     */
     public static List intArrayToList(int[] i) {
         return Arrays.stream(i).boxed().collect(Collectors.toList());
     }
+
 
     /**
      * 检查元素有没有重复
@@ -57,102 +63,69 @@ public class ListUtil {
      */
     public static boolean isDuplicate(List ls) {
         HashSet<Integer> hashSet = new HashSet<>(ls);
-        boolean duplicate;
-
-        if (ls.size() != hashSet.size()) {
-            duplicate = true;
-        } else {
-            duplicate = false;
-        }
-        return duplicate;
+        return ls.size() != hashSet.size();
     }
 
 
     /**
-     * 比较两个list是否完全相同
+     * 比较两个list是否完全相同, 兼容位置不一样
      *
      * @param
      * @return
      */
-/*
     public static boolean compareList(List ls1, List ls2) {
-        HashSet<Integer> hashSet1 = new HashSet<>(ls1);
-        HashSet<Integer> hashSet2 = new HashSet<>(ls2);
-        boolean duplicate = false;
+        boolean result = false;
+        int size1 = ls1.size();
+        int size2 = ls2.size();
 
-        if(){
-            未完成
+        Collections.sort(ls1); //升序排序
+        Collections.sort(ls2); //升序排序
+
+        if (size1 == size2) {
+            for (int i = 0; i < size1; i++) {
+                if (ls1.get(i).equals(ls2.get(i))) {
+                    result = true;
+                } else {
+                    result = false;
+                    break;
+                }
+            }
         }
-
-        return duplicate;
+        return result;
     }
-*/
 
 
     //根据长度把list拆分
     public static List<List<T>> splitList(List<T> list, int len) {
-        if (NullUtil.isNull(list) || list.size() == 0 || len < 1) {
+        if (NullUtil.isNull(list) || list.isEmpty() || len < 1) {
             return null;
         }
         List<List<T>> result = new ArrayList<List<T>>();
         int size = list.size();
         int count = (size + len - 1) / len;
         for (int i = 0; i < count; i++) {
-            List<T> subList = list.subList(i * len, ((i + 1) * len > size ? size : len * (i + 1)));
+            List<T> subList = list.subList(i * len, (Math.min((i + 1) * len, size)));
             result.add(subList);
         }
         return result;
     }
 
 
+    /**
+     * 去除list里重复元素
+     *
+     * @param list
+     * @return
+     */
     public static List<T> removeDuplicate(List<T> list) {
         if (NullUtil.isNull(list)) {
+            log.error("list is empty !");
             return null;
         }
-        List<T> listTemp = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            if (!listTemp.contains(list.get(i))) {
-                listTemp.add(list.get(i));
-            }
-        }
-        return listTemp;
+        Set<T> set = new HashSet<>(list);
+        return new ArrayList<>(set);
     }
 
-    public static List deduplicate(List list) {
-        if (NullUtil.isNull(list)) {
-            return null;
-        }
-        LinkedHashSet<T> hashSet = new LinkedHashSet<T>(list);
-        ArrayList<T> listWithoutDuplicates = new ArrayList<>(hashSet);
-        return listWithoutDuplicates;
-    }
-
-
-    public static void main(String[] args) {
-        List<String> ls1 = new ArrayList<>();
-        List<String> ls2 = new ArrayList<>();
-        List<String> ls3 = new ArrayList<>();
-
-        ls1.add("aaa");
-        ls1.add("bbb");
-        ls1.add("ccc");
-
-        ls2.add("aaa");
-        ls2.add("xxx");
-        ls2.add("ttt");
-        ls2.add("xxx");
-        ls2.add("bbb");
-        ls2.add("aaa");
-
-        Map map = getNonDeduplicateElements(ls1, ls2);
-        System.out.println("map:   " + map);
-       /* List<String> ls = getResultList(ls2, "x", false);
-
-        for (String s : ls) {
-            System.out.println(s);
-        }*/
-
-    }
 
     public static List getResultList(List<String> ls, String criteria, boolean include) {
         List result = new ArrayList();
@@ -222,7 +195,7 @@ public class ListUtil {
 
 
     /**
-     * 比较两个list, 把不相同的找出来
+     * 比较两个list, 把不相同的找出来, 忽略空格" "
      *
      * @param ls1
      * @param ls2
@@ -253,36 +226,10 @@ public class ListUtil {
         Set<T> listSet = new HashSet<>(list);
         Collection<T> sub = CollectionUtils.subtract(list, listSet);
         HashSet<T> hSet = new HashSet<>(sub);
-        List ls = new ArrayList<T>(hSet);
+        List ls = new ArrayList<>(hSet);
         return ls;
     }
 
-
-
-
-/*    public static List deduplicate(List list) {
-        List listTemp = new ArrayList();
-        int size = list.size();
-        for (int i = 0; i < size; i++) {
-            if (!listTemp.contains(list.get(i))) {
-                listTemp.add(list.get(i));
-            }
-        }
-        return listTemp;
-    }*/
-
-    public static Integer getMaxByList(List<Integer> list) {
-        int i = 0;
-        try {
-            if (NullUtil.isNull(list)) {
-                return i;
-            }
-            i = Collections.max(list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return i;
-    }
 
     /**
      * 由小到大排序
@@ -303,15 +250,40 @@ public class ListUtil {
      * @return
      */
     public static List sortDesc(List list) {
-        Collections.sort(list);
-        int x = list.size() - 1;
-        List reverse = new ArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            reverse.add(list.get(x - i));
-        }
-        return reverse;
+        Collections.reverse(list);
+        return list;
     }
 
+    //--------------------------------- 下面方法没有double check -----------------------------------------------
+
+
+    public static void main(String[] args) {
+        List<Integer> ls1 = new ArrayList<>();
+        List ls2 = new ArrayList<>();
+        // List<String> ls3 = new ArrayList<>();
+
+        ls1.add(2);
+        ls1.add(4);
+        ls1.add(9);
+        ls1.add(5);
+        Collections.sort(ls1);
+
+        ls2.add(4);
+        ls2.add(9);
+        ls2.add(9);
+        ls2.add(9);
+        ls2.add(2);
+        ls2.add(5);
+        ls2.add(5);
+
+        List ls3 = getDuplicated(ls2);
+
+        for (int i = 0; i < ls3.size(); i++) {
+            System.out.println(ls3.get(i));
+        }
+
+
+    }
 
     /**
      * 随机选取list的元素(重覆)
@@ -324,7 +296,7 @@ public class ListUtil {
         if (NullUtil.isNull(percentage)) {
             return null;
         }
-        Integer percentItems = ls.size() * percentage / 100;
+        int percentItems = ls.size() * percentage / 100;
 
         List resultLs = new ArrayList();
         SecureRandom random = new SecureRandom();
@@ -452,7 +424,7 @@ public class ListUtil {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i)).append(separator);
         }
-        String result = list.isEmpty() ? "" : sb.toString().substring(0, sb.toString().length() - 1);
+        String result = list.isEmpty() ? "" : sb.substring(0, sb.toString().length() - 1);
         System.out.println(result);
         return result;
     }
