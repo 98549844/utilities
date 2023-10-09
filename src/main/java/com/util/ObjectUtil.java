@@ -43,7 +43,7 @@ public class ObjectUtil {
 
     private static String getMethodNameStartsWithGet(String fieldName) {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        if (NullUtil.isNull(fieldName) || fieldName.length() == 0) {
+        if (NullUtil.isNull(fieldName) || fieldName.isEmpty()) {
             log.error("Can not find fieldName: " + fieldName);
             return null;
         }
@@ -71,14 +71,14 @@ public class ObjectUtil {
             return null;
         }
         int size = 0;
-        if (NullUtil.isNonNull(obj) && isArray(obj)) {
+        if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(isArray(obj))) {
             size = Array.getLength(obj);
         }
         return size;
     }
 
     public static Object[] getObjectArray(Object obj) {
-        if (NullUtil.isNonNull(obj) && isArray(obj)) {
+        if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(isArray(obj))) {
             Object[] os = (Object[]) obj;
             return os;
         }
