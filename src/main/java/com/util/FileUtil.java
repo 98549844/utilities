@@ -404,7 +404,7 @@ public class FileUtil {
             // content1.append(i + ". ");
             content1.append(line).append(SystemUtil.newLine());
             content2.append(line);
-            content3.add(new String(line));
+            content3.add(line);
             i++;
             // 把所有内容在一行显示
             line = br.readLine();
