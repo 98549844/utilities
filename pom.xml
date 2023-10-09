@@ -7,7 +7,6 @@
     <groupId>com</groupId>
     <artifactId>utilities</artifactId>
     <version>6.0</version>
-    <!--<version>3.0-compile</version>-->
     <packaging>jar</packaging>
 
     <properties>
