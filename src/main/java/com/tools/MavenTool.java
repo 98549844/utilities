@@ -80,13 +80,13 @@ public class MavenTool {
         System.out.println(dependency2Log);
 
         List<StringBuilder> dependency = new ArrayList<>();
-        dependency.add(new StringBuilder(SystemUtil.separator()));
-        dependency.add(dependencyLog.append(SystemUtil.separator()));
-        dependency.add(groupIdLogLog.append(SystemUtil.separator()));
-        dependency.add(artifactIdLog.append(SystemUtil.separator()));
-        dependency.add(versionLog.append(SystemUtil.separator()));
-        dependency.add(dependency2Log.append(SystemUtil.separator()));
-        dependency.add(new StringBuilder(SystemUtil.separator()));
+        dependency.add(new StringBuilder(SystemUtil.newLine()));
+        dependency.add(dependencyLog.append(SystemUtil.newLine()));
+        dependency.add(groupIdLogLog.append(SystemUtil.newLine()));
+        dependency.add(artifactIdLog.append(SystemUtil.newLine()));
+        dependency.add(versionLog.append(SystemUtil.newLine()));
+        dependency.add(dependency2Log.append(SystemUtil.newLine()));
+        dependency.add(new StringBuilder(SystemUtil.newLine()));
         logInstalledDependency(dependency);
     }
 

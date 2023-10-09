@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Properties;
 
 public class SystemUtil {
     private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
@@ -74,21 +75,29 @@ public class SystemUtil {
         Console.println(System.getProperty("user.dir"), Console.BLACK); // 当前程序所在目录
     }
 
+    public static void generatePropertiesKeyValue() {
+        Properties properties = System.getProperties();
+        for (String key : properties.stringPropertyNames()) {
+            String value = properties.getProperty(key);
+            System.out.println(key + " = " + value);
+        }
+    }
+
     public static void main(String[] args) throws UnknownHostException {
         getSystemInfo();
+        //generatePropertiesKeyValue()
     }
+
 
     /**
      * 通用换行符
-     *
      */
-    public static String separator() {
+    public static String newLine() {
         return System.getProperty("line.separator");
     }
 
     /**
      * 退回到当前行的行首
-     *
      */
     public static String backToLineStart() {
         return "\r";

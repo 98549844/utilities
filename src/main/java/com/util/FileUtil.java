@@ -405,7 +405,7 @@ public class FileUtil {
         while (NullUtil.isNonNull(line) || "".equals(line)) {
             // 一次读入一行数据,并显示行数
             // content1.append(i + ". ");
-            content1.append(line).append(SystemUtil.separator());
+            content1.append(line).append(SystemUtil.newLine());
             content2.append(line);
             content3.add(new String(line));
             i++;
