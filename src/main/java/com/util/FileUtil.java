@@ -79,7 +79,6 @@ public class FileUtil {
     /**
      * 创建文件
      *
-     * @param path
      * @return
      */
     public static boolean create(String path) {
