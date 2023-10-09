@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class EmailUtil {
     static private final Log log = LogFactory.getLog(EmailUtil.class);
 
-    public static boolean emailAdderValidator(String email) {
+    public static boolean emailAddressValidator(String email) {
         if (NullUtil.isNull(email)) {
             log.info("Email address not exist");
             return false;
@@ -24,7 +24,7 @@ public class EmailUtil {
     }
 
     public static void main(String[] args) {
-        boolean isEmail = EmailUtil.emailAdderValidator("sxgkwei@16375.org");
+        boolean isEmail = EmailUtil.emailAddressValidator("sxgkwei@16375.org");
 
         System.out.println(isEmail);
     }
