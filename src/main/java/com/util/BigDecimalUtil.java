@@ -11,7 +11,7 @@ public class BigDecimalUtil {
 	private static final Logger log = LogManager.getLogger(BigDecimalUtil.class.getName());
 
 	public static int compare(BigDecimal a, BigDecimal b) {
-		log.info("1:表示A>B; 0:表示A=B; -1:表示A<>>B");
+		log.info("1:表示A>B; 0:表示A=B; -1:表示A<B");
 		return a.compareTo(b);
 	}
 
