@@ -138,22 +138,5 @@ public class NullUtil {
         }
     }
 
-    /**
-     * 判断字符串的内容是不是全是数字
-     *
-     * @param text
-     * @return
-     */
-    public static boolean isNumeric(String text) {
-        if (isEmpty(text)) {
-            return false;
-        }
-        int size = text.length();
-        for (int i = 0; i < size; i++) {
-            if (!Character.isDigit(text.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
+
 }
