@@ -47,8 +47,6 @@ public class FileUtil {
     private static final String PREFIX_APPLICATION = "application/";
 
 
-
-
     /**
      * 转半角的函数(DBC case)<br/><br/>
      * 全角空格为12288，半角空格为32
@@ -950,12 +948,10 @@ public class FileUtil {
         return isSuccess;
     }
 
-    static Map<String, Integer> accumulateCount = new HashMap<>();
-
     public Map<String, Integer> countByType(String path, String... ext) throws IOException {
-        accumulateCount = new HashMap<>();
-        countByType(path);
         Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> accumulateCount = new HashMap<>();
+        countByTypeRecursive(path, accumulateCount);
         if (ext.length == 0) {
             MapUtil.iterateMapKeySet(accumulateCount);
             return accumulateCount;
@@ -975,7 +971,7 @@ public class FileUtil {
      * @param path 路经 xxx/xxx/xxx/xxx/
      * @throws IOException
      */
-    private static void countByType(String path) throws IOException {
+    private static void countByTypeRecursive(String path, Map<String, Integer> accumulateCount) throws IOException {
         File folder = new File(path);
         Map<String, Integer> resultMap = new HashMap<>();
         File[] files = folder.listFiles();
@@ -988,7 +984,7 @@ public class FileUtil {
                 int count = resultMap.get(type) == null ? 0 : resultMap.get(type);
                 resultMap.put(type, ++count);
             } else {
-                countByType(f.getAbsolutePath());
+                countByTypeRecursive(f.getAbsolutePath(), accumulateCount);
             }
         }
         List ls = MapUtil.getKeySet(resultMap);
@@ -1025,7 +1021,7 @@ public class FileUtil {
     }
 
     /**
-     * 递归count文件夹和文件
+     * 递归count文件
      *
      * @param path
      * @return
