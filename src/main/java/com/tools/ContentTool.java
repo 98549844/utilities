@@ -30,7 +30,6 @@ public class ContentTool {
     public static void replace(String path) throws Exception {
         log.info("文本处理工具");
         ContentTool contentTool = new ContentTool();
-
         File file = new File(path);
         if (file.isDirectory()) {
             contentTool.replaceContentSymbol(source);
