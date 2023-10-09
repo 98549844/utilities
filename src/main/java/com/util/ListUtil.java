@@ -274,10 +274,6 @@ public class ListUtil {
         return Collections.unmodifiableList(ls);
     }
 
-
-    //--------------------------------- 下面方法没有double check -----------------------------------------------
-
-
     public static void main(String[] args) {
         List<Integer> ls1 = new ArrayList<>();
         List ls2 = new ArrayList<>();
@@ -308,6 +304,8 @@ public class ListUtil {
 
     /**
      * 随机选取list的元素(重覆)
+     * percentage => 0% ~ 100%
+     *
      *
      * @param ls
      * @param percentage
@@ -329,7 +327,8 @@ public class ListUtil {
     }
 
     /**
-     * 随机选取list的元素(不重覆)
+     * 随机选取list里面的元素(不重覆)
+     * percentage => 0% ~ 100%
      *
      * @param ls
      * @param percentage
@@ -340,7 +339,7 @@ public class ListUtil {
             return null;
         }
 
-        Integer percentItems = ls.size() * percentage / 100;
+        int percentItems = ls.size() * percentage / 100;
 
         List resultLs = new ArrayList();
         SecureRandom random = new SecureRandom();
@@ -351,9 +350,11 @@ public class ListUtil {
                 resultLs.add(ls.get(n));
             }
         }
-
         return resultLs;
     }
+
+
+    //--------------------------------- 下面方法没有double check -----------------------------------------------
 
 
     /**
