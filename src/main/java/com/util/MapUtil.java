@@ -116,7 +116,7 @@ public class MapUtil {
                     // 获取属性的名字
                     String name = field.getName();
                     Object value = params.get(name);
-                    if (NullUtil.isNotNull(value) && !"".equals(value)) {
+                    if (NullUtil.isNonNull(value) && !"".equals(value)) {
                         // 注意下面这句，不设置true的话，不能修改private类型变量的值
                         field.setAccessible(true);
                         field.set(t, value);

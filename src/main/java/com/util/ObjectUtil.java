@@ -71,14 +71,14 @@ public class ObjectUtil {
             return null;
         }
         int size = 0;
-        if (NullUtil.isNotNull(obj) && isArray(obj)) {
+        if (NullUtil.isNonNull(obj) && isArray(obj)) {
             size = Array.getLength(obj);
         }
         return size;
     }
 
     public static Object[] getObjectArray(Object obj) {
-        if (NullUtil.isNotNull(obj) && isArray(obj)) {
+        if (NullUtil.isNonNull(obj) && isArray(obj)) {
             Object[] os = (Object[]) obj;
             return os;
         }

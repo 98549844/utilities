@@ -254,6 +254,27 @@ public class ListUtil {
         return list;
     }
 
+    /**
+     * 将list转换成线性安全
+     *
+     * @param ls
+     * @return
+     */
+    public static List getSynchronizedList(List ls) {
+        return Collections.synchronizedList(ls);
+    }
+
+    /**
+     * 将list转换成不可以修改list
+     *
+     * @param ls
+     * @return
+     */
+    public static List getUnmodifiableList(List ls) {
+        return Collections.unmodifiableList(ls);
+    }
+
+
     //--------------------------------- 下面方法没有double check -----------------------------------------------
 
 

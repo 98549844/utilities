@@ -93,7 +93,7 @@ public class DateTimeUtil {
 
     public static void differenceSystemCurrentTimeMillis(Long start, Long end) {
         Long temp;
-        if (NullUtil.isNotNull(start) || NullUtil.isNotNull(end)) {
+        if (NullUtil.isNonNull(start) || NullUtil.isNonNull(end)) {
             if (start > end) {
                 temp = end;
                 end = start;
@@ -255,7 +255,7 @@ public class DateTimeUtil {
      * @return nanos
      */
     public static long differenceNanosByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long nanos = getDuration(start, end).toNanos();
             return nanos;
         } else {
@@ -269,7 +269,7 @@ public class DateTimeUtil {
      * @return millis
      */
     public static long differenceMillisByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long millis = getDuration(start, end).toMillis();
             return millis;
         } else {
@@ -283,7 +283,7 @@ public class DateTimeUtil {
      * @return minutes
      */
     public static long differenceMinutesByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long minutes = getDuration(start, end).toMinutes();
             return minutes;
         } else {
@@ -298,7 +298,7 @@ public class DateTimeUtil {
      * @return hours
      */
     public static long differenceHoursByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long hours = getDuration(start, end).toHours();
             return hours;
         } else {
@@ -312,7 +312,7 @@ public class DateTimeUtil {
      * @return days
      */
     public static long differenceDaysByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long days = getDuration(start, end).toDays();
             return days;
         } else {
@@ -326,7 +326,7 @@ public class DateTimeUtil {
      * @return Years
      */
     public static long differenceYearsByLocalDateTime(LocalDateTime start, LocalDateTime end) {
-        if (NullUtil.isNotNull(getDuration(start, end))) {
+        if (NullUtil.isNonNull(getDuration(start, end))) {
             long days = getDuration(start, end).toDays();
             return days / 365;
         } else {

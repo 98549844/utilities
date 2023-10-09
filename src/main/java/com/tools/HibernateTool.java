@@ -56,7 +56,7 @@ class HibernateTool {
      */
     public void isOpen(Session session) {
         String status;
-        if (NullUtil.isNotNull(session)) {
+        if (NullUtil.isNonNull(session)) {
             status = String.valueOf(session.isOpen());
             if (session.isOpen()) {
                 Console.println("connection : " + status, Console.BOLD, Console.BLUE);
@@ -74,7 +74,7 @@ class HibernateTool {
      */
     public void isOpen() {
         //   String status;
-        if (NullUtil.isNotNull(session)) {
+        if (NullUtil.isNonNull(session)) {
             String status = String.valueOf(session.isOpen());
             if (session.isOpen()) {
                 Console.println("connection : " + status, Console.BOLD, Console.BLUE);
@@ -165,7 +165,7 @@ class HibernateTool {
 
     public boolean delById(Session session, Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
+            if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.remove(o);
@@ -184,7 +184,7 @@ class HibernateTool {
 
     public boolean delById(Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && ObjectUtil.isArray(obj)) {
+            if (NullUtil.isNonNull(obj) && ObjectUtil.isArray(obj)) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.remove(o);
@@ -202,7 +202,7 @@ class HibernateTool {
 
     public boolean saveById(Session session, Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && ObjectUtil.isArray(obj)) {
+            if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.persist(o);
@@ -220,7 +220,7 @@ class HibernateTool {
 
     public boolean saveById(Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && ObjectUtil.isArray(obj)) {
+            if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.persist(o);
@@ -238,7 +238,7 @@ class HibernateTool {
 
     public boolean updateById(Session session, Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && ObjectUtil.isArray(obj)) {
+            if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.merge(o);
@@ -260,7 +260,7 @@ class HibernateTool {
      */
     public boolean updateById(Object obj) {
         try {
-            if (NullUtil.isNotNull(obj) && ObjectUtil.isArray(obj)) {
+            if (NullUtil.isNonNull(obj) && Boolean.TRUE.equals(ObjectUtil.isArray(obj))) {
                 Object[] os = (Object[]) obj;
                 for (Object o : os) {
                     session.merge(o);

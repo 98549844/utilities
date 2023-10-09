@@ -124,7 +124,7 @@ public class StringUtil {
 
     public static List<String> convertCollectionToStringList(Collection<?> collection, int maxLength, String symbol) {
         List<String> result = new ArrayList<String>();
-        if (NullUtil.isNotNull(collection) && collection.size() > 0) {
+        if (NullUtil.isNonNull(collection) && !collection.isEmpty()) {
             Iterator<?> it = collection.iterator();
             StringBuilder sb = new StringBuilder(it.next().toString());
             if (sb.length() > maxLength) {
@@ -140,7 +140,7 @@ public class StringUtil {
 
     public static List<String> convertCollectionToStringList(Collection<?> collection, int maxLength) {
         List<String> result = new ArrayList<>();
-        if (NullUtil.isNotNull(collection) && !collection.isEmpty()) {
+        if (NullUtil.isNonNull(collection) && !collection.isEmpty()) {
             Iterator<?> it = collection.iterator();
             StringBuilder sb = new StringBuilder(it.next().toString());
             if (sb.length() > maxLength) {
