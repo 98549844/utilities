@@ -306,7 +306,6 @@ public class ListUtil {
      * 随机选取list的元素(重覆)
      * percentage => 0% ~ 100%
      *
-     *
      * @param ls
      * @param percentage
      * @return
@@ -343,7 +342,6 @@ public class ListUtil {
 
         List resultLs = new ArrayList();
         SecureRandom random = new SecureRandom();
-        int i = 0;
         while (resultLs.size() < percentItems) {
             int n = random.nextInt(ls.size());
             if (!resultLs.contains(ls.get(n))) {
@@ -431,7 +429,6 @@ public class ListUtil {
                 return i;
             }
         });
-
         for (int i = 0; i < size; i++) {
             if (i % 10 != 0) {
                 System.out.print(ls.get(i).getUserId() + "(" + ls.get(i).getUsername() + ")" + " ; ");
@@ -464,7 +461,7 @@ public class ListUtil {
         return ls;
     }
 
-    public static List<T> removeElementByForloop(List<T> ls, T removalVal) {
+    public static List<T> removeElementByLooping(List<T> ls, T removalVal) {
         if (NullUtil.isNull(ls)) {
             log.error("List is null");
         } else {
@@ -551,6 +548,11 @@ public class ListUtil {
         log.info("List<Object[]> print completed !");
     }
 
+    /** Listb删除target的object并返回删除后的list
+     * @param source
+     * @param target
+     * @return
+     */
     public static List removeElement(List source, Object target) {
         source.removeIf(o -> o.equals(target));
         return source;
