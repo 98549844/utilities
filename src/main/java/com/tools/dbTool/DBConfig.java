@@ -42,7 +42,7 @@ public class DBConfig {
             case MYSQL -> {
                 this.dbClassName = "com.mysql.cj.jdbc.Driver";
                 this.connection = "jdbc:mysql://localhost:3306/";
-//            this.connection = "jdbc:mysql://localhost:3306/ace?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false";
+                // this.connection = "jdbc:mysql://localhost:3306/ace?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false";
                 this.username = "root";
                 this.password = "root";
             }
