@@ -6,6 +6,7 @@ import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,10 +19,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.Iterator;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -35,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ImageUtil {
     private static final Logger log = LogManager.getLogger(ImageUtil.class.getName());
 
-
     /**
      * 压缩图片并复盖原图片for网页显示和缓存用
      */
@@ -46,6 +42,41 @@ public class ImageUtil {
 
     public static void main(String[] args) throws IOException {
 
+    }
+
+    // 二进制转换成base64字符串
+    public static String byteArray2String(byte[] byteArray) throws Exception {
+        String stringBase64;
+        try {
+            Base64 encoder = new Base64();
+            stringBase64 = (byteArray != null ? encoder.encodeToString(byteArray) : "");
+        } catch (Exception e) {
+            throw new Exception("byteArray2String error: " + e);
+        }
+        return stringBase64;
+    }
+
+
+    public static byte[] getImageBytes(String file) {
+        //图片转化为二进制
+        byte[] imageBytes = null;
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            //   int result = fileInputStream.read(imageBytes);
+            imageBytes = new byte[fileInputStream.available()];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageBytes;
+    }
+
+    public static String getImage(byte[] imageBytes, String newFile) {
+        //二进制转化为图片
+        try (FileOutputStream fileOutputStream = new FileOutputStream(newFile)) {
+            fileOutputStream.write(imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newFile;
     }
 
     /**

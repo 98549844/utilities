@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.mozilla.universalchardet.UniversalDetector;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -125,6 +126,53 @@ public class FileUtil {
         map.put(FILE_LIST, fileList);
         return map;
     }
+
+
+    public static void main(String[] args) {
+        File file = new File("C:\\barcode.pdf");
+        String p = file.getAbsolutePath();
+
+        for (byte b : fileToBinArray(p)) {
+            System.out.println(b);
+        }
+        System.out.println("-----");
+        System.out.println(fileToBinString(p));
+    }
+
+    /**
+     * 文件转为二进制数组
+     *
+     * @param p
+     * @return
+     */
+    public static byte[] fileToBinArray(String p) {
+        File file = new File(p);
+        try {
+            InputStream fis = new FileInputStream(file);
+            byte[] bytes = FileCopyUtils.copyToByteArray(fis);
+            return bytes;
+        } catch (Exception ex) {
+            throw new RuntimeException("transform file into bin Array error: ", ex);
+        }
+    }
+
+    /**
+     * 文件转为二进制字符串
+     *
+     * @param p
+     * @return
+     */
+    public static String fileToBinString(String p) {
+        File file = new File(p);
+        try {
+            InputStream fis = new FileInputStream(file);
+            byte[] bytes = FileCopyUtils.copyToByteArray(fis);
+            return new String(bytes, StandardCharsets.UTF_8);
+        } catch (Exception ex) {
+            throw new RuntimeException("transform file into bin String error: ", ex);
+        }
+    }
+
 
     /**
      * get current folder and subfolder
@@ -1102,7 +1150,7 @@ public class FileUtil {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main1(String[] args) throws IOException {
         FileUtil fileUtil = new FileUtil();
         List<String> a = fileUtil.getFilePaths("C:\\ideaPorject\\eORSO_schedulejob\\Template\\");
         List<String> b = fileUtil.getFilePaths("src/main/java/com/models");
