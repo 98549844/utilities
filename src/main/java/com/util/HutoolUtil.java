@@ -66,8 +66,9 @@ public class HutoolUtil {
     }
 
     public static void main(String[] args) {
-        check("util");
-        printAllUtils();
+        System.out.println("https://hutool.cn/docs/#/");
+        check("desen");
+      //  printAllUtils();
     }
 
 }
