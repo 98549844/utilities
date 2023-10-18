@@ -23,7 +23,8 @@ public class ConsoleTable {
     //打印console table
     public static void println(List<String> header, List<String[]> body) {
         List content = setContent(header, body);
-        new ConsoleTableImpl.ConsoleTableBuilder().addHeaders((List<Cell>) content.get(0)).addRows((List<List<Cell>>) content.get(1)).build().print(); // default
+        new ConsoleTableImpl.ConsoleTableBuilder().addHeaders((List<Cell>) content.get(0))
+                .addRows((List<List<Cell>>) content.get(1)).build().print(); // default
     }
 
     public static void println(List<String[]> body) {

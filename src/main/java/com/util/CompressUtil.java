@@ -120,7 +120,6 @@ public class CompressUtil {
         }
     }
 
-    @Deprecated
     public static void unRAR(File rarFile, String outDir) throws Exception {
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
@@ -164,8 +163,8 @@ public class CompressUtil {
         }
 
         ZipFile zip = new ZipFile(zipFile);
-        for (Enumeration enumeration = zip.getEntries(); enumeration.hasMoreElements(); ) {
-            ZipEntry entry = (ZipEntry) enumeration.nextElement();
+        for (Enumeration<ZipEntry> enumeration = zip.getEntries(); enumeration.hasMoreElements(); ) {
+            ZipEntry entry = enumeration.nextElement();
             String zipEntryName = entry.getName();
             InputStream in = zip.getInputStream(entry);
 

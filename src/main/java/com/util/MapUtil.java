@@ -40,13 +40,21 @@ public class MapUtil {
      * @param map
      */
     public static void iterateMapKeySet(Map map) {
+        List<String> header = new ArrayList<>();
+        header.add("key:");
+        header.add("value:");
+        List<String[]> body = new ArrayList<>();
+
         Iterator iter = map.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
             Object key = entry.getKey();
             Object val = entry.getValue();
-            System.out.println("Key: " + key.toString() + "   " + "value: " + val.toString());
+            //  System.out.println("key: " + key.toString() + "   " + "value: " + val.toString());
+            body.add(new String[]{key.toString(), val.toString()});
         }
+        ConsoleTable.println(header, body);
+
         Console.println("The Map size is : " + map.size(), Console.MAGENTA);
         Console.println("keyset : " + map.keySet(), Console.BLUE);
     }

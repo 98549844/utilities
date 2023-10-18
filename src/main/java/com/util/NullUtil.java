@@ -61,9 +61,7 @@ public class NullUtil {
             return true;
         } else if (object instanceof String) {
             String s = (String) object;
-            if (s.isEmpty()) {
-                return true;
-            }
+            return s.isEmpty();
         } else if (object instanceof List) {
             List ls = (List) object;
             return ls.isEmpty();
@@ -71,7 +69,6 @@ public class NullUtil {
             Map m = (Map) object;
             return m.keySet().isEmpty();
         }
-
         return false;
     }
 
