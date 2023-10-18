@@ -50,11 +50,9 @@ public class MapUtil {
             Map.Entry entry = (Map.Entry) iter.next();
             Object key = entry.getKey();
             Object val = entry.getValue();
-            //  System.out.println("key: " + key.toString() + "   " + "value: " + val.toString());
             body.add(new String[]{key.toString(), val.toString()});
         }
         ConsoleTable.println(header, body);
-
         Console.println("The Map size is : " + map.size(), Console.MAGENTA);
         Console.println("keyset : " + map.keySet(), Console.BLUE);
     }
