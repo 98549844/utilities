@@ -108,7 +108,7 @@ public class ImageUtil {
             int srcHeight = bim.getHeight();
 
             //先转换成jpg
-            Thumbnails.Builder builder = Thumbnails.of(srcFile).outputFormat("jpg");
+            Thumbnails.Builder<File> builder = Thumbnails.of(srcFile).outputFormat("jpg");
 
             // 指定大小（宽或高超出会才会被缩放）
             if (srcWidth > desMaxWidth || srcHeight > desMaxHeight) {
@@ -153,9 +153,9 @@ public class ImageUtil {
         int desWidth = new BigDecimal(srcWidth).multiply(new BigDecimal(accuracy)).intValue();
         int desHeight = new BigDecimal(srcHeight).multiply(new BigDecimal(accuracy)).intValue();
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
-        Thumbnails.of(new ByteArrayInputStream(bytes)).size(desWidth, desHeight).outputQuality(accuracy).toOutputStream(baos);
-        return compressPicCycle(baos.toByteArray(), desFileSize, accuracy);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //字节输出流（写入到内存）
+        Thumbnails.of(new ByteArrayInputStream(bytes)).size(desWidth, desHeight).outputQuality(accuracy).toOutputStream(byteArrayOutputStream);
+        return compressPicCycle(byteArrayOutputStream.toByteArray(), desFileSize, accuracy);
     }
 
 
