@@ -10,18 +10,21 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PoUtil {
-    private static final Logger log = LogManager.getLogger(PoUtil.class);
-
+public class GetterSetterUtil {
+    private static final Logger log = LogManager.getLogger(GetterSetterUtil.class);
 
 
     public static void main(String[] args) {
-      //  DataGenerator.getTestEntity();
-        iteratePoSetterValue(DataGenerator.generateUsers().get(0));
-        iteratePoGetterValue(DataGenerator.generateUsers().get(0));
+        //  DataGenerator.getTestEntity();
+        iterateSetter(DataGenerator.generateUsers().get(0));
+        iterateGetterValue(DataGenerator.generateUsers().get(0));
     }
 
-    public static void iteratePoGetterValue(Object object) {
+
+    /** 获取类实现getter值
+     * @param object
+     */
+    public static void iterateGetterValue(Object object) {
         Class<? extends Object> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
 
@@ -36,7 +39,10 @@ public class PoUtil {
         }
     }
 
-    public static void iteratePoSetterValue(Object object) {
+    /** 获取类实现setter
+     * @param object
+     */
+    public static void iterateSetter(Object object) {
         Class<?> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
         for (Method method : m) {
@@ -49,8 +55,6 @@ public class PoUtil {
             }
         }
     }
-
-
 
 
     public List<String> iteratePoByName(Object object, String name) {
@@ -93,8 +97,8 @@ public class PoUtil {
 
     /**
      * @param methodName 方法名
-     * @param object 传入的对像
-     * @param value 传入的value
+     * @param object     传入的对像
+     * @param value      传入的value
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
