@@ -39,7 +39,7 @@ public class FTPUtil {
     // @Value("${cw.ftp.port}")
     private int port = 21;
     // @Value("${cw.ftp.path}")
-    private String path = "./";
+    private final String path = "./";
 
     public String getPath() {
         return path;
