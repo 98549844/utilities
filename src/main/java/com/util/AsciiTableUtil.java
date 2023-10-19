@@ -1,8 +1,10 @@
 package com.util;
 
 import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestLine;
 import de.vandermeer.asciithemes.a7.A7_Grids;
 import de.vandermeer.asciithemes.u8.U8_Grids;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,6 +54,12 @@ public class AsciiTableUtil {
         asciiTable.addRule();
         asciiTable.getContext().setGrid(A7_Grids.minusBarPlusEquals()); //+-----+-----+
         // asciiTable.getContext().setGrid(U8_Grids.borderDouble()); //╔═════╦═════╗
+
+        //asciiTable.setTextAlignment(TextAlignment.RIGHT); //靠右
+        //asciiTable.setTextAlignment(TextAlignment.LEFT); //靠左
+        //asciiTable.setTextAlignment(TextAlignment.CENTER); //居中
+        CWC_LongestLine cwc = new CWC_LongestLine();
+        asciiTable.getRenderer().setCWC(cwc);
         String result = asciiTable.render();
         Console.println(result, Console.FLUORESCENT_GREEN, Console.BOLD);
     }
