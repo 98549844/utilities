@@ -1,6 +1,7 @@
 package com.util;
 
 import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciithemes.a7.A7_Grids;
 import de.vandermeer.asciithemes.u8.U8_Grids;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,8 +31,8 @@ public class AsciiTableUtil {
             asciiTable.addRow(row);
         }
         asciiTable.addRule();
-        //asciiTable.getContext().setGrid(A7_Grids.minusBarPlusEquals()); //+-----+-----+
-        asciiTable.getContext().setGrid(U8_Grids.borderDouble()); //╔═════╦═════╗
+        asciiTable.getContext().setGrid(A7_Grids.minusBarPlusEquals()); //+-----+-----+
+        // asciiTable.getContext().setGrid(U8_Grids.borderDouble()); //╔═════╦═════╗
         String result = asciiTable.render();
         Console.println(result, Console.FLUORESCENT_GREEN, Console.BOLD);
     }
@@ -49,25 +50,19 @@ public class AsciiTableUtil {
             asciiTable.addRow(row);
         }
         asciiTable.addRule();
-        //asciiTable.getContext().setGrid(A7_Grids.minusBarPlusEquals()); //+-----+-----+
-        asciiTable.getContext().setGrid(U8_Grids.borderDouble()); //╔═════╦═════╗
+        asciiTable.getContext().setGrid(A7_Grids.minusBarPlusEquals()); //+-----+-----+
+        // asciiTable.getContext().setGrid(U8_Grids.borderDouble()); //╔═════╦═════╗
         String result = asciiTable.render();
         Console.println(result, Console.FLUORESCENT_GREEN, Console.BOLD);
     }
 
-    public static List<String[]> content() {
-        //  String[] header = new String[]{"aaaa","bbbb"};
+    public static void main(String[] args) {
+        String[] header = new String[]{"col 1", "col 2"};
 
         List<String[]> contents = new ArrayList<>();
         contents.add(new String[]{"row 2 col 1", "row 1 col 2"});
         contents.add(new String[]{"row 2 col 1", "row 2 col 2"});
-        return contents;
-
-    }
-
-    public static void main(String[] args) {
-        String[] colName = new String[]{"col 1", "col 2"};
-        println(content(), colName);
+        println(contents, header);
     }
 
 
