@@ -37,7 +37,7 @@ public class ImageUtil {
      */
     public static void compress(String path) {
         ImageUtil.compressPicForScale(path, path, 1000, 0.6, 768, 768);
-        log.info("Compress success !!!");
+        log.info("Compress success !");
     }
 
     public static void main(String[] args) throws IOException {
