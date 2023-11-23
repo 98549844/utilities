@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 
 
 public class Console {
+
+    private static final Logger log = LogManager.getLogger(Console.class.getName());
+
     public static final String LINE = "----------------------------------------";
     public static final int WHITE = 30;             // 白色
     public static final int WHITE_BACKGROUND = 40;  // 白色背景
@@ -109,14 +112,22 @@ public class Console {
         System.out.println(FMT(txt, RED));
     }
 
-    public static String getOutput(String command) throws IOException {
+    public static String execute(String command) throws IOException {
         StringBuilder result = new StringBuilder();
-        Process exec = Runtime.getRuntime().exec(command);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            result.append(line).append(PathUtil.getNewLine());
+        try {
+            Process exec = Runtime.getRuntime().exec(command);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                result.append(line).append(PathUtil.getNewLine());
+            }
+        } catch (Exception e) {
+            // e.printStackTrace();
+            String message = e.getMessage();
+            log.error(message);
+            return message;
         }
+
         return result.toString();
     }
 }
