@@ -3,6 +3,10 @@ package com.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class Console {
     public static final String LINE = "----------------------------------------";
@@ -103,5 +107,16 @@ public class Console {
      */
     public static void println(String txt) {
         System.out.println(FMT(txt, RED));
+    }
+
+    public static String getOutput(String command) throws IOException {
+        StringBuilder result = new StringBuilder();
+        Process exec = Runtime.getRuntime().exec(command);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            result.append(line).append(PathUtil.getNewLine());
+        }
+        return result.toString();
     }
 }
