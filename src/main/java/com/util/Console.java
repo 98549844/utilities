@@ -112,6 +112,11 @@ public class Console {
         System.out.println(FMT(txt, RED));
     }
 
+    /** 执行command
+     * @param command
+     * @return
+     * @throws IOException
+     */
     public static String execute(String command) throws IOException {
         StringBuilder result = new StringBuilder();
         try {
@@ -127,7 +132,6 @@ public class Console {
             log.error(message);
             return message;
         }
-
         return result.toString();
     }
 }

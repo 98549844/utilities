@@ -11,6 +11,10 @@ public class SystemUtil {
     private static final Logger log = LogManager.getLogger(SystemUtil.class.getName());
 
     public static final String LINE = "----------------------------------------";
+    public static final String WINDOWS = "WINDOWS";
+    public static final String MAC = "MAC OS";
+    public static final String LINUX = "LINUX";
+    public static final String UNKNOWN = "UNKNOWN";
 
     public static void getSystemInfo() throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getLocalHost();
@@ -102,4 +106,9 @@ public class SystemUtil {
     public static String backToLineStart() {
         return "\r";
     }
+
+    public static String getOsName() {
+        return System.getProperties().getProperty("os.name").toUpperCase();
+    }
+
 }
