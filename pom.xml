@@ -38,7 +38,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${springframework}</version>
-            <scope>compile</scope>
+            <scope>${util.scope}</scope>
         </dependency>
 
         <dependency>

@@ -117,7 +117,7 @@ public class Console {
      * @return
      * @throws IOException
      */
-    public static String execute(String command) throws IOException {
+    public static String execute(String... command) throws IOException {
         StringBuilder result = new StringBuilder();
         try {
             Process exec = Runtime.getRuntime().exec(command);
@@ -134,4 +134,6 @@ public class Console {
         }
         return result.toString();
     }
+
+
 }
