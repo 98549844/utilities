@@ -2,6 +2,10 @@ package com.util;
 
 import com.github.junrar.Archive;
 import com.github.junrar.rarfile.FileHeader;
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
+import org.apache.commons.compress.archivers.sevenz.SevenZFile;
+import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.zip.ZipEntry;
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 
 public class CompressUtil {
     static private final Log log = LogFactory.getLog(CompressUtil.class);
@@ -187,11 +192,94 @@ public class CompressUtil {
         }
     }
 
+    public static void un7z(String inFilePath, String outDir) {
+        try (SevenZFile sevenZFile = new SevenZFile(new File(inFilePath))) {
+            ArchiveEntry entry;
+            while ((entry = sevenZFile.getNextEntry()) != null) {
+                if (entry.isDirectory()) {
+                    continue;
+                }
+
+                File outputFile = new File(outDir, entry.getName());
+                File outputDirFile = outputFile.getParentFile();
+                if (!outputDirFile.exists()) {
+                    outputDirFile.mkdirs();
+                }
+
+                byte[] content = new byte[(int) entry.getSize()];
+                sevenZFile.read(content, 0, content.length);
+
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    fos.write(content);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 7Z 压缩
+     *
+     * @param outPut7zDir 压缩后的文件路径（如 D:\SevenZip\test.7z）
+     * @param inFiles     需要压缩的文件
+     */
+    public static void compressTo7z(String outPut7zDir, File... inFiles) {
+        try (SevenZOutputFile out = new SevenZOutputFile(new File(outPut7zDir))) {
+            for (File file : inFiles) {
+                addToArchived7zCompression(out, file, ".");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addToArchived7zCompression(SevenZOutputFile out, File file, String dir) {
+        String name = dir + File.separator + file.getName();
+        if (dir.equals(".")) {
+            name = file.getName();
+        }
+        if (file.isFile()) {
+            SevenZArchiveEntry entry;
+            FileInputStream in = null;
+            try {
+                entry = out.createArchiveEntry(file, name);
+                out.putArchiveEntry(entry);
+                in = new FileInputStream(file);
+                byte[] b = new byte[1024];
+                int count = 0;
+                while ((count = in.read(b)) > 0) {
+                    out.write(b, 0, count);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    out.closeArchiveEntry();
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    addToArchived7zCompression(out, child, name);
+                }
+            }
+        } else {
+            System.out.println(file.getName() + " is not supported");
+        }
+    }
 
     public static void main(String[] args) throws Exception {
-        String f = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/a.rar";
+        String f = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/ace-master.7z";
+        String f1 = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/ace-master1.7z";
         String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
-        unRAR(new File(f), out);
+        // un7z(f, out);
+        compressTo7z(f1, new File(out));
     }
 
 }
