@@ -15,11 +15,11 @@ public class UUID {
     private static final Logger log = LogManager.getLogger(UUID.class.getName());
 
     public static String randomUUID() {
-        return java.util.UUID.randomUUID().toString();
+        return java.util.UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     public static String get() {
-        return java.util.UUID.randomUUID().toString();
+        return java.util.UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     public static String get(String style) {
