@@ -41,6 +41,13 @@ public class ImageUtil {
     }
 
     public static void main(String[] args) throws IOException {
+        String a = "/Users/garlam/ace/tmp/aaa.jpg";
+        ImageUtil imageUtil = new ImageUtil();
+        imageUtil.square(a, false);
+        String b = "/Users/garlam/ace/tmp/bbb.jpg";
+        String c = "/Users/garlam/ace/tmp/ccc.jpg";
+        ImageUtil.compressPicForScale(a, b, 80, 0.8, 200, 200);
+        ImageUtil.compressPicForScale(a, c, 10, 0.8, 40, 40);
 
     }
 
@@ -191,15 +198,16 @@ public class ImageUtil {
 
     /**
      * 矩形图片转换成正方形
+     * thumbnail is true = 存在thumbnail子文件夹
      *
      * @param src
      * @return
      * @throws IOException
      */
-    public boolean square(String src, boolean thumbnail) throws IOException {
+    public boolean square(String src, boolean thumbnailFolder) throws IOException {
         File outFile;
-        if (thumbnail) {
-            log.info("compressed and squared image store in /thumbnail folder !");
+        if (thumbnailFolder) {
+            log.info("compressed and squared image to store in /thumbnail folder !");
             outFile = getThumbnailFile(src);
         } else {
             outFile = new File(src);
