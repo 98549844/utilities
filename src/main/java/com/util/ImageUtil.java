@@ -207,7 +207,7 @@ public class ImageUtil {
     public boolean square(String src, boolean thumbnailFolder) throws IOException {
         File outFile;
         if (thumbnailFolder) {
-            log.info("compressed and squared image to store in /thumbnail folder !");
+            log.info("squared image to store in /thumbnail folder !");
             outFile = getThumbnailFile(src);
         } else {
             outFile = new File(src);

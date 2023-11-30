@@ -18,5 +18,13 @@ public class SqlUtil {
     public static String like(String s) {
         return "%" + s + "%";
     }
+
+    public static String likeLeft(String s) {
+        return "%" + s;
+    }
+
+    public static String likeRight(String s) {
+        return s + "%";
+    }
 }
 
