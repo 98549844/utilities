@@ -6,11 +6,11 @@
 
     <groupId>com</groupId>
     <artifactId>utilities</artifactId>
-    <version>6.0</version>
+    <version>6.1</version>
     <packaging>jar</packaging>
 
     <properties>
-        <springframework>6.0.12</springframework>
+        <springframework>6.1.1</springframework>
         <!--编译文件时用UTF-8-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
