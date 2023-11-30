@@ -46,8 +46,9 @@ public class ImageUtil {
         imageUtil.square(a, false);
         String b = "/Users/garlam/ace/tmp/bbb.jpg";
         String c = "/Users/garlam/ace/tmp/ccc.jpg";
-        ImageUtil.compressPicForScale(a, b, 80, 2, 300, 300);
-        ImageUtil.compressPicForScale(a, c, 10, 2, 60, 60);
+      //  ImageUtil.compressPicForScale(a, b, 80, 2, 300, 300);
+      //  ImageUtil.compressPicForScale(a, c, 10, 2, 60, 60);
+        rotation(a, b, 90);
 
     }
 
