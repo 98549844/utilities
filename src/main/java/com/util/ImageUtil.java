@@ -46,8 +46,8 @@ public class ImageUtil {
         imageUtil.square(a, false);
         String b = "/Users/garlam/ace/tmp/bbb.jpg";
         String c = "/Users/garlam/ace/tmp/ccc.jpg";
-        ImageUtil.compressPicForScale(a, b, 80, 0.8, 200, 200);
-        ImageUtil.compressPicForScale(a, c, 10, 0.8, 40, 40);
+        ImageUtil.compressPicForScale(a, b, 80, 2, 300, 300);
+        ImageUtil.compressPicForScale(a, c, 10, 2, 60, 60);
 
     }
 
@@ -126,18 +126,18 @@ public class ImageUtil {
             }
 
             // 写入到内存
-            ByteArrayOutputStream baos = new ByteArrayOutputStream(); //字节输出流（写入到内存）
-            builder.toOutputStream(baos);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); //字节输出流（写入到内存）
+            builder.toOutputStream(byteArrayOutputStream);
 
             // 递归压缩，直到目标文件大小小于
-            byte[] bytes = compressPicCycle(baos.toByteArray(), desFileSize, accuracy);
+            byte[] bytes = compressPicCycle(byteArrayOutputStream.toByteArray(), desFileSize, accuracy);
 
             // 输出到文件
             File desFile = new File(desPath);
             FileOutputStream fos = new FileOutputStream(desFile);
             fos.write(bytes);
             fos.close();
-            baos.close();
+            byteArrayOutputStream.close();
 
             System.out.println("目标图片：" + desPath + "，size: " + desFile.length() / 1024 + "kb");
             //  System.out.println("图片压缩完成！");
