@@ -92,6 +92,9 @@ public class SystemUtil {
         //generatePropertiesKeyValue()
     }
 
+    public static String getPath() {
+        return System.getProperty("user.dir");
+    }
 
     /**
      * 通用换行符
