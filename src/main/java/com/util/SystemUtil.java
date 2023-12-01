@@ -111,4 +111,8 @@ public class SystemUtil {
         return System.getProperties().getProperty("os.name").toUpperCase();
     }
 
+    public static void line(){
+        System.out.println(LINE);
+    }
+
 }
