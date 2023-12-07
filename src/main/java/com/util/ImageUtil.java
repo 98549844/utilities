@@ -41,14 +41,6 @@ public class ImageUtil {
     }
 
     public static void main(String[] args) throws IOException {
-        String a = "/Users/garlam/ace/tmp/aaa.jpg";
-        ImageUtil imageUtil = new ImageUtil();
-        imageUtil.square(a, false);
-        String b = "/Users/garlam/ace/tmp/bbb.jpg";
-        String c = "/Users/garlam/ace/tmp/ccc.jpg";
-      //  ImageUtil.compressPicForScale(a, b, 80, 2, 300, 300);
-      //  ImageUtil.compressPicForScale(a, c, 10, 2, 60, 60);
-        rotation(a, b, 90);
 
     }
 
@@ -197,19 +189,28 @@ public class ImageUtil {
     }
 
 
+    private static File setDestFile(String src, String dest) throws IOException {
+        File f = new File(src);
+        File t = new File(dest);
+        if (!t.exists()) {
+            t.mkdirs();
+        }
+        File file = new File(t.getCanonicalFile() + File.separator + f.getName());
+        return file;
+    }
+
     /**
-     * 矩形图片转换成正方形
-     * thumbnail is true = 存在thumbnail子文件夹
      *
      * @param src
+     * @param dest, dest为null时, 矩形图片转换成正方形
      * @return
      * @throws IOException
      */
-    public boolean square(String src, boolean thumbnailFolder) throws IOException {
+    public boolean square(String src, String dest) throws IOException {
         File outFile;
-        if (thumbnailFolder) {
-            log.info("squared image to store in /thumbnail folder !");
-            outFile = getThumbnailFile(src);
+        if (!dest.isEmpty()) {
+            log.info("image squared to: {}",dest);
+            outFile = setDestFile(src, dest);
         } else {
             outFile = new File(src);
         }
@@ -348,16 +349,6 @@ public class ImageUtil {
     private static File getTempFile(String src) throws IOException {
         File f = new File(src);
         File t = new File(f.getParentFile() + File.separator + "temp");
-        if (!t.exists()) {
-            t.mkdirs();
-        }
-        File file = new File(t.getCanonicalFile() + File.separator + f.getName());
-        return file;
-    }
-
-    private static File getThumbnailFile(String src) throws IOException {
-        File f = new File(src);
-        File t = new File(f.getParentFile() + File.separator + "thumbnail");
         if (!t.exists()) {
             t.mkdirs();
         }
