@@ -152,7 +152,7 @@ public class ListUtil {
 
     /**
      * 比较两个list, 把不相同的找出来
-     *
+     * 返回独立list
      * @param ls1
      * @param ls2
      * @return
@@ -166,11 +166,9 @@ public class ListUtil {
                 ls.add(obj);
             }
         }
-        if (ls.size() > 0) {
+        if (!ls.isEmpty()) {
             map.put(ListUtil.LIST_1, ls);
         }
-
-
         ls = new ArrayList();
         for (Object obj : ls2) {
             if (!ls1.contains(obj)) {
@@ -183,13 +181,10 @@ public class ListUtil {
         }
 
         if (!map.isEmpty()) {
-            // log.info("Compare result: NOT EQUAL !");
             System.out.println("Compare result: NOT EQUAL !");
         } else {
-            // log.info("Compare result: EQUAL !");
             System.out.println("Compare result: EQUAL !");
         }
-
         return map;
     }
 
@@ -281,6 +276,8 @@ public class ListUtil {
 
         ls1.add(2);
         ls1.add(4);
+        ls1.add(1);
+        ls1.add(3);
         ls1.add(9);
         ls1.add(5);
         Collections.sort(ls1);
@@ -292,6 +289,11 @@ public class ListUtil {
         ls2.add(2);
         ls2.add(5);
         ls2.add(5);
+        ls2.add(7);
+        ls2.add(8);
+
+
+        Map a = getNonDeduplicateElements(ls1, ls2);
 
         List ls3 = getDuplicated(ls2);
 
