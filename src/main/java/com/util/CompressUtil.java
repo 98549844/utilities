@@ -192,8 +192,8 @@ public class CompressUtil {
         }
     }
 
-    public static void un7z(String inFilePath, String outDir) {
-        try (SevenZFile sevenZFile = new SevenZFile(new File(inFilePath))) {
+    public static void un7z(String in7ZFilePath, String outDir) {
+        try (SevenZFile sevenZFile = new SevenZFile(new File(in7ZFilePath))) {
             ArchiveEntry entry;
             while ((entry = sevenZFile.getNextEntry()) != null) {
                 if (entry.isDirectory()) {
@@ -275,11 +275,9 @@ public class CompressUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String f = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/ace-master.7z";
-        String f1 = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/input/ace-master1.7z";
-        String out = "/Users/garlam/IdeaProjects/utilities/src/main/resources/file/output/";
-        // un7z(f, out);
-        compressTo7z(f1, new File(out));
+        String in = "/Users/garlam/Downloads/ip2region-master.zip";
+        String out = "/Users/garlam/Downloads/ip2region-master";
+        unZip(new File(in), out);
     }
 
 }
