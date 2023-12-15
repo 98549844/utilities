@@ -716,8 +716,6 @@ public class FileUtil {
         if (!folder.exists() && !folder.isDirectory()) {
             folder.mkdirs();
             System.out.print("Directory created. ");
-        } else {
-            System.out.print("Directory is exist. ");
         }
         //check file exist
         boolean isOK = false;
@@ -732,12 +730,10 @@ public class FileUtil {
             }
             isOK = true;
         } else {
-            System.out.print("File is exist; ");
             if (file.exists() && file.length() == 0) {
                 System.out.print("File is empty. ");
             }
             if (file.canWrite()) {
-                System.out.println("File can write. ");
                 isOK = true;
             } else {
                 System.out.println("File can't write. ");
