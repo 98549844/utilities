@@ -125,7 +125,8 @@ public class CompressUtil {
         }
     }
 
-    public static void unRAR(File rarFile, String outDir) throws Exception {
+    public static void unRAR(String rarPath, String outDir) throws Exception {
+        File rarFile = new File(rarPath);
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
             boolean isMakDir = outFileDir.mkdirs();
@@ -157,8 +158,8 @@ public class CompressUtil {
         archive.close();
     }
 
-    public static void unZip(File zipFile, String outDir) throws IOException {
-
+    public static void unZip(String zipFilePath, String outDir) throws IOException {
+        File zipFile = new File(zipFilePath);
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
             boolean isMakDir = outFileDir.mkdirs();
@@ -277,7 +278,7 @@ public class CompressUtil {
     public static void main(String[] args) throws Exception {
         String in = "/Users/garlam/Downloads/ip2region-master.zip";
         String out = "/Users/garlam/Downloads/ip2region-master";
-        unZip(new File(in), out);
+        unZip(in, out);
     }
 
 }
