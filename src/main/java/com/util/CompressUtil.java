@@ -162,10 +162,7 @@ public class CompressUtil {
         File zipFile = new File(zipFilePath);
         File outFileDir = new File(outDir);
         if (!outFileDir.exists()) {
-            boolean isMakDir = outFileDir.mkdirs();
-            if (isMakDir) {
-                System.out.println("创建压缩目录成功");
-            }
+            outFileDir.mkdirs();
         }
 
         ZipFile zip = new ZipFile(zipFile);
@@ -175,7 +172,7 @@ public class CompressUtil {
             InputStream in = zip.getInputStream(entry);
 
             if (entry.isDirectory()) {      //处理压缩文件包含文件夹的情况
-                File fileDir = new File(outDir + zipEntryName);
+                File fileDir = new File(outDir + PathUtil.separator + zipEntryName);
                 fileDir.mkdir();
                 continue;
             }

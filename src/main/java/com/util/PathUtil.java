@@ -23,6 +23,8 @@ import java.util.Arrays;
 public class PathUtil {
     private static final Logger log = LogManager.getLogger(PathUtil.class.getName());
 
+    public static final String separator = File.separator;
+
 
     /**
      * 处理路径内有空格问题
