@@ -26,7 +26,9 @@ public class FastJson2Util {
 
 
     public static String ObjectToJson(Object object) {
-        return JSON.toJSONString(object);
+        String json = JSON.toJSONString(object);
+        json = json.replace("\\", "");
+        return json;
     }
 
 
