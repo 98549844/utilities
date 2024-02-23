@@ -50,6 +50,7 @@ public class Console {
      */
     public static void printConsoleColor() {
         Console.println("default");
+        Console.println("白色粗体",Console.BOLD);
         Console.println("黑色 Console.BLACK", Console.BLACK);
         Console.println("白色 Console.WHITE", Console.WHITE);
         Console.println("红色 Console.RED", Console.RED);
