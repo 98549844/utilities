@@ -31,6 +31,14 @@ public class FastJson2Util {
         return json;
     }
 
+    public static byte[] ObjectToByteArray(Object object) {
+        return ObjectToJson(object).getBytes();
+    }
+
+    public static <T> T BytesArrayToObject(byte[] bytes, Class<T> type) {
+        return JSON.parseObject(bytes, type);
+    }
+
 
     public static JSONObject JsonToObject(String json) {
         return JSONObject.parseObject(json);

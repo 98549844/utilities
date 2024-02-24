@@ -29,6 +29,10 @@ public class ObjectUtil {
         return false;
     }
 
+    public static byte[] toByteArray(Object obj) {
+        return FastJson2Util.ObjectToJson(obj).getBytes();
+    }
+
 
     public static <T> Object getFieldValue(T t, String fieldName) throws IllegalArgumentException, NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvocationTargetException {
         log.info(Thread.currentThread().getStackTrace()[1].getMethodName());
