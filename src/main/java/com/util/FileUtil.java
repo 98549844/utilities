@@ -33,8 +33,8 @@ public class FileUtil {
     public static final String FOLDER_LIST = "folderList";
     public static final String FOLDER_NAME = "folderName";
     public static final String FILE_LIST = "fileList";
-    public static final String ORIGINAL = "original";
-    public static final String LINE = "line";
+    public static final String ORIGINAL = "original"; //原文
+    public static final String LINE = "line"; //压缩成一行
     public static final String LIST = "list";
 
     public static final String PATH = "path";
