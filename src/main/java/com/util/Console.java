@@ -133,7 +133,7 @@ public class Console {
             log.error(message);
             return message;
         }
-        return result.toString();
+        return result.toString().isEmpty() ? null : result.toString();
     }
 
 
