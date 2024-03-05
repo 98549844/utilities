@@ -71,7 +71,7 @@ public class PathUtil {
         return System.getProperty("user.dir");
     }
 
-    public static String getNewLine() {
+    public static String newLine() {
         return System.getProperty("line.separator");
     }
 

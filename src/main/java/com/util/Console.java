@@ -125,7 +125,7 @@ public class Console {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(exec.getInputStream()));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                result.append(line).append(PathUtil.getNewLine());
+                result.append(line).append(PathUtil.newLine());
             }
         } catch (Exception e) {
             // e.printStackTrace();

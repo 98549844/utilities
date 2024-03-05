@@ -30,7 +30,7 @@ public class IOUtil {
 
     public static void append(String file, String content) throws IOException {
         String c = IOUtils.toString(new FileInputStream(file), StandardCharsets.UTF_8);
-        String result = c + PathUtil.getNewLine() + content;
+        String result = c + PathUtil.newLine() + content;
         IOUtils.write(content, new FileOutputStream(result), StandardCharsets.UTF_8);
     }
 
