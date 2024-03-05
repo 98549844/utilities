@@ -26,6 +26,38 @@ public class ListUtil {
     public final static String LIST_2 = "LIST_2";
 
 
+    /** 所有字符串转换成大写
+     * @param in
+     * @return
+     */
+    public static List<String> convertToUpperCase(List<String> in) {
+        if (NullUtil.isNull(in)) {
+            log.error("List size is 0");
+            return in;
+        }
+        List<String> out = new ArrayList<>();
+        for (String s : in) {
+            out.add(s.toUpperCase());
+        }
+        return out;
+    }
+
+    /** 所有字符串转换成小写
+     * @param in
+     * @return
+     */
+    public static List<String> convertToLowerCase(List<String> in) {
+        if (NullUtil.isNull(in)) {
+            log.error("List size is 0");
+            return in;
+        }
+        List<String> out = new ArrayList<>();
+        for (String s : in) {
+            out.add(s.toLowerCase());
+        }
+        return out;
+    }
+
     public static int getMax(List<Integer> integerList) {
         return NullUtil.isNull(integerList) ? 0 : Collections.max(integerList);
     }
@@ -153,6 +185,7 @@ public class ListUtil {
     /**
      * 比较两个list, 把不相同的找出来
      * 返回独立list
+     *
      * @param ls1
      * @param ls2
      * @return
@@ -550,7 +583,9 @@ public class ListUtil {
         log.info("List<Object[]> print completed !");
     }
 
-    /** Listb删除target的object并返回删除后的list
+    /**
+     * Listb删除target的object并返回删除后的list
+     *
      * @param source
      * @param target
      * @return
