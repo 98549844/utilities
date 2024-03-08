@@ -6,13 +6,13 @@ import org.apache.logging.log4j.Logger;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
-import java.time.Instant;
 
 
 public class DateTimeUtil {
@@ -356,4 +356,14 @@ public class DateTimeUtil {
         return years;
     }
 
+    public static LocalDateTime convertLocalDate(String dateTimeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = null;
+        try {
+            dateTime = formatter.parse(dateTimeString + " 00:00:00", LocalDateTime::from);
+        } catch (DateTimeParseException e) {
+            System.out.println("Failed to parse date and time: " + e.getMessage());
+        }
+        return dateTime;
+    }
 }
