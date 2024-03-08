@@ -17,6 +17,9 @@ import java.util.*;
 
 public class DateTimeUtil {
     private static final Logger log = LogManager.getLogger(DateTimeUtil.class.getName());
+    public static String DATE_PATTERN = "yyyy-MM-dd";
+    public static String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static String DATETIME2_PATTERN = "yyyy-MM-dd HH:mm:ss SSSS";
 
 
     public static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar cal) {
@@ -36,19 +39,19 @@ public class DateTimeUtil {
             System.out.println("input parameter not require");
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS");
         System.out.println(formatter.format(date));
     }
 
     public static void printCurrentDateTime() {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS");
         System.out.println(formatter.format(date));
     }
 
     public static String getCurrentDateTime() {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS");
         String formattedDate = formatter.format(date);
         System.out.println(formattedDate);
         return formattedDate;
@@ -356,11 +359,12 @@ public class DateTimeUtil {
         return years;
     }
 
-    public static LocalDateTime convertLocalDate(String dateTimeString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static LocalDateTime convertLocalDate(String dateTimeString) throws Exception {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
         LocalDateTime dateTime = null;
         try {
-            dateTime = formatter.parse(dateTimeString + " 00:00:00", LocalDateTime::from);
+            dateTime = formatter.parse(dateTimeString+" 00:00:00", LocalDateTime::from);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse date and time: " + e.getMessage());
         }

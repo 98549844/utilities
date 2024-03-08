@@ -584,7 +584,7 @@ public class ListUtil {
     }
 
     /**
-     * Listb删除target的object并返回删除后的list
+     * List删除target的object并返回删除后的list
      *
      * @param source
      * @param target
