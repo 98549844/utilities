@@ -50,10 +50,12 @@ public class GetterSetterUtil {
         Class<? extends Object> c = object.getClass();
         Method[] m = c.getDeclaredMethods();
 
+        int num = 1;
         for (Method method : m) {
             if (method.getName().contains("get")) {
                 try {
-                    Console.println(method.invoke(object).toString(), Console.BOLD);
+                    Console.println(num + ". " + method.getName() + ": " + method.invoke(object).toString(), Console.BOLD);
+                    ++num;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
