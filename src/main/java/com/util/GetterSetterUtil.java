@@ -21,7 +21,9 @@ public class GetterSetterUtil {
     }
 
 
-    /** 获取类实现getter值
+    /**
+     * 获取类实现getter值
+     *
      * @param object
      */
     public static void iterateGetterValue(Object object) {
@@ -39,7 +41,29 @@ public class GetterSetterUtil {
         }
     }
 
-    /** 获取类实现setter
+    /**
+     * 获取类实现getter值
+     *
+     * @param object
+     */
+    public static void getterValue(Object object) {
+        Class<? extends Object> c = object.getClass();
+        Method[] m = c.getDeclaredMethods();
+
+        for (Method method : m) {
+            if (method.getName().contains("get")) {
+                try {
+                    Console.println(method.invoke(object).toString(), Console.BOLD);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取类实现setter
+     *
      * @param object
      */
     public static void iterateSetter(Object object) {
