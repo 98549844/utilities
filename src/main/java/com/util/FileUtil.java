@@ -1393,7 +1393,6 @@ public class FileUtil {
      * @return
      */
     public static MultipartFile fileToMultipartFile(File file) {
-        //   FileInputStream fileInputStream;
         MultipartFile multipartFile = null;
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
