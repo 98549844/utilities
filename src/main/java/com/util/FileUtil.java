@@ -1393,10 +1393,10 @@ public class FileUtil {
      * @return
      */
     public static MultipartFile fileToMultipartFile(File file) {
-        FileInputStream fileInputStream = null;
+        //   FileInputStream fileInputStream;
         MultipartFile multipartFile = null;
         try {
-            fileInputStream = new FileInputStream(file);
+            FileInputStream fileInputStream = new FileInputStream(file);
             multipartFile = new MockMultipartFile(file.getName(), file.getName(), ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
         } catch (Exception e) {
             e.printStackTrace();
