@@ -1551,10 +1551,10 @@ public class FileUtil {
         }
         // 最后删除当前文件夹
         if (directoryFile.delete()) {
-            System.out.println("删除成功：" + directory);
+            System.out.println("文件夹删除成功：" + directory);
             return true;
         } else {
-            System.out.println("删除失败：" + directory);
+            System.out.println("文件夹删除失败：" + directory);
             return false;
         }
     }
