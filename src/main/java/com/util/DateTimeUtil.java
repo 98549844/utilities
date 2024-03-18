@@ -21,6 +21,15 @@ public class DateTimeUtil {
     public static String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static String DATETIME2_PATTERN = "yyyy-MM-dd HH:mm:ss SSSS";
 
+    public static void main(String[] args) {
+        printCurrentDateTime();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(toTimestamp(toLong(timestamp)));
+    }
+
+    public static Timestamp toTimestamp(long time) {
+        return new Timestamp(time);
+    }
 
     public static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar cal) {
         return cal.toGregorianCalendar().getTime();
@@ -80,15 +89,6 @@ public class DateTimeUtil {
         return date;
     }
 
-    public static void main(String[] args) {
-        printCurrentDateTime();
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        System.out.println(toTimestamp(toLong(timestamp)));
-    }
-
-    public static Timestamp toTimestamp(long l) {
-        return new Timestamp(l);
-    }
 
     public static long toLong(Timestamp timestamp) {
         return timestamp.getTime();
@@ -364,7 +364,7 @@ public class DateTimeUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
         LocalDateTime dateTime = null;
         try {
-            dateTime = formatter.parse(dateTimeString+" 00:00:00", LocalDateTime::from);
+            dateTime = formatter.parse(dateTimeString + " 00:00:00", LocalDateTime::from);
         } catch (DateTimeParseException e) {
             System.out.println("Failed to parse date and time: " + e.getMessage());
         }
