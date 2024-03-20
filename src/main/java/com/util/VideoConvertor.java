@@ -21,9 +21,9 @@ public class VideoConvertor {
     private static final Logger log = LogManager.getLogger(VideoConvertor.class.getName());
 
     public static void main(String[] args) throws IOException {
-        String inputPath = "/tmp/ccc.MOV";
-        String outputPath = "/tmp/";
-        String newFileName = "c111";
+        String inputPath = "/Users/garlam/temp/abc.mov";
+        String outputPath = "/Users/garlam/temp/";
+        String newFileName = "c";
         startDavToMP4Video(inputPath, outputPath, newFileName);
     }
 
