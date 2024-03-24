@@ -167,4 +167,12 @@ public class ObjectUtil {
         return result;
     }
 
+    /** 获取对像内存地址hashCode
+     * @param object
+     * @return
+     */
+    public static int getObjectHashAddress(Object object){
+        return System.identityHashCode(object);
+    }
+
 }
