@@ -68,6 +68,11 @@ public class NullUtil {
         } else if (object instanceof Map) {
             Map m = (Map) object;
             return m.keySet().isEmpty();
+        }else if (object instanceof Object[]) {
+            Object[] objSet = (Object[]) object;
+            if (objSet.length == 0) {
+                return true;
+            }
         }
         return false;
     }
@@ -88,6 +93,11 @@ public class NullUtil {
         } else if (object instanceof Map) {
             Map m = (Map) object;
             if (m.keySet().isEmpty()) {
+                return false;
+            }
+        } else if (object instanceof Object[]) {
+            Object[] objSet = (Object[]) object;
+            if (objSet.length == 0) {
                 return false;
             }
         }
