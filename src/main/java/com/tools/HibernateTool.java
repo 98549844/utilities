@@ -29,6 +29,7 @@ class HibernateTool {
         String hql = "select userAccount , username from users";
         String sql = "select * from users";
         List<Users> sqlResult = hibernateUtil.getResultSetBySQL(sql, Users.class);
+     //   List<Users> hqlResult = hibernateUtil.getResultSetByHQL(hql, Users.class);
 
         for (Users user : sqlResult) {
             System.out.println(user.getUserAccount());
